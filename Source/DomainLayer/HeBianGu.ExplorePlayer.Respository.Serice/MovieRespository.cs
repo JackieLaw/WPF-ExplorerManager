@@ -3,6 +3,7 @@ using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.General.FFmpegService;
 using HeBianGu.ExplorePlayer.General.SqliteDataBase;
 using HeBianGu.ExplorePlayer.Respository.IService;
+using HeBianGu.General.WpfControlLib;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HeBianGu.ExplorePlayer.Respository.Serice
 {
@@ -162,6 +164,21 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
             }
         }
 
+        List<FileInfo> GetAllFiles(string dirs, Predicate<FileInfo> predicate)
+        {
+            List<FileInfo> file = new List<FileInfo>();
+
+            Action<FileInfo> action = l =>
+            {
+                if (!predicate(l)) return;
+                file.Add(l);
+            };
+
+            this.DoAllFiles(dirs, action); 
+
+            return file;
+        }
+
 
         public async Task ConvertMovie(mbc_dv_movie movie)
         {
@@ -199,6 +216,21 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
         }
         public async Task RefreshMovie(mbc_dc_case item)
         {
+
+            if (item.State == 1)
+            {
+                bool result = false;
+
+                Action<object, DialogClosingEventArgs> resultAction = (l, k) =>
+                {
+                    result = (bool)k.Parameter;
+                };
+
+                await MessageService.ShowResultMessge("当前案例已经加载过,是否重新扫描！", resultAction);
+
+                if (!result) return;
+            }
+
             var extends = await this.GetExtends();
 
             List<string> allextends = new List<string>();
@@ -215,9 +247,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
             {
                 if (allextends.Count == 0) return true;
 
-                return allextends.Exists(k => k == l.Extension);
-
-                return true;
+                return allextends.Exists(k => k == l.Extension); 
             };
 
             if (!Directory.Exists(item.BaseUrl))
@@ -226,6 +256,14 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
             }
 
             var movies = await this.GetListAsync(l => l.CaseType == item.ID);
+
+            List<FileInfo> files = null;
+
+            await MessageService.ShowWaittingMessge(() =>
+            {
+                files = this.GetAllFiles(item.BaseUrl, match);
+            });
+
 
             Action<FileInfo> action = l =>
             {
@@ -329,7 +367,24 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
             };
 
 
-            this.DoAllFiles(item.BaseUrl, action);
+            //this.DoAllFiles(item.BaseUrl, action);
+
+            Action<StringProgressDialog> actionProgress = l =>
+            {
+
+                for (int i = 0; i < files.Count; i++)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        l.MessageStr = $"正在处理第{i + 1}条视频，共计{files.Count}条视频";
+                    });
+
+                    action(files[i]);
+                } 
+            };
+
+
+            await MessageService.ShowStringProgress(actionProgress);
 
 
             item.State = 1;
