@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="HeBianGu.Product.ExplorePlayer.View.Setting.CenterControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HeBianGu.Product.ExplorePlayer.View.Setting"
+             xmlns:wpfcontrollib="clr-namespace:HeBianGu.General.WpfControlLib;assembly=HeBianGu.General.WpfControlLib"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <wpfcontrollib:LinkGroupExpander ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="selectloyout" 
+                                         SelectedLink="{Binding SelectLink,Mode=TwoWay}"
+                                                 Command="{x:Static wpfcontrollib:DrawerHost.CloseDrawerCommand}"
+                                                 CommandParameter="{x:Static Dock.Left}">
+            <wpfcontrollib:LinkActionGroup DisplayName="基础管理" Logo="&#xe69f;">
+                <wpfcontrollib:LinkActionGroup.Links>
+                    <wpfcontrollib:LinkAction  DisplayName="案例管理" Logo="&#xe69f;" Controller="Case" Action="Center"/>
+                    <wpfcontrollib:LinkAction  DisplayName="视频管理" Logo="&#xe69f;" Controller="Loyout" Action="Button" />
+                    <wpfcontrollib:LinkAction  DisplayName="类别管理"  Logo="&#xe6a3;" Controller="Loyout" Action="TextBox"/>
+                    <wpfcontrollib:LinkAction  DisplayName="标签管理"  Logo="&#xe6a3;" Controller="Loyout" Action="Combobox"  />
+                    <wpfcontrollib:LinkAction  DisplayName="来源管理"  Logo="&#xe6a3;" Controller="Loyout" Action="Grid"/>
+                    <wpfcontrollib:LinkAction  DisplayName="区域管理"  Logo="&#xe6a3;" Controller="Loyout" Action="Grid"/>
+                    <wpfcontrollib:LinkAction  DisplayName="清晰度管理"  Logo="&#xe6a3;" Controller="Loyout" Action="Grid"/>
+                    <wpfcontrollib:LinkAction  DisplayName="来源管理"  Logo="&#xe6a3;" Controller="Loyout" Action="Grid"/>
+                </wpfcontrollib:LinkActionGroup.Links>
+            </wpfcontrollib:LinkActionGroup>
+
+            <wpfcontrollib:LinkActionGroup DisplayName="系统管理" Logo="&#xe69f;">
+                <wpfcontrollib:LinkActionGroup.Links>
+                    <wpfcontrollib:LinkAction  DisplayName="会员管理" Logo="&#xe69f;" Controller="Loyout" Action="Mdi"/>
+                    <wpfcontrollib:LinkAction  DisplayName="基础配置" Logo="&#xe69f;" Controller="Loyout" Action="Mdi"/>
+                    <wpfcontrollib:LinkAction  DisplayName="会员设置" Logo="&#xe69f;" Controller="Loyout" Action="Mdi"/>
+                    <wpfcontrollib:LinkAction  DisplayName="管理账户" Logo="&#xe69f;" Controller="Loyout" Action="Mdi"/>
+                    <wpfcontrollib:LinkAction  DisplayName="导航设置" Logo="&#xe69f;" Controller="Loyout" Action="Mdi"/>
+                    <wpfcontrollib:LinkAction  DisplayName="地区分类" Logo="&#xe69f;" Controller="Loyout" Action="Mdi"/>
+                    <wpfcontrollib:LinkAction  DisplayName="支付设置" Logo="&#xe69f;" Controller="Loyout" Action="Mdi"/>
+                    <wpfcontrollib:LinkAction  DisplayName="来源设置" Logo="&#xe69f;" Controller="Loyout" Action="Mdi"/>
+                    <wpfcontrollib:LinkAction  DisplayName="分类编辑" Logo="&#xe69f;" Controller="Loyout" Action="Mdi"/>
+                    <wpfcontrollib:LinkAction  DisplayName="图库分类" Logo="&#xe69f;" Controller="Loyout" Action="Mdi"/>
+                </wpfcontrollib:LinkActionGroup.Links>
+            </wpfcontrollib:LinkActionGroup>
+
+        </wpfcontrollib:LinkGroupExpander>
+
+        <Grid Grid.Column="1">
+            <wpfcontrollib:LinkActionFrame LinkAction="{Binding SelectLink}"/>
+        </Grid>
+    </Grid>
+</UserControl>

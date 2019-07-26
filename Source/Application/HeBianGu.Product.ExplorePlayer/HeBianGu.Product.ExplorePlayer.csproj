@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8E1ACC28-425F-4D9B-9CD8-8F98031048AF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>HeBianGu.Product.ExplorePlayer</RootNamespace>
+    <AssemblyName>HeBianGu.Product.ExplorePlayer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Product\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\blueberry.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Controller\CaseController.cs" />
+    <Compile Include="Controller\SettingController.cs" />
+    <Compile Include="Domain\AssemblyDomain.cs" />
+    <Compile Include="ViewModel\Case\CaseViewModel.cs" />
+    <Compile Include="ViewModel\MovieManager\MovieManagerViewModel.cs" />
+    <Compile Include="ViewModel\Setting\SettingViewModel.cs" />
+    <Compile Include="ViewModel\ShellViewModel.cs" />
+    <Compile Include="View\Case\AddControl.xaml.cs">
+      <DependentUpon>AddControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Case\CenterControl.xaml.cs">
+      <DependentUpon>CenterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Case\EditControl.xaml.cs">
+      <DependentUpon>EditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Case\ListControl.xaml.cs">
+      <DependentUpon>ListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MovieManager\CenterControl.xaml.cs">
+      <DependentUpon>CenterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MovieManager\DetialControl.xaml.cs">
+      <DependentUpon>DetialControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MovieManager\EditControl.xaml.cs">
+      <DependentUpon>EditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MovieManager\LeftControl.xaml.cs">
+      <DependentUpon>LeftControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MovieManager\ListControl.xaml.cs">
+      <DependentUpon>ListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Setting\CenterControl.xaml.cs">
+      <DependentUpon>CenterControl.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\Case\AddControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Case\CenterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Case\EditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Case\ListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controller\MovieManagerController.cs" />
+    <Compile Include="Domain\DataSourceLocator.cs" />
+    <Compile Include="View\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\MovieManager\CenterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MovieManager\DetialControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MovieManager\EditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MovieManager\LeftControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MovieManager\ListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Setting\CenterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.WpfBase\HeBianGu.Base.WpfBase.csproj">
+      <Project>{435feb82-599f-48e3-8891-755acf8e4117}</Project>
+      <Name>HeBianGu.Base.WpfBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\General\HeBianGu.General.WpfControlLib\HeBianGu.General.WpfControlLib.csproj">
+      <Project>{b49dc15f-b43c-4306-adf4-8fa6f5df7f84}</Project>
+      <Name>HeBianGu.General.WpfControlLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\General\HeBianGu.General.WpfMvc\HeBianGu.General.WpfMvc.csproj">
+      <Project>{f49be6f0-4f25-4b09-923e-27884b86895a}</Project>
+      <Name>HeBianGu.General.WpfMvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BaseLayer\HeBianGu.Product.ExplorePlayer.Base.Model\HeBianGu.ExplorePlayer.Base.Model.csproj">
+      <Project>{B7B2B686-2181-4119-A08B-6D5C79D3D30D}</Project>
+      <Name>HeBianGu.ExplorePlayer.Base.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DomainLayer\HeBianGu.ExplorePlayer.Respository.Serice\HeBianGu.ExplorePlayer.Respository.Serice.csproj">
+      <Project>{25f4adcf-74b3-4208-8320-9b0ed007a1cf}</Project>
+      <Name>HeBianGu.ExplorePlayer.Respository.Serice</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GeneralLayer\HeBianGu.ExplorePlayer.General.SqliteDataBase\HeBianGu.ExplorePlayer.General.SqliteDataBase.csproj">
+      <Project>{1AE54030-A1F6-4106-97C9-A603BB0F2443}</Project>
+      <Name>HeBianGu.ExplorePlayer.General.SqliteDataBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\blueberry.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\logo.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="HeBianGu.Product.ExplorePlayer.View.MovieManager.LeftControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HeBianGu.Product.ExplorePlayer.View.MovieManager"
+             xmlns:wpfcontrollib="clr-namespace:HeBianGu.General.WpfControlLib;assembly=HeBianGu.General.WpfControlLib"
+             xmlns:model="clr-namespace:HeBianGu.ExplorePlayer.Base.Model;assembly=HeBianGu.ExplorePlayer.Base.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="1450" d:DesignWidth="350" Width="300">
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type model:mbc_dc_case}">
+                <Grid>
+                    <TextBlock Style="{DynamicResource S.TextBlock.FontSize.16}" Text="{Binding Name}" ToolTip="{Binding BaseUrl}"/>
+                </Grid>
+            </DataTemplate>
+        </Grid.Resources>
+        <wpfcontrollib:GroupExpander Command="{x:Static wpfcontrollib:DrawerHost.CloseDrawerCommand}"
+                                      CommandParameter="{x:Static Dock.Left}"
+                                     SelectItem="{Binding SelectCase,Mode=TwoWay}" 
+                                     ItemsSource="{Binding GroupObject}"
+                                     VerticalAlignment="Stretch">
+        </wpfcontrollib:GroupExpander>
+
+    </Grid>
+</UserControl>
