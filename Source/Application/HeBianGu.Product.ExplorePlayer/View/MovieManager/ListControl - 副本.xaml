@@ -14,13 +14,10 @@
         </Grid.RowDefinitions>
 
         <wpfcontrollib:FButton Content="重新加载" HorizontalAlignment="Left" Margin="10,0" 
-                               Command="{Binding MvcCommand}">
-            <wpfcontrollib:FButton.CommandParameter>
-                <wpfcontrollib:LinkAction Controller="MovieManager" Action="Refresh"/>
-            </wpfcontrollib:FButton.CommandParameter>
+                               Command="{Binding RelayCommand}" CommandParameter="Button.Refresh"> 
         </wpfcontrollib:FButton>
 
-        <wpfcontrollib:PagedDataGrid Grid.Row="1" Margin="10,0" BorderBrush="Transparent" DataSource="{Binding Collection,Mode=TwoWay}" SelectedItem="{Binding SeletItem}">
+        <wpfcontrollib:PagedDataGrid Grid.Row="1"  DataSource="{Binding Collection,Mode=TwoWay}" SelectedItem="{Binding SeletItem}">
             <wpfcontrollib:PagedDataGrid.Columns>
                 <DataGridTextColumn Header="序号" Binding="{Binding ID}" Width="*" />
                 <DataGridTextColumn Header="名称" Binding="{Binding Name}" Width="5*" />
@@ -42,10 +39,10 @@
                         <ItemContainerTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
-                                <wpfcontrollib:FButton Content="转换" Width="50"  Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.MvcCommand}" Style="{DynamicResource S.FButton.Style.Link}">
-                                    <wpfcontrollib:FButton.CommandParameter>
-                                        <wpfcontrollib:LinkAction Controller="MovieManager" Action="Convert"/>
-                                    </wpfcontrollib:FButton.CommandParameter>
+                                <wpfcontrollib:FButton Content="转换" Width="50"  
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.RelayCommand}" 
+                                                       CommandParameter="Button.Convert"
+                                                       Style="{DynamicResource S.FButton.Style.Link}">
                                 </wpfcontrollib:FButton>
 
                                 <wpfcontrollib:FButton Content="查看" Width="50"  Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.MvcCommand}" Style="{DynamicResource S.FButton.Style.Link}">

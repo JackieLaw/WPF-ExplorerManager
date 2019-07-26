@@ -44,7 +44,7 @@
                                CommandParameter="{x:Static Dock.Bottom}"/>
 
         <Grid Grid.Row="1">
-            <wpfcontrollib:LinkActionFrame LinkAction="{Binding SelectLink,UpdateSourceTrigger=PropertyChanged}"/>
+            <wpfcontrollib:LinkActionFrame LinkAction="{Binding SelectLink,UpdateSourceTrigger=Explicit}"/>
         </Grid>
 
     </Grid>

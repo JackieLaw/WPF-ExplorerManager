@@ -164,7 +164,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
 
 
         public async Task ConvertMovie(mbc_dv_movie movie)
-        { 
+        {
             //  Message：ffmpeg数据
             var detial = FFmpegService.Instance.GetMediaEntity(movie.Url);
 
@@ -215,7 +215,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
             {
                 if (allextends.Count == 0) return true;
 
-                //return allextends.Exists(k => k == l.Extension);
+                return allextends.Exists(k => k == l.Extension);
 
                 return true;
             };
@@ -229,10 +229,10 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
 
             Action<FileInfo> action = l =>
             {
-                if (movies != null)
-                {
-                    if (movies.Exists(k => k.Url == l.FullName)) return;
-                }
+                //if (movies != null)
+                //{
+                //    if (movies.Exists(k => k.Url == l.FullName)) return;
+                //}
 
                 if (!match(l)) return;
 
@@ -245,13 +245,20 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
                 movie.Size = l.Length;
                 movie.FromType = "local";
 
-                var tags = _dbContext.mbc_db_tagtypes.Where(k => l.Name.Contains(k.Value));
+                var tags = _dbContext.mbc_db_tagtypes.Where(k =>
+                l.Name.Contains(k.Value));
 
-                var list = tags.ToList();
+                List<string> list = new List<string>();
+
+                foreach (var ss in _dbContext.mbc_db_tagtypes)
+                {
+                    if (l.Name.Contains(ss.Value))
+                        list.Add(ss.Value); 
+                }
 
                 if (list != null && list.Count > 0)
                 {
-                    movie.TagTypes = list.Select(k => k.Value).Aggregate((m, k) => m + "," + k);
+                    movie.TagTypes = list.Aggregate((m, k) => m + "," + k);
                 }
 
                 System.Console.WriteLine("加载文件详情:" + l.FullName);

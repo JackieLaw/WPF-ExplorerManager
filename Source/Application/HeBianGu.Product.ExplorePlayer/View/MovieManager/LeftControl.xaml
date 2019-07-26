@@ -12,12 +12,33 @@
         <Grid.Resources>
             <DataTemplate DataType="{x:Type model:mbc_dc_case}">
                 <Grid>
-                    <TextBlock Style="{DynamicResource S.TextBlock.FontSize.16}" Text="{Binding Name}" ToolTip="{Binding BaseUrl}"/>
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock x:Name="logo" Style="{DynamicResource FIcon}"
+                               Text="&#xe764;" Foreground="{DynamicResource S.Brush.Orange.Notice}"/>
+                        
+                        <TextBlock x:Name="txt" Style="{DynamicResource S.TextBlock.FontSize.16}" 
+                                   Foreground="{DynamicResource S.Brush.TextForeground.Default}"
+                               Text="{Binding Name}" ToolTip="{Binding BaseUrl}"/>
+
+                        <TextBlock x:Name="state" Style="{DynamicResource S.TextBlock.FontSize.16}"
+                               Text="（未加载）" Visibility="Visible"/>
+                    </StackPanel> 
+                    
                 </Grid>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding State}" Value="1">
+                        <Setter TargetName="state" Property="Visibility" Value="Collapsed"/>
+                        <Setter TargetName="txt" Property="Foreground" Value="{DynamicResource S.Brush.TextForeground.Tiltle}"/>
+                        <Setter TargetName="logo" Property="Text" Value="&#xe763;"/>
+                        <Setter TargetName="logo" Property="Foreground" Value="{DynamicResource S.Brush.TextForeground.Tiltle}"/>
+
+                    </DataTrigger>
+                </DataTemplate.Triggers>
             </DataTemplate>
         </Grid.Resources>
         <wpfcontrollib:GroupExpander Command="{x:Static wpfcontrollib:DrawerHost.CloseDrawerCommand}"
-                                      CommandParameter="{x:Static Dock.Left}"
+                                     CommandParameter="{x:Static Dock.Left}"
                                      SelectItem="{Binding SelectCase,Mode=TwoWay}" 
                                      ItemsSource="{Binding GroupObject}"
                                      VerticalAlignment="Stretch">

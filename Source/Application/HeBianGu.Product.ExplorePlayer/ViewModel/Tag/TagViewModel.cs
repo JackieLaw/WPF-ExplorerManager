@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace HeBianGu.Product.ExplorePlayer
 {
-    [ViewModel("Case")]
-    public class CaseViewModel : MvcEntityViewModelBase<mbc_dc_case>
-    {
+    [ViewModel("Tag")]
+    public class TagViewModel : MvcEntityViewModelBase<mbc_db_tagtype>
+    { 
 
     }
 }

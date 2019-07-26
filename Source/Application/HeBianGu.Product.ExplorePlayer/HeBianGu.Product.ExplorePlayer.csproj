@@ -59,13 +59,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\ExtendController.cs" />
+    <Compile Include="Controller\TagController.cs" />
     <Compile Include="Controller\CaseController.cs" />
     <Compile Include="Controller\SettingController.cs" />
     <Compile Include="Domain\AssemblyDomain.cs" />
     <Compile Include="ViewModel\Case\CaseViewModel.cs" />
+    <Compile Include="ViewModel\Extend\ExtendViewModel.cs" />
     <Compile Include="ViewModel\MovieManager\MovieManagerViewModel.cs" />
     <Compile Include="ViewModel\Setting\SettingViewModel.cs" />
     <Compile Include="ViewModel\ShellViewModel.cs" />
+    <Compile Include="ViewModel\Tag\TagViewModel.cs" />
     <Compile Include="View\Case\AddControl.xaml.cs">
       <DependentUpon>AddControl.xaml</DependentUpon>
     </Compile>
@@ -76,6 +80,18 @@
       <DependentUpon>EditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Case\ListControl.xaml.cs">
+      <DependentUpon>ListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Extend\AddControl.xaml.cs">
+      <DependentUpon>AddControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Extend\CenterControl.xaml.cs">
+      <DependentUpon>CenterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Extend\EditControl.xaml.cs">
+      <DependentUpon>EditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Extend\ListControl.xaml.cs">
       <DependentUpon>ListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MovieManager\CenterControl.xaml.cs">
@@ -96,6 +112,18 @@
     <Compile Include="View\Setting\CenterControl.xaml.cs">
       <DependentUpon>CenterControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Tag\AddControl.xaml.cs">
+      <DependentUpon>AddControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tag\CenterControl.xaml.cs">
+      <DependentUpon>CenterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tag\EditControl.xaml.cs">
+      <DependentUpon>EditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tag\ListControl.xaml.cs">
+      <DependentUpon>ListControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\Case\AddControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -109,6 +137,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Case\ListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Extend\AddControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Extend\CenterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Extend\EditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Extend\ListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -150,6 +194,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Setting\CenterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tag\AddControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tag\CenterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tag\EditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tag\ListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,6 +259,10 @@
     <ProjectReference Include="..\..\BaseLayer\HeBianGu.Product.ExplorePlayer.Base.Model\HeBianGu.ExplorePlayer.Base.Model.csproj">
       <Project>{B7B2B686-2181-4119-A08B-6D5C79D3D30D}</Project>
       <Name>HeBianGu.ExplorePlayer.Base.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DomainLayer\HeBianGu.ExplorePlayer.Respository.IService\HeBianGu.ExplorePlayer.Respository.IService.csproj">
+      <Project>{61C7FD0C-081F-4636-9140-363783969469}</Project>
+      <Name>HeBianGu.ExplorePlayer.Respository.IService</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\DomainLayer\HeBianGu.ExplorePlayer.Respository.Serice\HeBianGu.ExplorePlayer.Respository.Serice.csproj">
       <Project>{25f4adcf-74b3-4208-8320-9b0ed007a1cf}</Project>

@@ -17,11 +17,12 @@ namespace HeBianGu.ExplorePlayer.General.SqliteDataBase
         }
         protected override void Seed(DataContext context)
         {
-            for (int i = 0; i < 6; i++)
-            {
-                var item = new mbc_dc_case { Name = "Employer" + (i + 1) };
-                context.mbc_dc_cases.Add(item);
-            }
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    var item = new mbc_dc_case { Name = "Employer" + (i + 1) };
+            //    context.mbc_dc_cases.Add(item);
+            //}
+
             base.Seed(context);
         }
     }

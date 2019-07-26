@@ -1,4 +1,5 @@
 ﻿using HeBianGu.Base.WpfBase;
+using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.Respository.Serice;
 using HeBianGu.General.WpfControlLib;
 using HeBianGu.General.WpfMvc;
@@ -13,14 +14,10 @@ using System.Windows;
 namespace HeBianGu.Product.ExplorePlayer
 {
     [Route("MovieManager")]
-    class MovieManagerController : Controller<MovieManagerViewModel, MovieRespository, CaseRespository>
+    class MovieManagerController : ExtendEntityBaseController<mbc_dv_movie, MovieManagerViewModel, MovieRespository, CaseRespository>
     {
-        public async Task<IActionResult> Center()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> List()
+     
+        public override async Task<IActionResult> List()
         {
 
             if (this.ViewModel.SelectCase == null)
@@ -72,14 +69,11 @@ namespace HeBianGu.Product.ExplorePlayer
                 return await List();
             }
 
-
-            if (this.ViewModel.SelectCase.State==1)
-            {
-                MessageService.ShowSnackMessageWithNotice("当前案例已经加载过了！");
-                return await List();
-            }
-
-
+            //if (this.ViewModel.SelectCase.State==1)
+            //{
+            //    MessageService.ShowSnackMessageWithNotice("当前案例已经加载过了！");
+            //    return await List();
+            //}
 
             await this.Respository.RefreshMovie(this.ViewModel.SelectCase);
 
@@ -112,36 +106,6 @@ namespace HeBianGu.Product.ExplorePlayer
 
 
             return await List();
-        }
-
-        public async Task<IActionResult> Detial()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> Delete()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> Edit()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> Update()
-        {
-            string message;
-
-            if (!this.ModelState(this.ViewModel.SeletItem, out message))
-            {
-                MessageService.ShowSnackMessage(message);
-                return await Edit();
-            }
-
-            await this.Respository.UpdateAsync(this.ViewModel.SeletItem);
-
-            return await List();
-        }
+        } 
     }
 }

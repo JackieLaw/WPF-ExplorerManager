@@ -8,31 +8,5 @@
              xmlns:base="clr-namespace:HeBianGu.Base.WpfBase;assembly=HeBianGu.Base.WpfBase"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1400">
-    <Grid Background="{DynamicResource S.Brush.Dark.5}">
-        <Viewbox Width="1100"  >
-            <wpfcontrollib:ObjectPropertyForm Width="800" Title="编辑信息" SelectObject="{Binding SeletItem}" >
-                <base:Interaction.Behaviors>
-                    <base:MouseDragElementBehavior ConstrainToParentBounds="True"/>
-                    <base:SelectZIndexElementBehavior/>
-                </base:Interaction.Behaviors>
-                <wpfcontrollib:ObjectPropertyForm.BottomContent>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="25,0">
-                        <wpfcontrollib:FButton Content="保存" HorizontalAlignment="Left" Margin="10,0" 
-                               Command="{Binding MvcCommand}">
-                            <wpfcontrollib:FButton.CommandParameter>
-                                <wpfcontrollib:LinkAction Controller="Case" Action="Update"/>
-                            </wpfcontrollib:FButton.CommandParameter>
-                        </wpfcontrollib:FButton>
-
-                        <wpfcontrollib:FButton Content="取消" HorizontalAlignment="Left" Margin="10,0" 
-                               Command="{Binding MvcCommand}">
-                            <wpfcontrollib:FButton.CommandParameter>
-                                <wpfcontrollib:LinkAction Controller="Case" Action="List"/>
-                            </wpfcontrollib:FButton.CommandParameter>
-                        </wpfcontrollib:FButton>
-                    </StackPanel>
-                </wpfcontrollib:ObjectPropertyForm.BottomContent>
-            </wpfcontrollib:ObjectPropertyForm>
-        </Viewbox>
-    </Grid>
+    <wpfcontrollib:MvcEditFrame/>
 </UserControl>

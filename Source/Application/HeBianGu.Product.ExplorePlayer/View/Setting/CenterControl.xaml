@@ -20,9 +20,13 @@
             <wpfcontrollib:LinkActionGroup DisplayName="基础管理" Logo="&#xe69f;">
                 <wpfcontrollib:LinkActionGroup.Links>
                     <wpfcontrollib:LinkAction  DisplayName="案例管理" Logo="&#xe69f;" Controller="Case" Action="Center"/>
-                    <wpfcontrollib:LinkAction  DisplayName="视频管理" Logo="&#xe69f;" Controller="Loyout" Action="Button" />
+                </wpfcontrollib:LinkActionGroup.Links>
+            </wpfcontrollib:LinkActionGroup>
+            <wpfcontrollib:LinkActionGroup DisplayName="视频管理" Logo="&#xe69f;">
+                <wpfcontrollib:LinkActionGroup.Links>
+                    <wpfcontrollib:LinkAction  DisplayName="标签管理"  Logo="&#xe6a3;" Controller="Tag" Action="Center"/>
+                    <wpfcontrollib:LinkAction  DisplayName="扩展管理" Logo="&#xe69f;" Controller="Extend" Action="Center" />
                     <wpfcontrollib:LinkAction  DisplayName="类别管理"  Logo="&#xe6a3;" Controller="Loyout" Action="TextBox"/>
-                    <wpfcontrollib:LinkAction  DisplayName="标签管理"  Logo="&#xe6a3;" Controller="Loyout" Action="Combobox"  />
                     <wpfcontrollib:LinkAction  DisplayName="来源管理"  Logo="&#xe6a3;" Controller="Loyout" Action="Grid"/>
                     <wpfcontrollib:LinkAction  DisplayName="区域管理"  Logo="&#xe6a3;" Controller="Loyout" Action="Grid"/>
                     <wpfcontrollib:LinkAction  DisplayName="清晰度管理"  Logo="&#xe6a3;" Controller="Loyout" Action="Grid"/>

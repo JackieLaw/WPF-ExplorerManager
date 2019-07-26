@@ -11,9 +11,10 @@ using System.Threading.Tasks;
 
 namespace HeBianGu.Product.ExplorePlayer
 {
-    [ViewModel("Case")]
-    public class CaseViewModel : MvcEntityViewModelBase<mbc_dc_case>
-    {
+    [ViewModel("Extend")]
+    public class ExtendViewModel : MvcEntityViewModelBase<mbc_db_extendtype>
+    { 
+ 
 
     }
 }
