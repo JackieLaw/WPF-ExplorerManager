@@ -174,7 +174,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
                 file.Add(l);
             };
 
-            this.DoAllFiles(dirs, action); 
+            this.DoAllFiles(dirs, action);
 
             return file;
         }
@@ -207,26 +207,39 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
 
             if (File.Exists(shootcutpath))
             {
-                movie.Image = "data:image/jpeg;base64," + EncodeImageToString(shootcutpath);
+                movie.Image =EncodeImageToString(shootcutpath);
 
                 File.Delete(shootcutpath);
+            }
+
+            string shootcutbatpath = Path.Combine(Path.GetDirectoryName(movie.Url), Path.GetFileNameWithoutExtension(movie.Url) + "_shootcut");
+
+            //  Message：默认一分钟图片作为缩略图
+            var images = FFmpegService.Instance.ShootCutBat(movie.Url, shootcutbatpath);
+
+            foreach (var m in images)
+            {
+                if (!File.Exists(m)) continue;
+
+                mbc_dv_movieimage image = new mbc_dv_movieimage();
+
+                image.MovieID = movie.ID;
+                image.Image = EncodeImageToString(m);
+                image.Text = Path.GetFileName(m);
+
+                _dbContext.mbc_dv_movieimages.Add(image);
+
+                //  Message：保存完删除图片
+                File.Delete(m);
             }
 
             await this.SaveAsync();
         }
         public async Task RefreshMovie(mbc_dc_case item)
         {
-
             if (item.State == 1)
             {
-                bool result = false;
-
-                Action<object, DialogClosingEventArgs> resultAction = (l, k) =>
-                {
-                    result = (bool)k.Parameter;
-                };
-
-                await MessageService.ShowResultMessge("当前案例已经加载过,是否重新扫描！", resultAction);
+                var result = await MessageService.ShowResultMessge("当前案例已经加载过,是否重新扫描！");
 
                 if (!result) return;
             }
@@ -247,7 +260,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
             {
                 if (allextends.Count == 0) return true;
 
-                return allextends.Exists(k => k == l.Extension); 
+                return allextends.Exists(k => k == l.Extension);
             };
 
             if (!Directory.Exists(item.BaseUrl))
@@ -291,7 +304,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
                 foreach (var ss in _dbContext.mbc_db_tagtypes)
                 {
                     if (l.Name.Contains(ss.Value))
-                        list.Add(ss.Value); 
+                        list.Add(ss.Value);
                 }
 
                 if (list != null && list.Count > 0)
@@ -380,7 +393,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
                     });
 
                     action(files[i]);
-                } 
+                }
             };
 
 

@@ -99,7 +99,7 @@ namespace HeBianGu.ExplorePlayer.General.FFmpegService
         }
 
 
-        public string ExecuteWithErr(string parameters, string exePath = @"F:\GitHub\WPF-ExplorePlayer\Product\Public\FFmpeg\ffmpeg.exe")
+        public string ExecuteWithErr(string parameters, string exePath = @"F:\GitHub\WPF-MediaConverter\Product\Dll\ffmpeg.exe")
         {
             string result = String.Empty;
 

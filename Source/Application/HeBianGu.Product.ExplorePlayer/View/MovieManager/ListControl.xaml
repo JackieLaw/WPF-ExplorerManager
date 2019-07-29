@@ -14,11 +14,16 @@
         </Grid.RowDefinitions>
 
         <wpfcontrollib:FButton Content="重新加载" HorizontalAlignment="Left" Margin="10,0" 
-                               Command="{Binding MvcCommand}">
-            <wpfcontrollib:FButton.CommandParameter>
-                <wpfcontrollib:LinkAction Controller="MovieManager" Action="Refresh"/>
-            </wpfcontrollib:FButton.CommandParameter>
-        </wpfcontrollib:FButton>
+                               Command="{Binding GoToActionCommand}" CommandParameter="Refresh"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+            <wpfcontrollib:FButton Content="全部移除" Margin="10,0" 
+                               Command="{Binding GoToActionCommand}"  CommandParameter="RemoveAll"/>
+
+            <wpfcontrollib:FButton Content="全部转换" Margin="10,0" 
+                               Command="{Binding GoToActionCommand}"  CommandParameter="ConvertAll"/>
+
+        </StackPanel>
 
         <wpfcontrollib:PagedDataGrid Grid.Row="1" Margin="10,0" BorderBrush="Transparent" DataSource="{Binding Collection,Mode=TwoWay}" SelectedItem="{Binding SeletItem}">
             <wpfcontrollib:PagedDataGrid.Columns>
@@ -33,40 +38,31 @@
                 <DataGridTextColumn Header="大小" Binding="{Binding Size}" Width="*" />
                 <DataGridTextColumn Header="VIP" Binding="{Binding VipType}" Width="*" />
                 <DataGridTextColumn Header="来源" Binding="{Binding FromType}" Width="*" />
-                <DataGridTextColumn Header="排序" Binding="{Binding OrderNum}" Width="*" /> 
+                <DataGridTextColumn Header="排序" Binding="{Binding OrderNum}" Width="*" />
                 <DataGridTextColumn Header="评分" Binding="{Binding Score}" Width="*" />
                 <DataGridTextColumn Header="时间" Binding="{Binding Duration}" Width="*" />
-                
+
                 <DataGridTemplateColumn Width="220">
                     <DataGridTemplateColumn.CellTemplate>
                         <ItemContainerTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
-                                <wpfcontrollib:FButton Content="转换" Width="50"  Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.MvcCommand}" Style="{DynamicResource S.FButton.Style.Link}">
-                                    <wpfcontrollib:FButton.CommandParameter>
-                                        <wpfcontrollib:LinkAction Controller="MovieManager" Action="Convert"/>
-                                    </wpfcontrollib:FButton.CommandParameter>
-                                </wpfcontrollib:FButton>
+                                <wpfcontrollib:FButton Content="转换" Width="50" CommandParameter="Convert"  
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.GoToActionCommand}" 
+                                                       Style="{DynamicResource S.FButton.Style.Link}"/>
 
-                                <wpfcontrollib:FButton Content="查看" Width="50"  Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.MvcCommand}" Style="{DynamicResource S.FButton.Style.Link}">
-                                    <wpfcontrollib:FButton.CommandParameter>
-                                        <wpfcontrollib:LinkAction Controller="MovieManager" Action="Detial"/>
-                                    </wpfcontrollib:FButton.CommandParameter>
-                                </wpfcontrollib:FButton>
+                                <wpfcontrollib:FButton Content="查看" Width="50"  CommandParameter="Detial"  
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.GoToActionCommand}" 
+                                                       Style="{DynamicResource S.FButton.Style.Link}"/>
 
-                                <wpfcontrollib:FButton Content="编辑" Width="50"  Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.MvcCommand}" Style="{DynamicResource S.FButton.Style.Link}">
-                                    <wpfcontrollib:FButton.CommandParameter>
-                                        <wpfcontrollib:LinkAction Controller="MovieManager" Action="Edit"/>
-                                    </wpfcontrollib:FButton.CommandParameter>
-                                </wpfcontrollib:FButton>
+                                <wpfcontrollib:FButton Content="编辑" Width="50"  CommandParameter="Edit"    
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.GoToActionCommand}" 
+                                                       Style="{DynamicResource S.FButton.Style.Link}"/>
 
-                                <wpfcontrollib:FButton Content="删除" Width="50" 
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.MvcCommand}"  
-                                                       Style="{DynamicResource S.FButton.Style.Link}">
-                                    <wpfcontrollib:FButton.CommandParameter>
-                                        <wpfcontrollib:LinkAction Controller="MovieManager" Action="Delete"/>
-                                    </wpfcontrollib:FButton.CommandParameter>
-                                </wpfcontrollib:FButton>
+                                <wpfcontrollib:FButton Content="删除" Width="50"  CommandParameter="Delete"  
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.GoToActionCommand}"  
+                                                       Style="{DynamicResource S.FButton.Style.Link}"/>
+
                             </StackPanel>
                         </ItemContainerTemplate>
                     </DataGridTemplateColumn.CellTemplate>

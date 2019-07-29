@@ -16,7 +16,7 @@ namespace HeBianGu.Product.ExplorePlayer
     [Route("MovieManager")]
     class MovieManagerController : ExtendEntityBaseController<mbc_dv_movie, MovieManagerViewModel, MovieRespository, CaseRespository>
     {
-     
+
         public override async Task<IActionResult> List()
         {
 
@@ -25,7 +25,7 @@ namespace HeBianGu.Product.ExplorePlayer
                 return View();
             }
 
-            var from = this.Respository.GetListAsync(l => l.CaseType == this.ViewModel.SelectCase.ID).Result;
+            var from = await this.Respository.GetListAsync(l => l.CaseType == this.ViewModel.SelectCase.ID);
 
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -106,6 +106,74 @@ namespace HeBianGu.Product.ExplorePlayer
 
 
             return await List();
-        } 
+        }
+
+        public async Task<IActionResult> RemoveAll()
+        {
+            if (this.ViewModel.SelectCase == null)
+            {
+                return View();
+            }
+
+            var from = await this.Respository.GetListAsync(l => l.CaseType == this.ViewModel.SelectCase.ID);
+
+            foreach (var item in from)
+            {
+                await this.Respository.DeleteAsync(item);
+            }
+
+            this.Invoke(()=> this.ViewModel.Collection.Clear());
+
+            return await List();
+        }
+
+        public async Task<IActionResult> ConvertAll()
+        {
+            if (this.ViewModel.SelectCase == null)
+            {
+                MessageService.ShowSnackMessageWithNotice("请先选择案例！");
+                return await List();
+            }
+
+            if (!Directory.Exists(this.ViewModel.SelectCase.BaseUrl))
+            {
+                MessageService.ShowSnackMessageWithNotice("案例路径不存在，请检查！");
+                return await List();
+            }
+
+            Action<StringProgressDialog> actionProgress = async l =>
+            {
+
+                for (int i = 0; i < this.ViewModel.Collection.Count; i++)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        l.MessageStr = $"正在转换第{i + 1}条视频，共计{this.ViewModel.Collection.Count}条视频";
+                    });
+
+                    var movie = this.ViewModel.Collection[i];
+
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(movie.Image))
+                        {
+                            MessageService.ShowNotifyMessage("该视频已经转换！");
+                            continue;
+                        }
+
+                        await this.Respository.ConvertMovie(movie);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageService.ShowNotifyMessage(ex.Message);
+                    }
+
+                }
+            };
+
+            await MessageService.ShowStringProgress(actionProgress);
+
+            return await List();
+        }
     }
 }

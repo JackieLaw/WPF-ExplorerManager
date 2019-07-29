@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controller\ExtendController.cs" />
+    <Compile Include="Controller\MovieController.cs" />
     <Compile Include="Controller\TagController.cs" />
     <Compile Include="Controller\CaseController.cs" />
     <Compile Include="Controller\SettingController.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="ViewModel\Case\CaseViewModel.cs" />
     <Compile Include="ViewModel\Extend\ExtendViewModel.cs" />
     <Compile Include="ViewModel\MovieManager\MovieManagerViewModel.cs" />
+    <Compile Include="ViewModel\Movie\MovieViewModel.cs" />
     <Compile Include="ViewModel\Setting\SettingViewModel.cs" />
     <Compile Include="ViewModel\ShellViewModel.cs" />
     <Compile Include="ViewModel\Tag\TagViewModel.cs" />
@@ -107,6 +109,18 @@
       <DependentUpon>LeftControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MovieManager\ListControl.xaml.cs">
+      <DependentUpon>ListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Movie\CenterControl.xaml.cs">
+      <DependentUpon>CenterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Movie\DetialControl.xaml.cs">
+      <DependentUpon>DetialControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Movie\LeftControl.xaml.cs">
+      <DependentUpon>LeftControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Movie\ListControl.xaml.cs">
       <DependentUpon>ListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Setting\CenterControl.xaml.cs">
@@ -193,6 +207,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Movie\CenterControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Movie\DetialControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Movie\LeftControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Movie\ListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Setting\CenterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -273,12 +303,17 @@
       <Name>HeBianGu.ExplorePlayer.General.SqliteDataBase</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\default.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\blueberry.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\default.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

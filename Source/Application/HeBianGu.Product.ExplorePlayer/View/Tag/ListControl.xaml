@@ -14,11 +14,8 @@
         </Grid.RowDefinitions>
 
         <wpfcontrollib:FButton Content="新增信息" HorizontalAlignment="Left" Margin="10,0" 
-                               Command="{Binding MvcCommand}">
-            <wpfcontrollib:FButton.CommandParameter>
-                <wpfcontrollib:LinkAction Action="Add"/>
-            </wpfcontrollib:FButton.CommandParameter>
-        </wpfcontrollib:FButton>
+                               Command="{Binding GoToActionCommand}" CommandParameter="Add"/>
+
 
         <wpfcontrollib:PagedDataGrid Grid.Row="1" PageCount="22" Margin="10,20"  DataSource="{Binding Collection,Mode=TwoWay}" SelectedItem="{Binding SeletItem}">
             <wpfcontrollib:PagedDataGrid.Columns>

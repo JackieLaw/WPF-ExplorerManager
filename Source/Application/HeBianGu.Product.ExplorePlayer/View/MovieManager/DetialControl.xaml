@@ -17,13 +17,10 @@
                     <base:SelectZIndexElementBehavior/>
                 </base:Interaction.Behaviors>
                 <wpfcontrollib:ObjectPropertyForm.BottomContent>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="25,0">  
-                        <wpfcontrollib:FButton Content="关闭" HorizontalAlignment="Left" Margin="10,0" 
-                               Command="{Binding MvcCommand}">
-                            <wpfcontrollib:FButton.CommandParameter>
-                                <wpfcontrollib:LinkAction Controller="MovieManager" Action="List"/>
-                            </wpfcontrollib:FButton.CommandParameter>
-                        </wpfcontrollib:FButton>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="25,0">
+                            <wpfcontrollib:FButton Content="关闭" HorizontalAlignment="Left" Margin="10,0" 
+                               Command="{Binding GoToActionCommand}" CommandParameter="List">
+                            </wpfcontrollib:FButton>
                     </StackPanel>
                 </wpfcontrollib:ObjectPropertyForm.BottomContent>
             </wpfcontrollib:ObjectPropertyForm>

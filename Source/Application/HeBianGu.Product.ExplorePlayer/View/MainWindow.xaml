@@ -31,26 +31,14 @@
             </wpfcontrollib:TabLink.BottomLink>-->
         </wpfcontrollib:TabLink>
 
-
-        <wpfcontrollib:TabLink DisplayName="设置管理"  Logo="&#xe69f;" Controller="Setting" Action="Center"/>
-
-        <!--<wpfcontrollib:TabLink DisplayName="表格示例"  Logo="&#xe69f;" Controller="Grid" Action="Grid"/>
-
-        <wpfcontrollib:TabLink DisplayName="树形列表"  Logo="&#xe69f;" Controller="TreeList" Action="TreeList"/>
-
-        <wpfcontrollib:TabLink DisplayName="分页控件"  Logo="&#xe69f;" Controller="Tab" Action="Center">
+        <wpfcontrollib:TabLink DisplayName="电影浏览器"  Logo="&#xe69f;"  Controller="Movie" Action="Center">
             <wpfcontrollib:TabLink.LeftLink>
-                <wpfcontrollib:LinkAction DisplayName="示例列表"  Logo="&#xe69f;" Controller="Tab" Action="Left"/>
-            </wpfcontrollib:TabLink.LeftLink>
+                <wpfcontrollib:LinkAction DisplayName="选择案例"  Logo="&#xe69f;"  Controller="Movie" Action="Left"/>
+            </wpfcontrollib:TabLink.LeftLink> 
         </wpfcontrollib:TabLink>
 
-        <wpfcontrollib:TabLink DisplayName="Mvc示例"  Logo="&#xe69f;" Controller="Mvc" Action="Center"/>
-
-        <wpfcontrollib:TabLink DisplayName="Switch示例"  Logo="&#xe69f;" Controller="Switch" Action="Center"/>
-
-        <wpfcontrollib:TabLink DisplayName="其他列表"  Logo="&#xe69f;" Controller="Custom" Action="Custom"/>-->
-    </wpfcontrollib:LinkWindowBase.TabLinks>
-
+        <wpfcontrollib:TabLink DisplayName="设置管理"  Logo="&#xe69f;" Controller="Setting" Action="Center"/> 
+    </wpfcontrollib:LinkWindowBase.TabLinks> 
     <wpfcontrollib:LinkWindowBase.SettingLinks>
         <base:LinkGroup>
             <base:LinkGroup.Links>
