@@ -27,8 +27,6 @@ namespace HeBianGu.Product.ExplorePlayer
             }
         }
 
-
-
         private ObservableCollection<GroupObject> _groupObject = new ObservableCollection<GroupObject>();
         /// <summary> 说明  </summary>
         public ObservableCollection<GroupObject> GroupObject
@@ -50,6 +48,20 @@ namespace HeBianGu.Product.ExplorePlayer
             {
                 _imagecollection = value;
                 RaisePropertyChanged("ImageCollection");
+            }
+        }
+
+
+
+        private mbc_dv_movieimage _selectImage;
+        /// <summary> 说明  </summary>
+        public mbc_dv_movieimage SelectImage
+        {
+            get { return _selectImage; }
+            set
+            {
+                _selectImage = value;
+                RaisePropertyChanged("SelectImage");
             }
         }
 
@@ -77,6 +89,19 @@ namespace HeBianGu.Product.ExplorePlayer
             {
                 _selectTag = value;
                 RaisePropertyChanged("SelectTag");
+            }
+        }
+
+
+        private bool _isEditting;
+        /// <summary> 说明  </summary>
+        public bool IsEditting
+        {
+            get { return _isEditting; }
+            set
+            {
+                _isEditting = value;
+                RaisePropertyChanged("IsEditting");
             }
         }
 

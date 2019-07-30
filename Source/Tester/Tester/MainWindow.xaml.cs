@@ -1,5 +1,6 @@
 ﻿using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.General.SqliteDataBase;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,25 @@ namespace Tester
             from.Name = "etete";
 
             SqliteDBService.Instance.AddCase(from);
+
+
+
+
+   
+    }
+}
+
+
+    class My
+    {
+        [JsonProperty(PropertyName = "Name", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        private string _name_for_old_contract
+        {
+            get { return null; }
+            set { NewName = value; }
         }
+
+        [JsonProperty]
+        public string NewName { get; set; }
     }
 }

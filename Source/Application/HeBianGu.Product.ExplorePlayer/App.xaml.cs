@@ -23,7 +23,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
             ThemeService.Current.StartAnimationTheme(1000 * 30);
 
-            MainWindow shellWindow = new MainWindow();
+            MainWindow shellWindow = new MainWindow(); 
 
             LoginWindow loginWindow = new LoginWindow();
 

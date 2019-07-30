@@ -20,27 +20,80 @@
             <Run Text="{Binding SeletItem.Name}"/>
         </TextBlock>
 
-        <wpfcontrollib:FButton Content="关闭" Width="50" HorizontalAlignment="Right"  CommandParameter="List"
-                               Command="{Binding GoToActionCommand}" Style="{DynamicResource S.FButton.Style.Link}">
-        </wpfcontrollib:FButton>
+        <TextBlock Style="{StaticResource S.TextBlock.FontSize.18}" Foreground="{DynamicResource S.Brush.Red.Notice}" FontSize="18"
+                       Visibility="{Binding ElementName=cb,Path=IsChecked,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}"
+                       HorizontalAlignment="Center" Text="提示！开始监视剪贴板，复制或剪切一张图片会保存到预览列表中！">
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource S.Storyboard.OpacityForever}"/>
+                </EventTrigger>
+            </TextBlock.Triggers>
+        </TextBlock>
 
-        <ListBox Grid.Row="1" ItemsSource="{Binding ImageCollection,Mode=TwoWay}">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+
+            <wpfcontrollib:BulletCheckBox x:Name="cb" Text="停止" CheckedText="编辑" IsChecked="{Binding IsEditting}">
+                <base:Interaction.Triggers>
+                    <base:EventTrigger EventName="Checked">
+                        <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="CheckEdittingChanged"/>
+                    </base:EventTrigger>
+                    <base:EventTrigger EventName="Unchecked">
+                        <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="CheckEdittingChanged"/>
+                    </base:EventTrigger>
+                </base:Interaction.Triggers>
+            </wpfcontrollib:BulletCheckBox>
+
+
+            <wpfcontrollib:FButton Content="关闭" Width="50"  CommandParameter="List"
+                               Command="{Binding GoToActionCommand}" Style="{DynamicResource S.FButton.Style.Link}">
+               
+            </wpfcontrollib:FButton>
+        </StackPanel>
+
+        <ListBox Grid.Row="1" ItemsSource="{Binding ImageCollection,Mode=TwoWay}" SelectedItem="{Binding SelectImage}">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type model:mbc_dv_movieimage}">
                     <Grid>
-                        <GroupBox HorizontalAlignment="Center" Width="930">
+                        <GroupBox HorizontalAlignment="Center" Width="930" Style="{DynamicResource S.GroupBox.Single}" Background="{DynamicResource S.Brush.Dark.10}">
                             <Grid HorizontalAlignment="Center">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="9*"/>
-                                    <RowDefinition/>
-                                    <RowDefinition/> 
+                                    <RowDefinition Height="30"/>  
                                 </Grid.RowDefinitions>
 
                                 <Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/> 
-                                <TextBlock Text="{Binding Text}" Grid.Row="1" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding TimeSpan}" Grid.Row="2" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Text}" Grid.Row="1" Foreground="White" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Row="2" HorizontalAlignment="Right" Foreground="White"  VerticalAlignment="Center">
+                                    <Run Text="时间:"/>
+                                    <Run Text="{Binding TimeSpan}"/>
+                                </TextBlock>
                             </Grid>
+                            <base:Interaction.Triggers>
+                                <base:EventTrigger EventName="IsVisibleChanged">
+                                    <base:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" CommandParameter="DeleteSelectImage"/>
+                                </base:EventTrigger>
+                            </base:Interaction.Triggers>
                         </GroupBox>
+
+                        <wpfcontrollib:FButton Style="{DynamicResource S.FButton.Style.MouseOverOpacity}"  ToolTip="删除"
+                                               Visibility="{Binding ElementName=cb,Path=IsChecked,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}"
+                                               Width="60" Height="60" CornerRadius="50" HorizontalAlignment="Right" VerticalAlignment="Top"
+                                               Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" CommandParameter="DeleteSelectImage"
+                                               FIcon="&#xe6f4;" FIconSize="25">
+                            <base:Interaction.Behaviors>
+                                <base:SelectListBoxItemElementBehavior/>
+                            </base:Interaction.Behaviors>
+                        </wpfcontrollib:FButton>
+
+                        <wpfcontrollib:FButton Style="{DynamicResource S.FButton.Style.MouseOverOpacity}"  ToolTip="设置缩略图" 
+                                               Visibility="{Binding ElementName=cb,Path=IsChecked,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}"
+                                               Width="120" Height="120" CornerRadius="60" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" CommandParameter="SetViewImage"
+                                               FIcon="&#xe72a;" FIconSize="65">
+                            <base:Interaction.Behaviors>
+                                <base:SelectListBoxItemElementBehavior/>
+                            </base:Interaction.Behaviors>
+                        </wpfcontrollib:FButton>
                     </Grid>
                 </DataTemplate>
             </ListBox.Resources>

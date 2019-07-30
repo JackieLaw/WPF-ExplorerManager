@@ -207,7 +207,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
 
             if (File.Exists(shootcutpath))
             {
-                movie.Image =EncodeImageToString(shootcutpath);
+                movie.Image = EncodeImageToString(shootcutpath);
 
                 File.Delete(shootcutpath);
             }
@@ -401,6 +401,14 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
 
 
             item.State = 1;
+        }
+
+
+        public async Task AddMovieImage(mbc_dv_movieimage image)
+        {
+            this._dbContext.mbc_dv_movieimages.Add(image);
+
+            await this._dbContext.SaveChangesAsync();
         }
     }
 }

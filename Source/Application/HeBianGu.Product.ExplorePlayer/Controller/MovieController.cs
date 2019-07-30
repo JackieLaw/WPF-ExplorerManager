@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace HeBianGu.Product.ExplorePlayer
 {
@@ -20,9 +21,20 @@ namespace HeBianGu.Product.ExplorePlayer
 
         TagRespository _tagRespository;
 
-        public MovieController(TagRespository tagRespository)
+        ClipBoardService _clipBoardService;
+
+        public MovieController(TagRespository tagRespository, ClipBoardService clipBoardService)
         {
             _tagRespository = tagRespository;
+
+            _clipBoardService = clipBoardService;
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                _clipBoardService.Register(Application.Current.MainWindow);
+            });
+
+
         }
         public async Task<IActionResult> Center()
         {
@@ -70,6 +82,50 @@ namespace HeBianGu.Product.ExplorePlayer
             });
 
             return View();
+        }
+
+
+        public async Task DeleteSelectImage()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                this.ViewModel.ImageCollection.Remove(this.ViewModel.SelectImage);
+            });
+
+        }
+
+        public async Task CheckEdittingChanged()
+        {
+            if (!this.ViewModel.IsEditting)
+            {
+                _clipBoardService.ClipBoardChanged = null;
+                return;
+
+            }
+
+            _clipBoardService.ClipBoardChanged = async () =>
+            {
+                //Todo  ：复制的图片 
+                BitmapSource bit = Clipboard.GetImage();
+
+                if (bit != null)
+                {
+
+                    mbc_dv_movieimage image = new mbc_dv_movieimage();
+
+                    image.MovieID = this.ViewModel.SeletItem.ID;
+
+                    image.Text = DateTime.Now.ToDateTimeString();
+
+                    image.TimeSpan = DateTime.Now.ToDateTimeString();
+
+                    image.Image = ImageService.BitmapSourceToString(bit);
+
+                    await this.Respository.AddMovieImage(image);
+
+                    this.ViewModel.ImageCollection.Insert(0, image);
+                }
+            };
         }
 
         public async Task SelectionFilter()
