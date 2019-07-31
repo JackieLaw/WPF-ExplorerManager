@@ -34,7 +34,11 @@
         <wpfcontrollib:TabLink DisplayName="电影浏览器"  Logo="&#xe69f;"  Controller="Movie" Action="Center">
             <wpfcontrollib:TabLink.LeftLink>
                 <wpfcontrollib:LinkAction DisplayName="选择案例"  Logo="&#xe69f;"  Controller="Movie" Action="Left"/>
-            </wpfcontrollib:TabLink.LeftLink> 
+            </wpfcontrollib:TabLink.LeftLink>
+            
+            <wpfcontrollib:TabLink.RightLink>
+                <wpfcontrollib:LinkAction DisplayName="编辑视频"  Logo="&#xe69f;" Controller="Movie" Action="Right"/>
+            </wpfcontrollib:TabLink.RightLink>
         </wpfcontrollib:TabLink>
 
         <wpfcontrollib:TabLink DisplayName="设置管理"  Logo="&#xe69f;" Controller="Setting" Action="Center"/> 

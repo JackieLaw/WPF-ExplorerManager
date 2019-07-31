@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:Tester"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--自定义资源引用-->
+                <ResourceDictionary Source="/HeBianGu.Base.WpfBase;component/Themes/HeBianGu.Threme.Default.xaml"/>
+                <ResourceDictionary Source="/HeBianGu.General.WpfControlLib;component/Themes/HeBianGu.Themes.Default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>  
+       
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

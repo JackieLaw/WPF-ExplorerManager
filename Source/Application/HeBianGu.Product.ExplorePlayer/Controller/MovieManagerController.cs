@@ -14,8 +14,13 @@ using System.Windows;
 namespace HeBianGu.Product.ExplorePlayer
 {
     [Route("MovieManager")]
-    class MovieManagerController : ExtendEntityBaseController<mbc_dv_movie, MovieManagerViewModel, MovieRespository, CaseRespository>
+    class MovieManagerController : EntityBaseController<mbc_dv_movie, MovieManagerViewModel, MovieRespository>
     {
+        CaseRespository _caseRespository;
+        public MovieManagerController(CaseRespository caseRespository)
+        {
+             _caseRespository= caseRespository;
+    }
 
         public override async Task<IActionResult> List()
         {
@@ -50,7 +55,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
         public async Task<IActionResult> Left()
         {
-            this.ViewModel.GroupObject = this.Extend.GetGroupObject().Result;
+            this.ViewModel.GroupObject = this._caseRespository.GetGroupObject().Result;
 
             return View();
         }

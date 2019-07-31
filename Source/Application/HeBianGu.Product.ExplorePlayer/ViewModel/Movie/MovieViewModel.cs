@@ -1,5 +1,6 @@
 ﻿using HeBianGu.Base.WpfBase;
 using HeBianGu.ExplorePlayer.Base.Model;
+using HeBianGu.ExplorePlayer.Respository.ViewModel;
 using HeBianGu.General.WpfControlLib;
 using HeBianGu.General.WpfMvc;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 namespace HeBianGu.Product.ExplorePlayer
 {
     [ViewModel("Movie")]
-    public class MovieViewModel : MvcEntityViewModelBase<mbc_dv_movie>
+    public class MovieViewModel : MvcEntityViewModelBase<MovieModelViewModel>
     {
 
         private mbc_dc_case _selectCase;
@@ -52,7 +53,6 @@ namespace HeBianGu.Product.ExplorePlayer
         }
 
 
-
         private mbc_dv_movieimage _selectImage;
         /// <summary> 说明  </summary>
         public mbc_dv_movieimage SelectImage
@@ -64,8 +64,6 @@ namespace HeBianGu.Product.ExplorePlayer
                 RaisePropertyChanged("SelectImage");
             }
         }
-
-
 
         private ObservableCollection<mbc_db_tagtype> _tagcollection = new ObservableCollection<mbc_db_tagtype>();
         /// <summary> 说明  </summary>
@@ -93,6 +91,19 @@ namespace HeBianGu.Product.ExplorePlayer
         }
 
 
+
+        private ObservableCollection<mbc_db_tagtype> _editSelectTag = new ObservableCollection<mbc_db_tagtype>();
+        /// <summary> 说明  </summary>
+        public ObservableCollection<mbc_db_tagtype> EditSelectTag
+        {
+            get { return _editSelectTag; }
+            set
+            {
+                _editSelectTag = value;
+                RaisePropertyChanged("EditSelectTag");
+            }
+        } 
+
         private bool _isEditting;
         /// <summary> 说明  </summary>
         public bool IsEditting
@@ -106,5 +117,10 @@ namespace HeBianGu.Product.ExplorePlayer
         }
 
     }
+
+
+
+
+
 
 }

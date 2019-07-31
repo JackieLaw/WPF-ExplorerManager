@@ -1,10 +1,12 @@
 ﻿using HeBianGu.Base.WpfBase;
 using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.Respository.Serice;
+using HeBianGu.ExplorePlayer.Respository.ViewModel;
 using HeBianGu.General.WpfControlLib;
 using HeBianGu.General.WpfMvc;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -16,18 +18,22 @@ using System.Windows.Media.Imaging;
 namespace HeBianGu.Product.ExplorePlayer
 {
     [Route("Movie")]
-    internal class MovieController : ExtendEntityBaseController<mbc_dv_movie, MovieViewModel, MovieRespository, CaseRespository>
+    internal class MovieController : Controller<MovieViewModel, MovieRespository>
     {
 
         TagRespository _tagRespository;
 
         ClipBoardService _clipBoardService;
 
-        public MovieController(TagRespository tagRespository, ClipBoardService clipBoardService)
+        CaseRespository _caseRespository;
+
+        public MovieController(TagRespository tagRespository, ClipBoardService clipBoardService, CaseRespository caseRespository)
         {
             _tagRespository = tagRespository;
 
             _clipBoardService = clipBoardService;
+
+            _caseRespository = caseRespository;
 
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -77,7 +83,8 @@ namespace HeBianGu.Product.ExplorePlayer
             {
                 foreach (var item in from)
                 {
-                    this.ViewModel.Collection.Add(item);
+                    MovieModelViewModel viewModel = new MovieModelViewModel(item);
+                    this.ViewModel.Collection.Add(viewModel);
                 }
             });
 
@@ -91,8 +98,70 @@ namespace HeBianGu.Product.ExplorePlayer
             {
                 this.ViewModel.ImageCollection.Remove(this.ViewModel.SelectImage);
             });
+        }
+
+
+        public async Task SelectionTagEdit()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (this.ViewModel.SeletItem == null) return;
+
+                if (this.ViewModel.EditSelectTag == null || this.ViewModel.EditSelectTag.Count == 0) return;
+
+                this.ViewModel.SeletItem.TagTypes = this.ViewModel.EditSelectTag?.Select(l => l.Name).Aggregate((l, k) => l + "," + k);
+            });
 
         }
+
+        public async Task SeletItemChanged()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (this.ViewModel.SeletItem == null) return;
+
+                var from = this.ViewModel.SeletItem.TagTypes?.Split(',').ToList();
+
+
+                if (from == null)
+                {
+                    this.ViewModel.EditSelectTag = new ObservableCollection<mbc_db_tagtype>();
+                    return;
+                }
+
+                var result = this.ViewModel.TagCollection.Where(l => from.Exists(k => k == l.Name));
+
+                this.ViewModel.EditSelectTag.Clear();
+
+
+                ObservableCollection<mbc_db_tagtype> collection = new ObservableCollection<mbc_db_tagtype>();
+
+                foreach (var item in result)
+                {
+                    collection.Add(item);
+                }
+
+                this.ViewModel.EditSelectTag = collection;
+            });
+
+        }
+
+        public async Task UpdateSelect()
+        {
+            string message;
+
+            if (!this.ModelState(this.ViewModel.SeletItem.Model, out message))
+            {
+                MessageService.ShowSnackMessage(message);
+                return;
+            }
+
+            await this.Respository.UpdateAsync(this.ViewModel.SeletItem.Model);
+
+            MessageService.ShowSnackMessage("保存成功！");
+        }
+
+
 
         public async Task CheckEdittingChanged()
         {
@@ -155,11 +224,12 @@ namespace HeBianGu.Product.ExplorePlayer
 
             this.Invoke(() =>
             {
-                this.ViewModel.Collection.Clear();
+                this.ViewModel.Collection.Clear(); 
 
-                foreach (var item in match)
+                foreach (var item in from)
                 {
-                    this.ViewModel.Collection.Add(item);
+                    MovieModelViewModel viewModel = new MovieModelViewModel(item);
+                    this.ViewModel.Collection.Add(viewModel);
                 }
             });
         }
@@ -170,8 +240,13 @@ namespace HeBianGu.Product.ExplorePlayer
 
             this.ViewModel.GroupObject.Clear();
 
-            this.ViewModel.GroupObject = await this.Extend.GetGroupObject();
+            this.ViewModel.GroupObject = await this._caseRespository.GetGroupObject();
 
+            return View();
+        }
+
+        public async Task<IActionResult> Right()
+        {
             return View();
         }
 
@@ -212,7 +287,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
             try
             {
-                await this.Respository.ConvertMovie(this.ViewModel.SeletItem);
+                await this.Respository.ConvertMovie(this.ViewModel.SeletItem.Model);
             }
             catch (Exception ex)
             {
@@ -262,7 +337,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
             if (this.ViewModel.SeletItem == null) return await List();
 
-            await this.Respository.DeleteAsync(this.ViewModel.SeletItem);
+            await this.Respository.DeleteAsync(this.ViewModel.SeletItem.Model.ID);
 
             this.ViewModel.Collection.Remove(this.ViewModel.SeletItem);
 
@@ -279,13 +354,13 @@ namespace HeBianGu.Product.ExplorePlayer
         {
             string message;
 
-            if (!this.ModelState(this.ViewModel.SeletItem, out message))
+            if (!this.ModelState(this.ViewModel.SeletItem.Model, out message))
             {
                 MessageService.ShowSnackMessage(message);
                 return await Edit();
             }
 
-            await this.Respository.UpdateAsync(this.ViewModel.SeletItem);
+            await this.Respository.UpdateAsync(this.ViewModel.SeletItem.Model);
 
             return await List();
         }

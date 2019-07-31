@@ -123,6 +123,9 @@
     <Compile Include="View\Movie\ListControl.xaml.cs">
       <DependentUpon>ListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Movie\RightControl.xaml.cs">
+      <DependentUpon>RightControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Setting\CenterControl.xaml.cs">
       <DependentUpon>CenterControl.xaml</DependentUpon>
     </Compile>
@@ -223,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Movie\RightControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Setting\CenterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -297,6 +304,10 @@
     <ProjectReference Include="..\..\DomainLayer\HeBianGu.ExplorePlayer.Respository.Serice\HeBianGu.ExplorePlayer.Respository.Serice.csproj">
       <Project>{25f4adcf-74b3-4208-8320-9b0ed007a1cf}</Project>
       <Name>HeBianGu.ExplorePlayer.Respository.Serice</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DomainLayer\HeBianGu.ExplorePlayer.Respository.ViewModel\HeBianGu.ExplorePlayer.Respository.ViewModel.csproj">
+      <Project>{732F4193-8958-4262-9A01-C2A21B67D732}</Project>
+      <Name>HeBianGu.ExplorePlayer.Respository.ViewModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\GeneralLayer\HeBianGu.ExplorePlayer.General.SqliteDataBase\HeBianGu.ExplorePlayer.General.SqliteDataBase.csproj">
       <Project>{1AE54030-A1F6-4106-97C9-A603BB0F2443}</Project>

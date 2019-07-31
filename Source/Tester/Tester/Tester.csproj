@@ -98,6 +98,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\General\HeBianGu.General.WpfControlLib\HeBianGu.General.WpfControlLib.csproj">
+      <Project>{b49dc15f-b43c-4306-adf4-8fa6f5df7f84}</Project>
+      <Name>HeBianGu.General.WpfControlLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BaseLayer\HeBianGu.Product.ExplorePlayer.Base.Model\HeBianGu.ExplorePlayer.Base.Model.csproj">
       <Project>{B7B2B686-2181-4119-A08B-6D5C79D3D30D}</Project>
       <Name>HeBianGu.ExplorePlayer.Base.Model</Name>

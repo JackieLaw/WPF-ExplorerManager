@@ -4,9 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tester"
+        xmlns:wpfcontrollib="clr-namespace:HeBianGu.General.WpfControlLib;assembly=HeBianGu.General.WpfControlLib"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <ItemsControl>
+            <wpfcontrollib:FButton Style="{StaticResource S.FButton.Style.Default}" Content="第一个"/>
+            
+            <wpfcontrollib:FButton Style="{StaticResource S.FButton.Style.Default}" Content="第一个"/>
+
+            <wpfcontrollib:FButton Style="{StaticResource S.FButton.Style.Default}" Content="第一个"/>
+
+            <wpfcontrollib:FButton Style="{StaticResource S.FButton.Style.Default}" Content="第一个"/>
+
+            <wpfcontrollib:FButton Style="{StaticResource S.FButton.Style.Default}" Content="第一个"/>
+            
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
     </Grid>
 </Window>
