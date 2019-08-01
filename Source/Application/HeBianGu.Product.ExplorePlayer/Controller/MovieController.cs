@@ -100,6 +100,20 @@ namespace HeBianGu.Product.ExplorePlayer
             });
         }
 
+        public async Task SetViewImage()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                //this.ViewModel.ImageCollection.Remove(this.ViewModel.SelectImage);
+
+                this.ViewModel.SeletItem.Image = this.ViewModel.SelectImage?.Image;
+
+                
+            });
+
+            await this.Respository.SaveAsync();
+        }
+
 
         public async Task SelectionTagEdit()
         {
