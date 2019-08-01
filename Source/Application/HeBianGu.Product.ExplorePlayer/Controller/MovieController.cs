@@ -114,6 +114,44 @@ namespace HeBianGu.Product.ExplorePlayer
 
         }
 
+        public async Task OrderBy()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (this.ViewModel.OrderBy == "按名称排序")
+                {
+                    this.ViewModel.Collection.Sort(l => l.Name, this.ViewModel.Desc);
+                }
+                else if (this.ViewModel.OrderBy == "按大小")
+                {
+                    this.ViewModel.Collection.Sort(l => l.Size, this.ViewModel.Desc);
+                }
+                else if (this.ViewModel.OrderBy == "按评分")
+                {
+                    this.ViewModel.Collection.Sort(l => l.Score, this.ViewModel.Desc);
+                }
+                else if (this.ViewModel.OrderBy == "按总时间")
+                {
+                    this.ViewModel.Collection.Sort(l => l.Duration, this.ViewModel.Desc);
+                }
+                else if (this.ViewModel.OrderBy == "按播放次数")
+                {
+                    this.ViewModel.Collection.Sort(l => l.PlayCount, this.ViewModel.Desc);
+                }
+                else if (this.ViewModel.OrderBy == "按清晰度")
+                {
+                    this.ViewModel.Collection.Sort(l => l.ArticulationType, this.ViewModel.Desc);
+                }
+                else if (this.ViewModel.OrderBy == "按缩略图")
+                {
+                    this.ViewModel.Collection.Sort(l => l.Image, this.ViewModel.Desc);
+                }
+            });
+
+
+
+        }
+
         public async Task SeletItemChanged()
         {
             Application.Current.Dispatcher.Invoke(() =>
@@ -224,7 +262,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
             this.Invoke(() =>
             {
-                this.ViewModel.Collection.Clear(); 
+                this.ViewModel.Collection.Clear();
 
                 foreach (var item in from)
                 {

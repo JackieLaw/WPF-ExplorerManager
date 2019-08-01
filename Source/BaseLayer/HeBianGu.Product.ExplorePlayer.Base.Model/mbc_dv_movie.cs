@@ -10,7 +10,6 @@ namespace HeBianGu.ExplorePlayer.Base.Model
          
         [Display(Name = "资源类型")]
         public string MediaType { get; set; }
-         
 
         [Display(Name = "所属案例")]
         public string CaseType { get; set; }
@@ -30,7 +29,6 @@ namespace HeBianGu.ExplorePlayer.Base.Model
          
         [Display(Name = "清晰度")]
         public string ArticulationType { get; set; }
-
 
         [Display(Name = "文件大小")]
         public long Size { get; set; }

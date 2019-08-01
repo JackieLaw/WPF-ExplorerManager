@@ -15,13 +15,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <wpfcontrollib:FButton Content="重新加载" HorizontalAlignment="Left" Margin="10,0" 
                                Command="{Binding GoToActionCommand}" CommandParameter="Refresh"/>
 
-        <ListBox Grid.Row="2" ItemsSource="{Binding Collection,Mode=TwoWay}"  BorderBrush="Transparent" SelectedItem="{Binding SeletItem}">
+        <ListBox Grid.Row="3" ItemsSource="{Binding Collection,Mode=TwoWay}"  BorderBrush="Transparent" SelectedItem="{Binding SeletItem}">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type vm:MovieModelViewModel}">
                     <GroupBox Style="{DynamicResource S.GroupBox.Single}" Background="{DynamicResource S.Brush.Dark.10}" HorizontalAlignment="Center" Height="500" Width="450">
@@ -119,6 +120,39 @@
             </base:Interaction.Triggers>
         </ListBox>
 
+
+        <ListBox Grid.Column="0" Grid.Row="2" BorderBrush="Transparent" SelectedItem="{Binding OrderBy}" VerticalAlignment="Center"> 
+            <ListBox.Resources>
+                <DataTemplate DataType="{x:Type system:String}">
+                    <Grid >
+                        <TextBlock x:Name="txt" Text="{Binding}" Grid.Row="1" Margin="0,0,10,0"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=IsSelected}" Value="true">
+                            <Setter Property="Foreground" Value="{DynamicResource S.brush.Accent}" TargetName="txt"/>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ListBox.Resources>
+
+            <system:String>按名称排序</system:String>
+            <system:String>按评分</system:String>
+            <system:String>按大小</system:String>
+            <system:String>按总时间</system:String>
+            <system:String>按播放次数</system:String>
+            <system:String>按清晰度</system:String>
+            <system:String>按缩略图</system:String>
+       
+            <base:Interaction.Triggers>
+                <base:EventTrigger EventName="SelectionChanged">
+                    <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="OrderBy"/>
+                </base:EventTrigger>
+            </base:Interaction.Triggers>
+        </ListBox>
+
+        <CheckBox Content="是否倒序" IsChecked="{Binding Desc}"  Grid.Row="2" HorizontalAlignment="Right" Margin="10,0"/>
 
         <ListBox Grid.Column="0" Grid.Row="1" Style="{DynamicResource S.ListBox.WrapPanelSelecter.Default}" 
                  ItemsSource="{Binding TagCollection}" SelectionMode="Multiple" MinHeight="50" 

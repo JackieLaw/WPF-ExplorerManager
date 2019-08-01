@@ -88,9 +88,7 @@ namespace HeBianGu.Product.ExplorePlayer
                 _selectTag = value;
                 RaisePropertyChanged("SelectTag");
             }
-        }
-
-
+        } 
 
         private ObservableCollection<mbc_db_tagtype> _editSelectTag = new ObservableCollection<mbc_db_tagtype>();
         /// <summary> 说明  </summary>
@@ -115,6 +113,33 @@ namespace HeBianGu.Product.ExplorePlayer
                 RaisePropertyChanged("IsEditting");
             }
         }
+
+
+        private string _orderBy;
+        /// <summary> 说明  </summary>
+        public string OrderBy
+        {
+            get { return _orderBy; }
+            set
+            {
+                _orderBy = value;
+                RaisePropertyChanged("OrderBy");
+            }
+        }
+
+
+        private bool _desc;
+        /// <summary> 说明  </summary>
+        public bool Desc
+        {
+            get { return _desc; }
+            set
+            {
+                _desc = value;
+                RaisePropertyChanged("Value");
+            }
+        }
+
 
     }
 
