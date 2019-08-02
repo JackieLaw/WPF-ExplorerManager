@@ -39,6 +39,10 @@
             <wpfcontrollib:TabLink.RightLink>
                 <wpfcontrollib:LinkAction DisplayName="编辑视频"  Logo="&#xe69f;" Controller="Movie" Action="Right"/>
             </wpfcontrollib:TabLink.RightLink>
+
+            <!--<wpfcontrollib:TabLink.TopLink>
+                <wpfcontrollib:LinkAction DisplayName="视频预览"  Logo="&#xe69f;" Controller="Movie" Action="Detial"/>
+            </wpfcontrollib:TabLink.TopLink>-->
         </wpfcontrollib:TabLink>
 
         <wpfcontrollib:TabLink DisplayName="设置管理"  Logo="&#xe69f;" Controller="Setting" Action="Center"/> 

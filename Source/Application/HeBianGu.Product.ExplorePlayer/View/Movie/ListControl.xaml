@@ -19,13 +19,16 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <wpfcontrollib:FButton Content="重新加载" HorizontalAlignment="Left" Margin="10,0" 
-                               Command="{Binding GoToActionCommand}" CommandParameter="Refresh"/>
+        <wpfcontrollib:FButton Content="加载案例视频" HorizontalAlignment="Left" Margin="10,0" 
+                               Command="{Binding GoToActionCommand}" CommandParameter="List"/>
 
         <ListBox Grid.Row="3" ItemsSource="{Binding Collection,Mode=TwoWay}"  BorderBrush="Transparent" SelectedItem="{Binding SeletItem}">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type vm:MovieModelViewModel}">
-                    <GroupBox Style="{DynamicResource S.GroupBox.Single}" Background="{DynamicResource S.Brush.Dark.10}" HorizontalAlignment="Center" Height="500" Width="450">
+                    <GroupBox Style="{DynamicResource S.GroupBox.Single}" 
+                              Visibility="{Binding Visible,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}" 
+                              Background="{DynamicResource S.Brush.Dark.10}" 
+                              HorizontalAlignment="Center" Height="500" Width="461">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -35,7 +38,7 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
 
-                            <Image  x:Name="image"  Grid.Row="0" Grid.RowSpan="3" Visibility="Collapsed" Source="/HeBianGu.Product.ExplorePlayer;component/Resources/default.jpeg"/>
+                            <Image  x:Name="image"  Grid.Row="0" Grid.RowSpan="3" Visibility="Collapsed" Source="/HeBianGu.Product.ExplorePlayer;component/Resources/null.jpg"/>
 
                             <Grid  Grid.Row="0" Grid.RowSpan="3" >
                                 <Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>
@@ -46,7 +49,7 @@
                             </Grid>
 
                             <TextBlock TextTrimming="CharacterEllipsis"  Style="{DynamicResource S.TextBlock.FontSize.18}"  FontSize="16" 
-                                       ToolTip="{Binding TagTypes}"  Grid.Row="0" VerticalAlignment="Center">
+                                       ToolTip="{Binding Url}"  Grid.Row="0" VerticalAlignment="Center">
                                 <Run Text="{Binding Name}" Foreground="{DynamicResource S.Brush.Accent}"  FontWeight="Bold"/>
                             </TextBlock>
 
@@ -63,9 +66,9 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Grid.Row="4" >
 
 
-                                <wpfcontrollib:FButton Content="彻底删除" Width="80" FontSize="16"  CommandParameter="Delete" 
+                                <wpfcontrollib:FButton Content="彻底删除" Width="80" FontSize="16"  CommandParameter="DeleteDeep" 
                                                        Foreground="{DynamicResource S.Brush.White.Notice}"
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.GoToActionCommand}" 
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
                                                        Grid.Row="3"  Style="{DynamicResource S.FButton.Style.Link}">
                                     <base:Interaction.Behaviors>
                                         <base:SelectListBoxItemElementBehavior/>
@@ -74,7 +77,7 @@
 
 
                                 <wpfcontrollib:FButton Content="移除" Width="50"  FontSize="16" CommandParameter="Remove" Foreground="{DynamicResource S.Brush.White.Notice}"
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.GoToActionCommand}" 
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
                                                        Style="{DynamicResource S.FButton.Style.Link}">
                                     <base:Interaction.Behaviors>
                                         <base:SelectListBoxItemElementBehavior/>
@@ -91,8 +94,8 @@
 
 
                                 <wpfcontrollib:FButton Content="预览" Width="50" FontSize="16" Foreground="{DynamicResource S.Brush.White.Notice}"
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.GoToActionCommand}" 
-                                                       Grid.Row="3" Style="{DynamicResource S.FButton.Style.Link}" CommandParameter="Detial">
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
+                                                       Grid.Row="3" Style="{DynamicResource S.FButton.Style.Link}" CommandParameter="Detial">  
                                     <base:Interaction.Behaviors>
                                         <base:SelectListBoxItemElementBehavior/>
                                     </base:Interaction.Behaviors>
@@ -109,7 +112,7 @@
             </ListBox.Resources>
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid IsItemsHost="True" Columns="4"/>
+                    <WrapPanel IsItemsHost="True"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             
@@ -118,41 +121,49 @@
                     <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="SeletItemChanged"/>
                 </base:EventTrigger>
             </base:Interaction.Triggers>
-        </ListBox>
+        </ListBox> 
 
+        <Grid  Grid.Row="2" >
 
-        <ListBox Grid.Column="0" Grid.Row="2" BorderBrush="Transparent" SelectedItem="{Binding OrderBy}" VerticalAlignment="Center"> 
-            <ListBox.Resources>
-                <DataTemplate DataType="{x:Type system:String}">
-                    <Grid >
-                        <TextBlock x:Name="txt" Text="{Binding}" Grid.Row="1" Margin="0,0,10,0"
-                                   HorizontalAlignment="Center" 
+            <TextBlock Text="选择排序：" Style="{StaticResource S.TextBlock.FontSize.16}" HorizontalAlignment="Left"/>
+
+            <ListBox  BorderBrush="Transparent" SelectedItem="{Binding OrderBy}" Margin="80,0,0,0" SelectedIndex="0" VerticalAlignment="Center">
+                <ListBox.Resources>
+                    <DataTemplate DataType="{x:Type system:String}">
+                        <Grid >
+                            <TextBlock x:Name="txt" Text="{Binding}" Grid.Row="1" Margin="0,0,10,0"
+                                   HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
-                    </Grid>
-                    <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=IsSelected}" Value="true">
-                            <Setter Property="Foreground" Value="{DynamicResource S.brush.Accent}" TargetName="txt"/>
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
-                </DataTemplate>
-            </ListBox.Resources>
+                        </Grid>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=IsSelected}" Value="true">
+                                <Setter Property="Foreground" Value="{DynamicResource S.Brush.Accent}" TargetName="txt"/>
+                                <Setter Property="FontWeight" Value="Bold" TargetName="txt"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ListBox.Resources>
 
-            <system:String>按名称排序</system:String>
-            <system:String>按评分</system:String>
-            <system:String>按大小</system:String>
-            <system:String>按总时间</system:String>
-            <system:String>按播放次数</system:String>
-            <system:String>按清晰度</system:String>
-            <system:String>按缩略图</system:String>
-       
-            <base:Interaction.Triggers>
-                <base:EventTrigger EventName="SelectionChanged">
-                    <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="OrderBy"/>
-                </base:EventTrigger>
-            </base:Interaction.Triggers>
-        </ListBox>
+                <system:String>按名称排序</system:String>
+                <system:String>按评分</system:String>
+                <system:String>按大小</system:String>
+                <system:String>按总时间</system:String>
+                <system:String>按播放次数</system:String>
+                <system:String>按清晰度</system:String>
+                <system:String>按缩略图</system:String>
 
-        <CheckBox Content="是否倒序" IsChecked="{Binding Desc}"  Grid.Row="2" HorizontalAlignment="Right" Margin="10,0"/>
+                <base:Interaction.Triggers>
+                    <base:EventTrigger EventName="SelectionChanged">
+                        <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="OrderBy"/>
+                    </base:EventTrigger>
+                </base:Interaction.Triggers>
+            </ListBox>
+
+            <CheckBox Content="是否倒序" IsChecked="{Binding Desc}"
+                  VerticalAlignment="Center" 
+                  HorizontalAlignment="Right" 
+                  Margin="10,0"/>
+        </Grid>
 
         <ListBox Grid.Column="0" Grid.Row="1" Style="{DynamicResource S.ListBox.WrapPanelSelecter.Default}" 
                  ItemsSource="{Binding TagCollection}" SelectionMode="Multiple" MinHeight="50" 

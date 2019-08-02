@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HeBianGu.Product.ExplorePlayer.View.Movie"
-             mc:Ignorable="d"  
+             mc:Ignorable="d"  Background="{DynamicResource S.Brush.TextBackground.Default}"
              xmlns:base="clr-namespace:HeBianGu.Base.WpfBase;assembly=HeBianGu.Base.WpfBase"
-             xmlns:model="clr-namespace:HeBianGu.ExplorePlayer.Base.Model;assembly=HeBianGu.ExplorePlayer.Base.Model"
-             xmlns:wpfcontrollib="clr-namespace:HeBianGu.General.WpfControlLib;assembly=HeBianGu.General.WpfControlLib"
+             xmlns:model="clr-namespace:HeBianGu.ExplorePlayer.Base.Model;assembly=HeBianGu.ExplorePlayer.Base.Model" 
+             xmlns:wpfcontrollib="clr-namespace:HeBianGu.General.WpfControlLib;assembly=HeBianGu.General.WpfControlLib" MinWidth="1000"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,11 +15,12 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock VerticalAlignment="Center" Margin="10,0">
+        <TextBlock VerticalAlignment="Center" Margin="10,0" ToolTip="{Binding SeletItem.Url}">
             <Run Text="电影名称：" FontWeight="Bold"/>
             <Run Text="{Binding SeletItem.Name}"/>
         </TextBlock>
-
+ 
+  
         <TextBlock Style="{StaticResource S.TextBlock.FontSize.18}" Foreground="{DynamicResource S.Brush.Red.Notice}" FontSize="18"
                        Visibility="{Binding ElementName=cb,Path=IsChecked,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}"
                        HorizontalAlignment="Center" Text="提示！开始监视剪贴板，复制或剪切一张图片会保存到预览列表中！">
@@ -43,11 +44,23 @@
                 </base:Interaction.Triggers>
             </wpfcontrollib:BulletCheckBox>
 
-
-            <wpfcontrollib:FButton Content="关闭" Width="50"  CommandParameter="List"
-                               Command="{Binding GoToActionCommand}" Style="{DynamicResource S.FButton.Style.Link}">
-               
+            <wpfcontrollib:FButton Content="播放" Width="50"  Style="{DynamicResource S.FButton.Style.Link}" ToolTip="{Binding SeletItem.Url}"
+                                 Command="{Binding DoActionCommand}"  CommandParameter="Play">
             </wpfcontrollib:FButton>
+
+
+            <wpfcontrollib:FButton Content="设置" Width="50"  Command="{x:Static wpfcontrollib:DrawerHost.OpenDrawerCommand}"
+                               CommandParameter="{x:Static Dock.Right}" Style="{DynamicResource S.FButton.Style.Link}">
+
+            </wpfcontrollib:FButton>
+
+
+            <wpfcontrollib:FButton Content="关闭" Width="50" 
+                               Command="{x:Static wpfcontrollib:MessageService.CloseLayer}"
+                               Style="{DynamicResource S.FButton.Style.Link}">
+            </wpfcontrollib:FButton>
+
+            
         </StackPanel>
 
         <ListBox Grid.Row="1" ItemsSource="{Binding ImageCollection,Mode=TwoWay}" SelectedItem="{Binding SelectImage}">

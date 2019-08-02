@@ -23,13 +23,13 @@
                                Command="{x:Static wpfcontrollib:DrawerHost.OpenDrawerCommand}"
                                CommandParameter="{x:Static Dock.Left}"/>
 
-        <TextBlock Style="{DynamicResource S.TextBlock.FontSize.16}">
+        <TextBlock Style="{DynamicResource S.TextBlock.FontSize.18}" Foreground="{DynamicResource S.Brush.Accent}">
             <Run Text="案例路径：" FontWeight="Bold"/>
             <Run Text="{Binding SelectCase.BaseUrl}"/>
         </TextBlock>
 
         <wpfcontrollib:FButton HorizontalAlignment="Right" Style="{StaticResource S.FButton.Style.Transparent}" 
-                               FIcon="&#xe616;" ToolTip="属性列表"  Margin="10,0"
+                               FIcon="&#xe616;" ToolTip="编辑视频"  Margin="10,0"
                                Command="{x:Static wpfcontrollib:DrawerHost.OpenDrawerCommand}"
                                CommandParameter="{x:Static Dock.Right}"/>
 

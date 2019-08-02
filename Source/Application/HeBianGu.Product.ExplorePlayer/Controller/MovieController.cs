@@ -7,6 +7,7 @@ using HeBianGu.General.WpfMvc;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -47,6 +48,8 @@ namespace HeBianGu.Product.ExplorePlayer
             return View();
         }
 
+
+        
         public async Task<IActionResult> List()
         {
             var tags = _tagRespository.GetListAsync()?.Result;
@@ -64,7 +67,19 @@ namespace HeBianGu.Product.ExplorePlayer
 
             if (this.ViewModel.SelectCase == null)
             {
-                return View();
+                var cases= await this._caseRespository.GetListAsync();
+
+                var select= cases.FirstOrDefault();
+
+                if(select==null)
+                {
+
+                    return View();
+                }
+                else
+                {
+                    this.ViewModel.SelectCase = select;
+                } 
             }
 
             var from = this.Respository.GetListAsync(l => l.CaseType == this.ViewModel.SelectCase.ID).Result;
@@ -108,7 +123,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
                 this.ViewModel.SeletItem.Image = this.ViewModel.SelectImage?.Image;
 
-                
+
             });
 
             await this.Respository.SaveAsync();
@@ -214,6 +229,16 @@ namespace HeBianGu.Product.ExplorePlayer
         }
 
 
+        public async Task Play()
+        {
+            string file = this.ViewModel.SeletItem?.Url;
+
+            if(File.Exists(file))
+            {
+                Process.Start(file);
+            }
+        }
+
 
         public async Task CheckEdittingChanged()
         {
@@ -263,27 +288,14 @@ namespace HeBianGu.Product.ExplorePlayer
 
                  if (string.IsNullOrEmpty(l.TagTypes)) return false;
 
-                 //return l.TagTypes.Trim().Split(',').ToList().Exists(m => tags.Exists(k => k.Name == m));
-
-
                  return tags.TrueForAll(k => l.TagTypes.Trim().Split(',').ToList().Exists(m => m == k.Name));
 
              };
 
-            var from = await this.Respository.GetListAsync(l => l.CaseType == this.ViewModel.SelectCase.ID);
-
-            var match = from.Where(expression);
-
-            this.Invoke(() =>
+            foreach (var item in this.ViewModel.Collection)
             {
-                this.ViewModel.Collection.Clear();
-
-                foreach (var item in from)
-                {
-                    MovieModelViewModel viewModel = new MovieModelViewModel(item);
-                    this.ViewModel.Collection.Add(viewModel);
-                }
-            });
+                item.Visible = expression(item.Model);
+            }
         }
 
 
@@ -350,7 +362,8 @@ namespace HeBianGu.Product.ExplorePlayer
             return await List();
         }
 
-        public async Task<IActionResult> Detial()
+
+        public async Task Detial()
         {
             string id = this.ViewModel.SeletItem?.ID;
 
@@ -359,7 +372,7 @@ namespace HeBianGu.Product.ExplorePlayer
             if (model == null)
             {
                 MessageService.ShowNotifyMessage("没有生成预览图，请先生成预览图！");
-                return View();
+                return;
             }
 
             Application.Current.Dispatcher.Invoke(() =>
@@ -372,29 +385,44 @@ namespace HeBianGu.Product.ExplorePlayer
                 }
             });
 
+            var result = View();
 
-            return View();
+
+
+            //ILinkActionBase link = new LinkAction();
+            //link.Controller = "Movie";
+            //link.Action = "Detial";
+
+            MessageService.ShowWithLayer(result);
         }
 
-        public async Task<IActionResult> Delete()
+        public async Task DeleteDeep()
         {
+            if (this.ViewModel.SeletItem == null) return;
 
-            MessageService.ShowSnackMessage("暂时不开放此功能！");
+            var result = await MessageService.ShowResultMessge("确定要彻底删除文件?");
 
-            return View();
+            if (result)
+            {
+                if (File.Exists(this.ViewModel.SeletItem.Url))
+                {
+                    File.Delete(this.ViewModel.SeletItem.Url);
+
+                    await this.Remove();
+
+                    MessageService.ShowSnackMessage("文件已删除：" + this.ViewModel.SeletItem.Url);
+                }
+            }
         }
 
-        public async Task<IActionResult> Remove()
+        public async Task Remove()
         {
 
-            if (this.ViewModel.SeletItem == null) return await List();
+            if (this.ViewModel.SeletItem == null) return;
 
             await this.Respository.DeleteAsync(this.ViewModel.SeletItem.Model.ID);
 
-            this.ViewModel.Collection.Remove(this.ViewModel.SeletItem);
-
-
-            return await List();
+            this.Invoke(() => this.ViewModel.Collection.Remove(this.ViewModel.SeletItem));
         }
 
         public async Task<IActionResult> Edit()
