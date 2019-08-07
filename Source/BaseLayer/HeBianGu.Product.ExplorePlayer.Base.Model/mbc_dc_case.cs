@@ -3,7 +3,7 @@
 namespace HeBianGu.ExplorePlayer.Base.Model
 {
 
-    public class mbc_dc_case : StringEntityBase
+    public class mbc_dc_case : mbc_db_modelbase
     {
         [Required] 
         [Display(Name = "案例名称")]

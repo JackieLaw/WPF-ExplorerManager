@@ -63,8 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Service\DataContextService.cs" />
-    <Compile Include="Respository\IRepository.cs" />
-    <Compile Include="Respository\RepositoryBase.cs" />
     <Compile Include="Provider\SeedingDataInitializer.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,9 +74,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.WpfBase\HeBianGu.Base.WpfBase.csproj">
-      <Project>{435feb82-599f-48e3-8891-755acf8e4117}</Project>
-      <Name>HeBianGu.Base.WpfBase</Name>
+    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.Interface\HeBianGu.Base.Interface.csproj">
+      <Project>{A1534E11-D751-4305-B065-4B08DD0C519B}</Project>
+      <Name>HeBianGu.Base.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\BaseLayer\HeBianGu.Product.ExplorePlayer.Base.Model\HeBianGu.ExplorePlayer.Base.Model.csproj">
       <Project>{B7B2B686-2181-4119-A08B-6D5C79D3D30D}</Project>

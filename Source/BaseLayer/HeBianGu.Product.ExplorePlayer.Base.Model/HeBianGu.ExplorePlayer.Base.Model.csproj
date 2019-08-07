@@ -41,12 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\EntityBase.cs" />
     <Compile Include="mbc_db_areatype.cs" />
     <Compile Include="mbc_db_articulationtype.cs" />
     <Compile Include="mbc_db_extendtype.cs" />
     <Compile Include="mbc_db_fromtype.cs" />
     <Compile Include="mbc_db_mediatype.cs" />
+    <Compile Include="mbc_db_modelbase.cs" />
     <Compile Include="mbc_db_tagtype.cs" />
     <Compile Include="mbc_db_viptype.cs" />
     <Compile Include="mbc_dc_case.cs" />
@@ -55,6 +55,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.Interface\HeBianGu.Base.Interface.csproj">
+      <Project>{a1534e11-d751-4305-b065-4b08dd0c519b}</Project>
+      <Name>HeBianGu.Base.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.WpfBase\HeBianGu.Base.WpfBase.csproj">
       <Project>{435FEB82-599F-48E3-8891-755ACF8E4117}</Project>
       <Name>HeBianGu.Base.WpfBase</Name>

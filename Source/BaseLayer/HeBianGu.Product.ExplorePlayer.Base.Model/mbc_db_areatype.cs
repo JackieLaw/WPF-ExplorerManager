@@ -3,7 +3,7 @@
 namespace HeBianGu.ExplorePlayer.Base.Model
 {
 
-    public class mbc_db_areatype : StringEntityBase
+    public class mbc_db_areatype : mbc_db_modelbase
     {
         [Display(Name = "类型名称")]
         public string Name { get; set; } 

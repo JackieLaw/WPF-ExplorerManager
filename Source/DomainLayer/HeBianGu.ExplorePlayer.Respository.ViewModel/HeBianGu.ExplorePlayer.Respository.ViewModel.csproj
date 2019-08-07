@@ -45,6 +45,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.Interface\HeBianGu.Base.Interface.csproj">
+      <Project>{a1534e11-d751-4305-b065-4b08dd0c519b}</Project>
+      <Name>HeBianGu.Base.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.WpfBase\HeBianGu.Base.WpfBase.csproj">
       <Project>{435FEB82-599F-48E3-8891-755ACF8E4117}</Project>
       <Name>HeBianGu.Base.WpfBase</Name>
