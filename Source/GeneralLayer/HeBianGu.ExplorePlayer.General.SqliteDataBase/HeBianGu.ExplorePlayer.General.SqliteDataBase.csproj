@@ -74,9 +74,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.Interface\HeBianGu.Base.Interface.csproj">
-      <Project>{A1534E11-D751-4305-B065-4B08DD0C519B}</Project>
-      <Name>HeBianGu.Base.Interface</Name>
+    <ProjectReference Include="..\..\..\..\.NetFrameWork-CommonBase\Source\GeneralLayer\HeBianGu.Common.PublicTool\HeBianGu.Common.PublicTool.csproj">
+      <Project>{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}</Project>
+      <Name>HeBianGu.Common.PublicTool</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\BaseLayer\HeBianGu.Product.ExplorePlayer.Base.Model\HeBianGu.ExplorePlayer.Base.Model.csproj">
       <Project>{B7B2B686-2181-4119-A08B-6D5C79D3D30D}</Project>

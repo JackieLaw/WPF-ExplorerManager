@@ -1,4 +1,4 @@
-﻿using HeBianGu.Base.Interface;
+﻿using HeBianGu.Common.DataBase;
 using HeBianGu.ExplorePlayer.Base.Model;
 using System;
 using System.Collections.Generic;

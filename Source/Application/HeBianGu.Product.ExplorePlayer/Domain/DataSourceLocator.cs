@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HeBianGu.Base.Interface;
+using HeBianGu.Common.PublicTool;
 using HeBianGu.Base.WpfBase;
 using HeBianGu.ExplorePlayer.General.SqliteDataBase;
 using HeBianGu.ExplorePlayer.Respository.Serice;

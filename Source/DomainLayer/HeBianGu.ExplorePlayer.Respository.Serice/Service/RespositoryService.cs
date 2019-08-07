@@ -1,5 +1,5 @@
 ﻿
-using HeBianGu.Base.Interface;
+using HeBianGu.Common.PublicTool;
 using System;
 using System.Collections.Generic;
 using System.Linq;

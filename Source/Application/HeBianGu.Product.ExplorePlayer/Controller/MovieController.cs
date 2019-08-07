@@ -1,5 +1,5 @@
-﻿using HeBianGu.Base.Interface;
-using HeBianGu.Base.WpfBase;
+﻿using HeBianGu.Base.WpfBase;
+using HeBianGu.Common.PublicTool;
 using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.Respository.Serice;
 using HeBianGu.ExplorePlayer.Respository.ViewModel;

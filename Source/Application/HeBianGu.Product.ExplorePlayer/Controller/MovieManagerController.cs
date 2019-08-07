@@ -1,4 +1,4 @@
-﻿using HeBianGu.Base.Interface;
+﻿using HeBianGu.Common.PublicTool;
 using HeBianGu.Base.WpfBase;
 using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.Respository.Serice;

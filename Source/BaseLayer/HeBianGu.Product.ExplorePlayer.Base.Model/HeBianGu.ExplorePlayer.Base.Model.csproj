@@ -55,9 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.Interface\HeBianGu.Base.Interface.csproj">
-      <Project>{a1534e11-d751-4305-b065-4b08dd0c519b}</Project>
-      <Name>HeBianGu.Base.Interface</Name>
+    <ProjectReference Include="..\..\..\..\.NetFrameWork-CommonBase\Source\GeneralLayer\HeBianGu.Common.DataBase\HeBianGu.Common.DataBase.csproj">
+      <Project>{ec34b9c9-0959-415a-814f-ef411aadc5b9}</Project>
+      <Name>HeBianGu.Common.DataBase</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.WpfBase\HeBianGu.Base.WpfBase.csproj">
       <Project>{435FEB82-599F-48E3-8891-755ACF8E4117}</Project>
