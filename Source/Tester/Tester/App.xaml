@@ -7,8 +7,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!--自定义资源引用-->
-                <ResourceDictionary Source="/HeBianGu.Base.WpfBase;component/Themes/HeBianGu.Threme.Default.xaml"/>
-                <ResourceDictionary Source="/HeBianGu.General.WpfControlLib;component/Themes/HeBianGu.Themes.Default.xaml"/>
+                <ResourceDictionary Source="/HeBianGu.Base.WpfBase;component/Theme/HeBianGu.Threme.Default.xaml"/>
+                <ResourceDictionary Source="/HeBianGu.General.WpfControlLib;component/Theme/HeBianGu.Themes.Default.xaml"/>
             </ResourceDictionary.MergedDictionaries>  
        
         </ResourceDictionary>

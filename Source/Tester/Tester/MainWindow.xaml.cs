@@ -1,4 +1,5 @@
-﻿using HeBianGu.ExplorePlayer.Base.Model;
+﻿using HeBianGu.Common.Logger;
+using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.General.SqliteDataBase;
 using Newtonsoft.Json;
 using System;
@@ -32,16 +33,19 @@ namespace Tester
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            mbc_dc_case from = new mbc_dc_case();
+            //mbc_dc_case from = new mbc_dc_case();
 
-            from.Name = "etete";
+            //from.Name = "etete";
 
-            SqliteDBService.Instance.AddCase(from);
-
-
+            //SqliteDBService.Instance.AddCase(from);
 
 
-   
+            ILogService logService = new LogService();
+
+            logService.Info("SDGDSGDGFGFGDFGDF");
+
+
+
     }
 }
 
