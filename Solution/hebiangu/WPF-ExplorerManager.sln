@@ -41,6 +41,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.ExplorePlayer.Gene
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.ExplorePlayer.Respository.ViewModel", "..\..\Source\DomainLayer\HeBianGu.ExplorePlayer.Respository.ViewModel\HeBianGu.ExplorePlayer.Respository.ViewModel.csproj", "{732F4193-8958-4262-9A01-C2A21B67D732}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{275AB259-A372-4CA3-A346-FFE4720C8C0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{3CC1F5F9-7512-46C9-96EF-A5F554227F92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +95,14 @@ Global
 		{732F4193-8958-4262-9A01-C2A21B67D732}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{732F4193-8958-4262-9A01-C2A21B67D732}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{732F4193-8958-4262-9A01-C2A21B67D732}.Release|Any CPU.Build.0 = Release|Any CPU
+		{275AB259-A372-4CA3-A346-FFE4720C8C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{275AB259-A372-4CA3-A346-FFE4720C8C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{275AB259-A372-4CA3-A346-FFE4720C8C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{275AB259-A372-4CA3-A346-FFE4720C8C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CC1F5F9-7512-46C9-96EF-A5F554227F92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CC1F5F9-7512-46C9-96EF-A5F554227F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CC1F5F9-7512-46C9-96EF-A5F554227F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CC1F5F9-7512-46C9-96EF-A5F554227F92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +119,8 @@ Global
 		{8E1ACC28-425F-4D9B-9CD8-8F98031048AF} = {27D6A4A0-F5B3-4AAE-A979-0481905539E9}
 		{28CEF436-3A4D-4F5C-9194-4589F0E51676} = {254B28E2-678D-4B6C-A656-60FA75758B6B}
 		{732F4193-8958-4262-9A01-C2A21B67D732} = {5A13A803-6C44-4FE3-B122-397E3BDC5003}
+		{275AB259-A372-4CA3-A346-FFE4720C8C0A} = {E6B42848-E364-4088-A19F-8313F60DC122}
+		{3CC1F5F9-7512-46C9-96EF-A5F554227F92} = {E6B42848-E364-4088-A19F-8313F60DC122}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D32BCB0-0C89-4CB3-9248-5E5DD04D9813}

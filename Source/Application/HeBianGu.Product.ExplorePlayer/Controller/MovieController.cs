@@ -408,9 +408,11 @@ namespace HeBianGu.Product.ExplorePlayer
                 {
                     File.Delete(this.ViewModel.SeletItem.Url);
 
+                    MessageService.ShowSnackMessage("文件已删除：" + this.ViewModel.SeletItem?.Url);
+
                     await this.Remove();
 
-                    MessageService.ShowSnackMessage("文件已删除：" + this.ViewModel.SeletItem.Url);
+                    
                 }
             }
         }

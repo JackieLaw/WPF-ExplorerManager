@@ -38,7 +38,7 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
 
-                            <Image  x:Name="image"  Grid.Row="0" Grid.RowSpan="3" Visibility="Collapsed" Source="/HeBianGu.Product.ExplorePlayer;component/Resources/null.jpg"/>
+                            <!--<Image  x:Name="image"  Grid.Row="0" Grid.RowSpan="3" Visibility="Collapsed" Source="/HeBianGu.Product.ExplorePlayer;component/Resources/null.jpg"/>-->
 
                             <Grid  Grid.Row="0" Grid.RowSpan="3" >
                                 <Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>
@@ -53,7 +53,12 @@
                                 <Run Text="{Binding Name}" Foreground="{DynamicResource S.Brush.Accent}"  FontWeight="Bold"/>
                             </TextBlock>
 
-                            <wpfcontrollib:EvaluateControl Grid.Row="1" Background="Transparent"  SelectedIndex="{Binding Score,Mode=TwoWay}" TotalCount="10" /> 
+                            <TextBlock Grid.Row="4" HorizontalAlignment="Left" FontSize="16" Foreground="White" VerticalAlignment="Center">
+                                <Run Text="评分："/>
+                                <Run Text="{Binding Score}"/>
+                            </TextBlock>
+
+                            <!--<wpfcontrollib:EvaluateControl Grid.Row="1" Background="Transparent" IsHitTestVisible="False"  SelectedIndex="{Binding Score,Mode=TwoWay}" TotalCount="10" />--> 
 
                             <TextBlock TextTrimming="CharacterEllipsis" 
                                        ToolTip="{Binding TagTypes}" Foreground="{DynamicResource S.Brush.White.Notice}"
@@ -103,11 +108,11 @@
                             </StackPanel>
                         </Grid>
                     </GroupBox>
-                    <DataTemplate.Triggers>
+                    <!--<DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding Image}" Value="{x:Null}">
                             <Setter Property="Visibility" TargetName="image" Value="Visible"/>
                         </DataTrigger>
-                    </DataTemplate.Triggers>
+                    </DataTemplate.Triggers>-->
                 </DataTemplate>
             </ListBox.Resources>
             <ListBox.ItemsPanel>

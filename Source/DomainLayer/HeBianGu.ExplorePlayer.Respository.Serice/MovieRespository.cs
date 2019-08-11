@@ -280,10 +280,10 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
 
             Action<FileInfo> action = l =>
             {
-                //if (movies != null)
-                //{
-                //    if (movies.Exists(k => k.Url == l.FullName)) return;
-                //}
+                if (movies != null)
+                {
+                    if (movies.Exists(k => k.Url == l.FullName)) return;
+                }
 
                 if (!match(l)) return;
 
