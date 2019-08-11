@@ -24,19 +24,19 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
 
         public async Task<IEnumerable<mbc_dc_case>> GetCases()
         {
-            return await _dbContext.mbc_dc_cases.Where(l => l.ISENBLED == 1).ToListAsync();
+            return await _dataContext.mbc_dc_cases.Where(l => l.ISENBLED == 1).ToListAsync();
         }
 
         public async Task<IEnumerable<mbc_db_extendtype>> GetExtends()
         {
-            return await _dbContext.mbc_db_extendtypes.Where(l => l.ISENBLED == 1).ToListAsync();
+            return await _dataContext.mbc_db_extendtypes.Where(l => l.ISENBLED == 1).ToListAsync();
         }
 
         public async Task<Tuple<mbc_dv_movie, List<mbc_dv_movieimage>>> GetMovieWIthDetial(string id)
         {
             var movie = await this.GetByIDAsync(id);
 
-            var images = await this._dbContext.mbc_dv_movieimages.Where(l => l.MovieID == id)?.ToListAsync();
+            var images = await this._dataContext.mbc_dv_movieimages.Where(l => l.MovieID == id)?.ToListAsync();
 
             return Tuple.Create(movie, images);
         }
@@ -227,7 +227,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
                 image.Image = EncodeImageToString(m);
                 image.Text = Path.GetFileName(m);
 
-                _dbContext.mbc_dv_movieimages.Add(image);
+                _dataContext.mbc_dv_movieimages.Add(image);
 
                 //  Message：保存完删除图片
                 File.Delete(m);
@@ -296,12 +296,12 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
                 movie.Size = l.Length;
                 movie.FromType = "local";
 
-                var tags = _dbContext.mbc_db_tagtypes.Where(k =>
+                var tags = _dataContext.mbc_db_tagtypes.Where(k =>
                 l.Name.Contains(k.Value));
 
                 List<string> list = new List<string>();
 
-                foreach (var ss in _dbContext.mbc_db_tagtypes)
+                foreach (var ss in _dataContext.mbc_db_tagtypes)
                 {
                     if (l.Name.Contains(ss.Value))
                         list.Add(ss.Value);
@@ -350,7 +350,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
                 //    File.Delete(shootcutpath);
                 //}
 
-                _dbContext.mbc_dv_movies.Add(movie);
+                _dataContext.mbc_dv_movies.Add(movie);
 
                 System.Console.WriteLine("加载预览图:" + l.FullName);
 
@@ -406,7 +406,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
 
         public async Task AddMovieImage(mbc_dv_movieimage image)
         {
-            this._dbContext.mbc_dv_movieimages.Add(image);
+            this._dataContext.mbc_dv_movieimages.Add(image);
 
             await this._dbContext.SaveChangesAsync();
         }

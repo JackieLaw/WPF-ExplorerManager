@@ -1,10 +1,9 @@
-﻿using HeBianGu.ExplorePlayer.Base.Model;
-using SQLite.CodeFirst;
+﻿using HeBianGu.Common.DataBase.Sqlite;
+using HeBianGu.ExplorePlayer.Base.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.Entity;
-using System.Data.SQLite;
+using System.Data.Entity; 
 using System.IO;
 using System.Linq;
 using System.Reflection;

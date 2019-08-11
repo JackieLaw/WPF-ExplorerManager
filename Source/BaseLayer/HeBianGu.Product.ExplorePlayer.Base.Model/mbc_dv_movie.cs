@@ -2,7 +2,7 @@
 
 namespace HeBianGu.ExplorePlayer.Base.Model
 {
-    public class mbc_dv_movie : StringEntityBase
+    public class mbc_dv_movie : mbc_db_modelbase
     {
         [Required]
         [Display(Name = "资源名称")]

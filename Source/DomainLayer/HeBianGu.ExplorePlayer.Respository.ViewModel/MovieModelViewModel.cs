@@ -1,4 +1,5 @@
 ﻿using HeBianGu.Base.WpfBase;
+using HeBianGu.Common.PublicTool;
 using HeBianGu.ExplorePlayer.Base.Model;
 using System;
 using System.Collections.Generic;

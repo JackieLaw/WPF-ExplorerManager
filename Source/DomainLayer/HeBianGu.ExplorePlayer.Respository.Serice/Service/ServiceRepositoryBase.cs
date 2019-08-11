@@ -1,4 +1,4 @@
-﻿
+﻿using HeBianGu.Common.DataBase;
 using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.General.SqliteDataBase;
 using HeBianGu.ExplorePlayer.Respository.IService;
@@ -14,11 +14,13 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
 {
     public class ServiceRepositoryBase<T> : RepositoryBase<T>, IServiceRepositoryBase<T> where T : StringEntityBase
     {
+
+        protected DataContext _dataContext = null;
         public ServiceRepositoryBase(DataContext dbcontext) : base(dbcontext)
         {
+            _dataContext = dbcontext;
+        }
+    }
 
-        } 
-     }
 
- 
 }

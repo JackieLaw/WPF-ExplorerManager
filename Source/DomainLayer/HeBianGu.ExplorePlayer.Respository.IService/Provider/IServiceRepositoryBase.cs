@@ -1,5 +1,5 @@
-﻿using HeBianGu.ExplorePlayer.Base.Model;
-using HeBianGu.ExplorePlayer.General.SqliteDataBase;
+﻿using HeBianGu.Common.DataBase;
+using HeBianGu.ExplorePlayer.Base.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
