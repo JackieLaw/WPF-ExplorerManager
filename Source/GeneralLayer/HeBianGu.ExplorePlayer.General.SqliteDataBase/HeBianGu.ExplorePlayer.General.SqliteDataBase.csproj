@@ -64,9 +64,9 @@
       <Project>{8862E4A3-72A6-454B-A83D-93E39EBAE16C}</Project>
       <Name>HeBianGu.Common.DataBase.Sqlite</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\.NetFrameWork-CommonBase\Source\GeneralLayer\HeBianGu.Common.PublicTool\HeBianGu.Common.PublicTool.csproj">
-      <Project>{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}</Project>
-      <Name>HeBianGu.Common.PublicTool</Name>
+    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.WpfBase\HeBianGu.Base.WpfBase.csproj">
+      <Project>{435FEB82-599F-48E3-8891-755ACF8E4117}</Project>
+      <Name>HeBianGu.Base.WpfBase</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\BaseLayer\HeBianGu.Product.ExplorePlayer.Base.Model\HeBianGu.ExplorePlayer.Base.Model.csproj">
       <Project>{B7B2B686-2181-4119-A08B-6D5C79D3D30D}</Project>

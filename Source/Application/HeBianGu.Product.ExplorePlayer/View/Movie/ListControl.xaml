@@ -132,7 +132,7 @@
 
             <TextBlock Text="选择排序：" Style="{StaticResource S.TextBlock.FontSize.16}" HorizontalAlignment="Left"/>
 
-            <ListBox  BorderBrush="Transparent" SelectedItem="{Binding OrderBy}" Margin="80,0,0,0" SelectedIndex="0" VerticalAlignment="Center">
+            <ListBox  BorderBrush="Transparent" SelectedItem="{Binding OrderBy}" Margin="80,0,0,0" SelectedIndex="0" VerticalAlignment="Center" Style="{DynamicResource S.ListBox.Sinple}">
                 <ListBox.Resources>
                     <DataTemplate DataType="{x:Type system:String}">
                         <Grid >
@@ -162,6 +162,12 @@
                         <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="OrderBy"/>
                     </base:EventTrigger>
                 </base:Interaction.Triggers>
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
             </ListBox>
 
             <CheckBox Content="是否倒序" IsChecked="{Binding Desc}"

@@ -50,7 +50,7 @@
       <Name>HeBianGu.Common.DataBase</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\.NetFrameWork-CommonBase\Source\GeneralLayer\HeBianGu.Common.PublicTool\HeBianGu.Common.PublicTool.csproj">
-      <Project>{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}</Project>
+      <Project>{2ebeeb6c-4199-4ca3-9866-2b1af856d4b4}</Project>
       <Name>HeBianGu.Common.PublicTool</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.WpfBase\HeBianGu.Base.WpfBase.csproj">

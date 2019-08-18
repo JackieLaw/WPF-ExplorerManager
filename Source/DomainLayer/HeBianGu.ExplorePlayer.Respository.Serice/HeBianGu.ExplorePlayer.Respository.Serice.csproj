@@ -68,9 +68,9 @@
       <Project>{EC34B9C9-0959-415A-814F-EF411AADC5B9}</Project>
       <Name>HeBianGu.Common.DataBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\.NetFrameWork-CommonBase\Source\GeneralLayer\HeBianGu.Common.PublicTool\HeBianGu.Common.PublicTool.csproj">
-      <Project>{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}</Project>
-      <Name>HeBianGu.Common.PublicTool</Name>
+    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.WpfBase\HeBianGu.Base.WpfBase.csproj">
+      <Project>{435feb82-599f-48e3-8891-755acf8e4117}</Project>
+      <Name>HeBianGu.Base.WpfBase</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\General\HeBianGu.General.WpfControlLib\HeBianGu.General.WpfControlLib.csproj">
       <Project>{B49DC15F-B43C-4306-ADF4-8FA6F5DF7F84}</Project>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.452
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Application", "1 - Application", "{27D6A4A0-F5B3-4AAE-A979-0481905539E9}"
 EndProject
@@ -40,19 +40,22 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.ExplorePlayer.General.FFmpegService", "..\..\Source\GeneralLayer\HeBianGu.ExplorePlayer.General.FFmpegService\HeBianGu.ExplorePlayer.General.FFmpegService.csproj", "{28CEF436-3A4D-4F5C-9194-4589F0E51676}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.ExplorePlayer.Respository.ViewModel", "..\..\Source\DomainLayer\HeBianGu.ExplorePlayer.Respository.ViewModel\HeBianGu.ExplorePlayer.Respository.ViewModel.csproj", "{732F4193-8958-4262-9A01-C2A21B67D732}"
-EndProject 
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{275AB259-A372-4CA3-A346-FFE4720C8C0A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{3CC1F5F9-7512-46C9-96EF-A5F554227F92}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7 - CommonBase", "7 - CommonBase", "{B41B03D7-9BED-49D4-9027-D2497A1A12DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.Common.DataBase", "..\..\..\.NetFrameWork-CommonBase\Source\GeneralLayer\HeBianGu.Common.DataBase\HeBianGu.Common.DataBase.csproj", "{EC34B9C9-0959-415A-814F-EF411AADC5B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.Common.PublicTool", "..\..\..\.NetFrameWork-CommonBase\Source\GeneralLayer\HeBianGu.Common.PublicTool\HeBianGu.Common.PublicTool.csproj", "{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.Common.DataBase.Sqlite", "..\..\..\.NetFrameWork-CommonBase\Source\GeneralLayer\HeBianGu.Common.DataBase.Sqlite\HeBianGu.Common.DataBase.Sqlite.csproj", "{8862E4A3-72A6-454B-A83D-93E39EBAE16C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.Common.Logger", "..\..\..\.NetFrameWork-CommonBase\Source\GeneralLayer\HeBianGu.Common.Logger\HeBianGu.Common.Logger.csproj", "{5B68AA8E-7138-4210-B796-376E30D4F2B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.Domain.MvcRespository", "..\..\..\WPF-ControlBase\Source\Domain\HeBianGu.Domain.MvcRespository\HeBianGu.Domain.MvcRespository.csproj", "{DA9F83A2-2D47-4EBD-A8BF-13AD61B10E7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.Common.PublicTool", "..\..\..\.NetFrameWork-CommonBase\Source\GeneralLayer\HeBianGu.Common.PublicTool\HeBianGu.Common.PublicTool.csproj", "{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,10 +119,6 @@ Global
 		{EC34B9C9-0959-415A-814F-EF411AADC5B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC34B9C9-0959-415A-814F-EF411AADC5B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC34B9C9-0959-415A-814F-EF411AADC5B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8862E4A3-72A6-454B-A83D-93E39EBAE16C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8862E4A3-72A6-454B-A83D-93E39EBAE16C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8862E4A3-72A6-454B-A83D-93E39EBAE16C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -128,7 +127,14 @@ Global
 		{5B68AA8E-7138-4210-B796-376E30D4F2B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B68AA8E-7138-4210-B796-376E30D4F2B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B68AA8E-7138-4210-B796-376E30D4F2B3}.Release|Any CPU.Build.0 = Release|Any CPU
-
+		{DA9F83A2-2D47-4EBD-A8BF-13AD61B10E7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA9F83A2-2D47-4EBD-A8BF-13AD61B10E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA9F83A2-2D47-4EBD-A8BF-13AD61B10E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA9F83A2-2D47-4EBD-A8BF-13AD61B10E7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,15 +151,13 @@ Global
 		{8E1ACC28-425F-4D9B-9CD8-8F98031048AF} = {27D6A4A0-F5B3-4AAE-A979-0481905539E9}
 		{28CEF436-3A4D-4F5C-9194-4589F0E51676} = {254B28E2-678D-4B6C-A656-60FA75758B6B}
 		{732F4193-8958-4262-9A01-C2A21B67D732} = {5A13A803-6C44-4FE3-B122-397E3BDC5003}
-
 		{275AB259-A372-4CA3-A346-FFE4720C8C0A} = {E6B42848-E364-4088-A19F-8313F60DC122}
 		{3CC1F5F9-7512-46C9-96EF-A5F554227F92} = {E6B42848-E364-4088-A19F-8313F60DC122}
-
 		{EC34B9C9-0959-415A-814F-EF411AADC5B9} = {B41B03D7-9BED-49D4-9027-D2497A1A12DF}
-		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4} = {B41B03D7-9BED-49D4-9027-D2497A1A12DF}
 		{8862E4A3-72A6-454B-A83D-93E39EBAE16C} = {B41B03D7-9BED-49D4-9027-D2497A1A12DF}
 		{5B68AA8E-7138-4210-B796-376E30D4F2B3} = {B41B03D7-9BED-49D4-9027-D2497A1A12DF}
-
+		{DA9F83A2-2D47-4EBD-A8BF-13AD61B10E7B} = {5A13A803-6C44-4FE3-B122-397E3BDC5003}
+		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4} = {B41B03D7-9BED-49D4-9027-D2497A1A12DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D32BCB0-0C89-4CB3-9248-5E5DD04D9813}

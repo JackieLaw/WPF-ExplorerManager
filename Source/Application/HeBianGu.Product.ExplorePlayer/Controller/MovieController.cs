@@ -1,5 +1,6 @@
 ﻿using HeBianGu.Base.WpfBase;
 using HeBianGu.Common.PublicTool;
+using HeBianGu.Domain.MvcRespository;
 using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.Respository.Serice;
 using HeBianGu.ExplorePlayer.Respository.ViewModel;

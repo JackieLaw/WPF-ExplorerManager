@@ -1,9 +1,4 @@
-﻿using HeBianGu.Common.PublicTool;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeBianGu.Base.WpfBase;
 
 namespace HeBianGu.ExplorePlayer.General.SqliteDataBase
 {

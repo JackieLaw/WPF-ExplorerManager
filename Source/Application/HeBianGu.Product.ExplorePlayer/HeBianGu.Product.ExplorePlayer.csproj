@@ -293,6 +293,10 @@
       <Project>{435feb82-599f-48e3-8891-755acf8e4117}</Project>
       <Name>HeBianGu.Base.WpfBase</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\Domain\HeBianGu.Domain.MvcRespository\HeBianGu.Domain.MvcRespository.csproj">
+      <Project>{DA9F83A2-2D47-4EBD-A8BF-13AD61B10E7B}</Project>
+      <Name>HeBianGu.Domain.MvcRespository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\WPF-ControlBase\Source\General\HeBianGu.General.WpfControlLib\HeBianGu.General.WpfControlLib.csproj">
       <Project>{b49dc15f-b43c-4306-adf4-8fa6f5df7f84}</Project>
       <Name>HeBianGu.General.WpfControlLib</Name>
