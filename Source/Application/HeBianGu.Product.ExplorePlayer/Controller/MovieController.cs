@@ -49,8 +49,6 @@ namespace HeBianGu.Product.ExplorePlayer
         {
             return View();
         }
-
-
         
         public async Task<IActionResult> List()
         {

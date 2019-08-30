@@ -12,8 +12,9 @@ using System.Threading.Tasks;
 
 namespace HeBianGu.ExplorePlayer.General.SqliteDataBase
 {
-    public class DataContext : SqliteDataContextBase 
-    { 
+    public class DataContext : SqliteDataContextBase<DataContext>
+    {
+
         /// <summary>
         /// 实时缓存数据 用于绘制实时曲线
         /// </summary>
@@ -63,6 +64,9 @@ namespace HeBianGu.ExplorePlayer.General.SqliteDataBase
         /// 实时缓存数据 用于绘制实时曲线
         /// </summary>
         public DbSet<mbc_dv_movieimage> mbc_dv_movieimages { get; set; }
+
+
+        public DbSet<mbc_dv_image> mbc_dv_images { get; set; }
 
     } 
 

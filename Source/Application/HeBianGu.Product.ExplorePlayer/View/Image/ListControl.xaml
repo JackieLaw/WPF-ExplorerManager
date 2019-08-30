@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HeBianGu.Product.ExplorePlayer.View.Movie.ListControl"
+﻿<UserControl x:Class="HeBianGu.Product.ExplorePlayer.View.Image.ListControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -22,9 +22,12 @@
         <wpfcontrollib:FButton Content="加载案例视频" HorizontalAlignment="Left" Margin="10,0" 
                                Command="{Binding GoToActionCommand}" CommandParameter="List"/>
 
+        <wpfcontrollib:FButton Content="重新加载" HorizontalAlignment="Right" Margin="10,0" 
+                               Command="{Binding GoToActionCommand}" CommandParameter="Refresh"/>
+
         <ListBox Grid.Row="3" ItemsSource="{Binding Collection,Mode=TwoWay}"  BorderBrush="Transparent" SelectedItem="{Binding SeletItem}">
             <ListBox.Resources>
-                <DataTemplate DataType="{x:Type vm:MovieModelViewModel}">
+                <DataTemplate DataType="{x:Type vm:ImageModelViewModel}">
                     <GroupBox Style="{DynamicResource S.GroupBox.Single}" 
                               Visibility="{Binding Visible,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}" 
                               Background="{DynamicResource S.Brush.Dark.10}" 
@@ -41,7 +44,7 @@
                             <!--<Image  x:Name="image"  Grid.Row="0" Grid.RowSpan="3" Visibility="Collapsed" Source="/HeBianGu.Product.ExplorePlayer;component/Resources/null.jpg"/>-->
 
                             <Grid  Grid.Row="0" Grid.RowSpan="3" >
-                                <Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>
+                                <Image Source="{Binding Url}"/>
 
                                 <wpfcontrollib:FButton Style="{DynamicResource S.FButton.Style.MouseOverOpacity}"  Width="100" Height="100" CornerRadius="50"
                                                        Command="{x:Static base:CommandService.ProcessCommand}"  CommandParameter="{Binding Url}"
@@ -58,7 +61,7 @@
                                 <Run Text="{Binding Score}"/>
                             </TextBlock>
 
-                            <!--<wpfcontrollib:EvaluateControl Grid.Row="1" Background="Transparent" IsHitTestVisible="False"  SelectedIndex="{Binding Score,Mode=TwoWay}" TotalCount="10" />--> 
+                            <!--<wpfcontrollib:EvaluateControl Grid.Row="1" Background="Transparent" IsHitTestVisible="False"  SelectedIndex="{Binding Score,Mode=TwoWay}" TotalCount="10" />-->
 
                             <TextBlock TextTrimming="CharacterEllipsis" 
                                        ToolTip="{Binding TagTypes}" Foreground="{DynamicResource S.Brush.White.Notice}"
@@ -100,7 +103,7 @@
 
                                 <wpfcontrollib:FButton Content="预览" Width="50" FontSize="16" Foreground="{DynamicResource S.Brush.White.Notice}"
                                                        Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
-                                                       Grid.Row="3" Style="{DynamicResource S.FButton.Style.Link}" CommandParameter="Detial">  
+                                                       Grid.Row="3" Style="{DynamicResource S.FButton.Style.Link}" CommandParameter="Detial">
                                     <base:Interaction.Behaviors>
                                         <base:SelectListBoxItemElementBehavior/>
                                     </base:Interaction.Behaviors>
@@ -120,13 +123,13 @@
                     <WrapPanel IsItemsHost="True"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-            
+
             <base:Interaction.Triggers>
                 <base:EventTrigger EventName="SelectionChanged">
                     <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="SeletItemChanged"/>
                 </base:EventTrigger>
             </base:Interaction.Triggers>
-        </ListBox> 
+        </ListBox>
 
         <Grid  Grid.Row="2" >
 

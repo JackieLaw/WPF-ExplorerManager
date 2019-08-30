@@ -19,16 +19,7 @@
         <wpfcontrollib:TabLink DisplayName="电影管理器"  Logo="&#xe69f;" Controller="MovieManager" Action="Center">
             <wpfcontrollib:TabLink.LeftLink>
                 <wpfcontrollib:LinkAction DisplayName="选择案例"  Logo="&#xe69f;" Controller="MovieManager" Action="Left"/>
-            </wpfcontrollib:TabLink.LeftLink>
-            <!--<wpfcontrollib:TabLink.RightLink>
-                <wpfcontrollib:LinkAction DisplayName="控件属性"  Logo="&#xe69f;" Controller="MovieManager" Action="Right"/>
-            </wpfcontrollib:TabLink.RightLink>
-            <wpfcontrollib:TabLink.TopLink>
-                <wpfcontrollib:LinkAction DisplayName="菜单"  Logo="&#xe69f;" Controller="MovieManager" Action="Top"/>
-            </wpfcontrollib:TabLink.TopLink>
-            <wpfcontrollib:TabLink.BottomLink>
-                <wpfcontrollib:LinkAction DisplayName="状态栏"  Logo="&#xe69f;" Controller="MovieManager" Action="Bottom"/>
-            </wpfcontrollib:TabLink.BottomLink>-->
+            </wpfcontrollib:TabLink.LeftLink> 
         </wpfcontrollib:TabLink>
 
         <wpfcontrollib:TabLink DisplayName="电影浏览器"  Logo="&#xe69f;"  Controller="Movie" Action="Center">
@@ -38,11 +29,17 @@
             
             <wpfcontrollib:TabLink.RightLink>
                 <wpfcontrollib:LinkAction DisplayName="编辑视频"  Logo="&#xe69f;" Controller="Movie" Action="Right"/>
-            </wpfcontrollib:TabLink.RightLink>
+            </wpfcontrollib:TabLink.RightLink> 
+        </wpfcontrollib:TabLink>
 
-            <!--<wpfcontrollib:TabLink.TopLink>
-                <wpfcontrollib:LinkAction DisplayName="视频预览"  Logo="&#xe69f;" Controller="Movie" Action="Detial"/>
-            </wpfcontrollib:TabLink.TopLink>-->
+        <wpfcontrollib:TabLink DisplayName="图片浏览器"  Logo="&#xe69f;"  Controller="Image" Action="Center">
+            <wpfcontrollib:TabLink.LeftLink>
+                <wpfcontrollib:LinkAction DisplayName="选择案例"  Logo="&#xe69f;"  Controller="Image" Action="Left"/>
+            </wpfcontrollib:TabLink.LeftLink>
+
+            <wpfcontrollib:TabLink.RightLink>
+                <wpfcontrollib:LinkAction DisplayName="编辑图片"  Logo="&#xe69f;" Controller="Image" Action="Right"/>
+            </wpfcontrollib:TabLink.RightLink> 
         </wpfcontrollib:TabLink>
 
         <wpfcontrollib:TabLink DisplayName="设置管理"  Logo="&#xe69f;" Controller="Setting" Action="Center"/> 

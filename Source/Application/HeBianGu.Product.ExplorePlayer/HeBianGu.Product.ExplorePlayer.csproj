@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\ImageController.cs" />
     <Compile Include="Controller\ExtendController.cs" />
     <Compile Include="Controller\MovieController.cs" />
     <Compile Include="Controller\TagController.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Domain\AssemblyDomain.cs" />
     <Compile Include="ViewModel\Case\CaseViewModel.cs" />
     <Compile Include="ViewModel\Extend\ExtendViewModel.cs" />
+    <Compile Include="ViewModel\Image\ImageViewModel.cs" />
     <Compile Include="ViewModel\MovieManager\MovieManagerViewModel.cs" />
     <Compile Include="ViewModel\Movie\MovieViewModel.cs" />
     <Compile Include="ViewModel\Setting\SettingViewModel.cs" />
@@ -95,6 +97,18 @@
     </Compile>
     <Compile Include="View\Extend\ListControl.xaml.cs">
       <DependentUpon>ListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Image\CenterControl.xaml.cs">
+      <DependentUpon>CenterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Image\LeftControl.xaml.cs">
+      <DependentUpon>LeftControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Image\ListControl.xaml.cs">
+      <DependentUpon>ListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Image\RightControl.xaml.cs">
+      <DependentUpon>RightControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MovieManager\CenterControl.xaml.cs">
       <DependentUpon>CenterControl.xaml</DependentUpon>
@@ -172,6 +186,22 @@
     <Page Include="View\Extend\ListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Image\CenterControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Image\LeftControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Image\ListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Image\RightControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -341,5 +371,6 @@
   <ItemGroup>
     <Resource Include="Resources\null.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

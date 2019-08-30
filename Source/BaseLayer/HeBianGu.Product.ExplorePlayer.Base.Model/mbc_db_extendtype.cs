@@ -13,7 +13,6 @@ namespace HeBianGu.ExplorePlayer.Base.Model
 
         [Display(Name = "所属类型")]
         public string MediaType { get; set; }
-        
 
         [Display(Name = "显示名称")]
         public string Text { get; set; } 

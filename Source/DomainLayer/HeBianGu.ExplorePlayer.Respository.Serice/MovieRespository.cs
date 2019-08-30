@@ -29,7 +29,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
 
         public async Task<IEnumerable<mbc_db_extendtype>> GetExtends()
         {
-            return await _dataContext.mbc_db_extendtypes.Where(l => l.ISENBLED == 1).ToListAsync();
+            return await _dataContext.mbc_db_extendtypes.Where(l => l.ISENBLED == 1 && l.MediaType == "Vedio").ToListAsync();
         }
 
         public async Task<Tuple<mbc_dv_movie, List<mbc_dv_movieimage>>> GetMovieWIthDetial(string id)

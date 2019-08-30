@@ -50,6 +50,7 @@
     <Compile Include="mbc_db_tagtype.cs" />
     <Compile Include="mbc_db_viptype.cs" />
     <Compile Include="mbc_dc_case.cs" />
+    <Compile Include="mbc_dv_image.cs" />
     <Compile Include="mbc_dv_movie.cs" />
     <Compile Include="mbc_dv_movieimage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
