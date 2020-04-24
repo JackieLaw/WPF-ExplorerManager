@@ -382,7 +382,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
 
             //this.DoAllFiles(item.BaseUrl, action);
 
-            Action<StringProgressDialog> actionProgress = l =>
+            Action<IStringProgress> actionProgress = l =>
             {
 
                 for (int i = 0; i < files.Count; i++)

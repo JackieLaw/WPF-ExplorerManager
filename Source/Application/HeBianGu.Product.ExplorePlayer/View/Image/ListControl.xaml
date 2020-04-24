@@ -47,7 +47,7 @@
                                 <Image Source="{Binding Url}"/>
 
                                 <wpfcontrollib:FButton Style="{DynamicResource S.FButton.Style.MouseOverOpacity}"  Width="100" Height="100" CornerRadius="50"
-                                                       Command="{x:Static base:CommandService.ProcessCommand}"  CommandParameter="{Binding Url}"
+                                                       Command="{x:Static wpfcontrollib:CommandService.ProcessCommand}"  CommandParameter="{Binding Url}"
                                                        FIcon="&#xe74a;" FIconSize="100"/>
                             </Grid>
 

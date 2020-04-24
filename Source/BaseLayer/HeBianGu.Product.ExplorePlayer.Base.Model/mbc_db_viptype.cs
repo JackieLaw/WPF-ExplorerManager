@@ -1,4 +1,5 @@
 ﻿using HeBianGu.Base.WpfBase;
+using System.ComponentModel.DataAnnotations;
 
 namespace HeBianGu.ExplorePlayer.Base.Model
 {

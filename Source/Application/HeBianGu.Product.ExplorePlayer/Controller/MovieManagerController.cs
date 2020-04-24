@@ -147,7 +147,7 @@ namespace HeBianGu.Product.ExplorePlayer
                 return await List();
             }
 
-            Action<StringProgressDialog> actionProgress = async l =>
+            Action<IStringProgress> actionProgress = async l =>
             {
 
                 for (int i = 0; i < this.ViewModel.Collection.Count; i++)

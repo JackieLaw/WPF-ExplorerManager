@@ -15,7 +15,7 @@ namespace HeBianGu.Product.ExplorePlayer
     {
         public DataSourceLocator()
         {
-            ServiceRegistry.Instance.UseMvc(); 
+            //ServiceRegistry.Instance.UseMvc(); 
 
             ServiceRegistry.Instance.UseRespositorys();
 

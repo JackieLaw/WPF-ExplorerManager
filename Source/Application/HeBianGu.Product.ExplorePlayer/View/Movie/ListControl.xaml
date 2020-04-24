@@ -44,13 +44,13 @@
                                 <Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>
 
                                 <wpfcontrollib:FButton Style="{DynamicResource S.FButton.Style.MouseOverOpacity}"  Width="100" Height="100" CornerRadius="50"
-                                                       Command="{x:Static base:CommandService.ProcessCommand}"  CommandParameter="{Binding Url}"
+                                                       Command="{x:Static wpfcontrollib:CommandService.ProcessCommand}"  CommandParameter="{Binding Url}"
                                                        FIcon="&#xe74a;" FIconSize="100"/>
                             </Grid>
 
                             <TextBlock TextTrimming="CharacterEllipsis"  Style="{DynamicResource S.TextBlock.FontSize.18}"  FontSize="16" 
                                        ToolTip="{Binding Url}"  Grid.Row="0" VerticalAlignment="Center">
-                                <Run Text="{Binding Name}" Foreground="{DynamicResource S.Brush.Accent}"  FontWeight="Bold"/>
+                                <Run Text="{Binding Name}" Foreground="{DynamicResource S.Brush.Accent}" FontWeight="Bold"/>
                             </TextBlock>
 
                             <TextBlock Grid.Row="4" HorizontalAlignment="Left" FontSize="16" Foreground="White" VerticalAlignment="Center">

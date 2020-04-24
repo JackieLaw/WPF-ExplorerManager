@@ -1,4 +1,6 @@
 ﻿using HeBianGu.Base.WpfBase;
+using HeBianGu.General.WpfControlLib;
+using HeBianGu.General.WpfMvc;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,21 +13,19 @@ using System.Windows.Media;
 namespace HeBianGu.Product.ExplorePlayer
 {
     /// <summary>
-    /// App.xaml 的交互逻辑
+    /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : ApplicationBase
     {
-
         protected override void OnStartup(StartupEventArgs e)
-        { 
-            //  Do：设置默认主题
-            ThemeService.Current.AccentColor = Color.FromRgb(0x1b, 0xa1, 0xe2);
+        {
+            base.OnStartup(e);
 
-            ThemeService.Current.StartAnimationTheme(1000 * 30);
-
-            MainWindow shellWindow = new MainWindow(); 
+            MainWindow shellWindow = new MainWindow();
 
             LoginWindow loginWindow = new LoginWindow();
+
+            //loginWindow.Title = this.GetWpfControlLibVersonInfo();
 
             var result = loginWindow.ShowDialog();
 
@@ -38,31 +38,49 @@ namespace HeBianGu.Product.ExplorePlayer
                 shellWindow.Close();
             }
 
-            base.OnStartup(e);
+        }
+
+        protected override void ConfigureServices(IServiceCollection services)
+        {
+            //  Do：注册Mvc模式
+            services.UseMvc();
+
+            ////  Do ：注册本地化配置读写服务
+            //services.AddSingleton<IThemeLocalizeService, AssemblyDomain>();
+
+            ////  Do ：注册日志服务
+            //services.AddSingleton<ILogService, AssemblyDomain>();
 
 
         }
 
-
-        public App()
+        protected override void Configure(IApplicationBuilder app)
         {
-            DispatcherUnhandledException += App_DispatcherUnhandledException;
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-        }
+            //  Do：设置默认主题
+            app.UseLocalTheme(l =>
+            {
+                l.AccentColor = Color.FromRgb(0x64, 0x76, 0x87);
+                l.SmallFontSize = 15D;
+                l.LargeFontSize = 18D;
+                l.FontSize = FontSize.Small;
 
-        void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
-        {
-            Current.Dispatcher.Invoke(() => MessageBox.Show(e.Exception.Message, "系统异常"));
+                l.ItemHeight = 35;
+                //l.ItemWidth = 120;
+                l.ItemCornerRadius = new CornerRadius(17.5);
 
-            e.Handled = true;
-        }
+                l.AnimalSpeed = 5000;
+                l.AccentColorSelectType = 0;
+                l.IsUseAnimal = true;
 
+                l.ThemeType = ThemeType.Light;
 
-        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            Exception error = (Exception)e.ExceptionObject;
+                l.Language = Language.Chinese;
 
-            Current.Dispatcher.Invoke(() => MessageBox.Show("当前应用程序遇到一些问题，该操作已经终止，请进行重试，如果问题继续存在，请联系管理员", "意外的操作"));
+                l.DialogCoverBrush = new SolidColorBrush(Colors.Black) { Opacity = 0.6 };
+
+            });
+
+            //app.UseTheme(l => l.DialogCoverBrush = new SolidColorBrush(Colors.Black) { Opacity = 0.6 });
         }
     }
 }
