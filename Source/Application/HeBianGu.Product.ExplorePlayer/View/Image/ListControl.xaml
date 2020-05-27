@@ -25,7 +25,7 @@
         <wpfcontrollib:FButton Content="重新加载" HorizontalAlignment="Right" Margin="10,0" 
                                Command="{Binding GoToActionCommand}" CommandParameter="Refresh"/>
 
-        <ListBox Grid.Row="3" ItemsSource="{Binding Collection,Mode=TwoWay}"  BorderBrush="Transparent" SelectedItem="{Binding SeletItem}">
+        <ListBox Grid.Row="3" ItemsSource="{Binding Collection,Mode=TwoWay}"  BorderBrush="Transparent" SelectedItem="{Binding SelectedItem}">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type vm:ImageModelViewModel}">
                     <GroupBox Style="{DynamicResource S.GroupBox.Single}" 

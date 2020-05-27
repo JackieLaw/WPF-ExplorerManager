@@ -121,7 +121,7 @@ namespace HeBianGu.Product.ExplorePlayer
             {
                 //this.ViewModel.ImageCollection.Remove(this.ViewModel.SelectImage);
 
-                this.ViewModel.SeletItem.Image = this.ViewModel.SelectImage?.Image;
+                this.ViewModel.SelectedItem.Image = this.ViewModel.SelectImage?.Image;
 
 
             });
@@ -134,11 +134,11 @@ namespace HeBianGu.Product.ExplorePlayer
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                if (this.ViewModel.SeletItem == null) return;
+                if (this.ViewModel.SelectedItem == null) return;
 
                 if (this.ViewModel.EditSelectTag == null || this.ViewModel.EditSelectTag.Count == 0) return;
 
-                this.ViewModel.SeletItem.TagTypes = this.ViewModel.EditSelectTag?.Select(l => l.Name).Aggregate((l, k) => l + "," + k);
+                this.ViewModel.SelectedItem.TagTypes = this.ViewModel.EditSelectTag?.Select(l => l.Name).Aggregate((l, k) => l + "," + k);
             });
 
         }
@@ -185,9 +185,9 @@ namespace HeBianGu.Product.ExplorePlayer
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                if (this.ViewModel.SeletItem == null) return;
+                if (this.ViewModel.SelectedItem == null) return;
 
-                var from = this.ViewModel.SeletItem.TagTypes?.Split(',').ToList();
+                var from = this.ViewModel.SelectedItem.TagTypes?.Split(',').ToList();
 
 
                 if (from == null)
@@ -217,13 +217,13 @@ namespace HeBianGu.Product.ExplorePlayer
         {
             string message;
 
-            if (!this.ModelState(this.ViewModel.SeletItem.Model, out message))
+            if (!this.ModelState(this.ViewModel.SelectedItem.Model, out message))
             {
                 MessageService.ShowSnackMessage(message);
                 return;
             }
 
-            await this.Respository.UpdateAsync(this.ViewModel.SeletItem.Model);
+            await this.Respository.UpdateAsync(this.ViewModel.SelectedItem.Model);
 
             MessageService.ShowSnackMessage("保存成功！");
         }
@@ -231,7 +231,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
         public async Task Play()
         {
-            string file = this.ViewModel.SeletItem?.Url;
+            string file = this.ViewModel.SelectedItem?.Url;
 
             if(File.Exists(file))
             {
@@ -259,7 +259,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
                     mbc_dv_movieimage image = new mbc_dv_movieimage();
 
-                    image.MovieID = this.ViewModel.SeletItem.ID;
+                    image.MovieID = this.ViewModel.SelectedItem.ID;
 
                     image.Text = DateTime.Now.ToDateTimeString();
 
@@ -336,13 +336,13 @@ namespace HeBianGu.Product.ExplorePlayer
 
         public async Task<IActionResult> Convert()
         {
-            if (this.ViewModel.SeletItem == null)
+            if (this.ViewModel.SelectedItem == null)
             {
                 MessageService.ShowSnackMessageWithNotice("请先选择案例！");
                 return await List();
             }
 
-            if (!File.Exists(this.ViewModel.SeletItem.Url))
+            if (!File.Exists(this.ViewModel.SelectedItem.Url))
             {
                 MessageService.ShowSnackMessageWithNotice("案例路径不存在，请检查！");
                 return await List();
@@ -351,7 +351,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
             try
             {
-                await this.Respository.ConvertMovie(this.ViewModel.SeletItem.Model);
+                await this.Respository.ConvertMovie(this.ViewModel.SelectedItem.Model);
             }
             catch (Exception ex)
             {
@@ -365,7 +365,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
         public async Task Detial()
         {
-            string id = this.ViewModel.SeletItem?.ID;
+            string id = this.ViewModel.SelectedItem?.ID;
 
             var model = await this.Respository.GetMovieWIthDetial(id);
 
@@ -398,17 +398,17 @@ namespace HeBianGu.Product.ExplorePlayer
 
         public async Task DeleteDeep()
         {
-            if (this.ViewModel.SeletItem == null) return;
+            if (this.ViewModel.SelectedItem == null) return;
 
             var result = await MessageService.ShowResultMessge("确定要彻底删除文件?");
 
             if (result)
             {
-                if (File.Exists(this.ViewModel.SeletItem.Url))
+                if (File.Exists(this.ViewModel.SelectedItem.Url))
                 {
-                    File.Delete(this.ViewModel.SeletItem.Url);
+                    File.Delete(this.ViewModel.SelectedItem.Url);
 
-                    MessageService.ShowSnackMessage("文件已删除：" + this.ViewModel.SeletItem?.Url);
+                    MessageService.ShowSnackMessage("文件已删除：" + this.ViewModel.SelectedItem?.Url);
 
                     await this.Remove();
 
@@ -420,11 +420,11 @@ namespace HeBianGu.Product.ExplorePlayer
         public async Task Remove()
         {
 
-            if (this.ViewModel.SeletItem == null) return;
+            if (this.ViewModel.SelectedItem == null) return;
 
-            await this.Respository.DeleteAsync(this.ViewModel.SeletItem.Model.ID);
+            await this.Respository.DeleteAsync(this.ViewModel.SelectedItem.Model.ID);
 
-            this.Invoke(() => this.ViewModel.Collection.Remove(this.ViewModel.SeletItem));
+            this.Invoke(() => this.ViewModel.Collection.Remove(this.ViewModel.SelectedItem));
         }
 
         public async Task<IActionResult> Edit()
@@ -436,13 +436,13 @@ namespace HeBianGu.Product.ExplorePlayer
         {
             string message;
 
-            if (!this.ModelState(this.ViewModel.SeletItem.Model, out message))
+            if (!this.ModelState(this.ViewModel.SelectedItem.Model, out message))
             {
                 MessageService.ShowSnackMessage(message);
                 return await Edit();
             }
 
-            await this.Respository.UpdateAsync(this.ViewModel.SeletItem.Model);
+            await this.Respository.UpdateAsync(this.ViewModel.SelectedItem.Model);
 
             return await List();
         }

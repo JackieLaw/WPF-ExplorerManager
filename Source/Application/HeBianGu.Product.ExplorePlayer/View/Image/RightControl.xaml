@@ -30,19 +30,19 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <wpfcontrollib:FTextBox Grid.Row="0" Text="{Binding SeletItem.Name}" ToolTip="{Binding SeletItem.Name}" base:ControlAttachProperty.Label="文件名称：" />
-        <wpfcontrollib:FTextBox Grid.Row="1" Text="{Binding SeletItem.Url}" ToolTip="{Binding SeletItem.Url}" base:ControlAttachProperty.Label="文件路径：" />
-        <wpfcontrollib:FTextBox Grid.Row="2" Text="{Binding SeletItem.ArticulationType}" ToolTip="{Binding SeletItem.ArticulationType}" base:ControlAttachProperty.Label="   清晰度：" />
-        <wpfcontrollib:FTextBox Grid.Row="3" Text="{Binding SeletItem.Size}" ToolTip="{Binding SeletItem.Size}" base:ControlAttachProperty.Label="文件大小：" />
-        <wpfcontrollib:FTextBox Grid.Row="4" Text="{Binding SeletItem.OrderNum}" ToolTip="{Binding SeletItem.OrderNum}" base:ControlAttachProperty.Label="资源排序：" />
-        <wpfcontrollib:FTextBox Grid.Row="5" Text="{Binding SeletItem.PlayCount}" ToolTip="{Binding SeletItem.PlayCount}" base:ControlAttachProperty.Label="播放次数：" />
+        <wpfcontrollib:FTextBox Grid.Row="0" Text="{Binding SelectedItem.Name}" ToolTip="{Binding SelectedItem.Name}" base:ControlAttachProperty.Label="文件名称：" />
+        <wpfcontrollib:FTextBox Grid.Row="1" Text="{Binding SelectedItem.Url}" ToolTip="{Binding SelectedItem.Url}" base:ControlAttachProperty.Label="文件路径：" />
+        <wpfcontrollib:FTextBox Grid.Row="2" Text="{Binding SelectedItem.ArticulationType}" ToolTip="{Binding SelectedItem.ArticulationType}" base:ControlAttachProperty.Label="   清晰度：" />
+        <wpfcontrollib:FTextBox Grid.Row="3" Text="{Binding SelectedItem.Size}" ToolTip="{Binding SelectedItem.Size}" base:ControlAttachProperty.Label="文件大小：" />
+        <wpfcontrollib:FTextBox Grid.Row="4" Text="{Binding SelectedItem.OrderNum}" ToolTip="{Binding SelectedItem.OrderNum}" base:ControlAttachProperty.Label="资源排序：" />
+        <wpfcontrollib:FTextBox Grid.Row="5" Text="{Binding SelectedItem.PlayCount}" ToolTip="{Binding SelectedItem.PlayCount}" base:ControlAttachProperty.Label="播放次数：" />
 
         <StackPanel Orientation="Horizontal"  Grid.Row="6"  >
             <TextBlock Text="         评分：" Style="{StaticResource S.TextBlock.FontSize.14}" Foreground="{DynamicResource S.Brush.Accent}"/>
-            <wpfcontrollib:EvaluateControl SelectedIndex="{Binding SeletItem.Score}" TotalCount="10" />
+            <wpfcontrollib:EvaluateControl SelectedIndex="{Binding SelectedItem.Score}" TotalCount="10" />
         </StackPanel>
 
-        <wpfcontrollib:FTextBox Grid.Row="7" Text="{Binding SeletItem.TagTypes,Mode=TwoWay}" ToolTip="{Binding SeletItem.TagTypes}" IsReadOnly="True" base:ControlAttachProperty.Label="资源标签：" />
+        <wpfcontrollib:FTextBox Grid.Row="7" Text="{Binding SelectedItem.TagTypes,Mode=TwoWay}" ToolTip="{Binding SelectedItem.TagTypes}" IsReadOnly="True" base:ControlAttachProperty.Label="资源标签：" />
 
 
         <ListBox Grid.Column="0" Grid.Row="8" Style="{DynamicResource S.ListBox.WrapPanelSelecter.Default}" 

@@ -25,10 +25,13 @@ namespace HeBianGu.Product.ExplorePlayer
         } 
 
         public ShellViewModel ShellViewModel => ServiceRegistry.Instance.GetInstance<ShellViewModel>();
+
+        public MovieViewModel MovieViewModel => ServiceRegistry.Instance.GetInstance<MovieViewModel>();
+
         //public GridViewModel GridViewModel => ServiceRegistry.Instance.GetInstance<GridViewModel>();
         //public LoyoutViewModel LoyoutViewModel => ServiceRegistry.Instance.GetInstance<LoyoutViewModel>();
         //public TabViewModel TabViewModel => ServiceRegistry.Instance.GetInstance<TabViewModel>();
         //public TreeListViewModel TreeListViewModel => ServiceRegistry.Instance.GetInstance<TreeListViewModel>();
- 
+
     }
 }

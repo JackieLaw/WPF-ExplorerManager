@@ -68,9 +68,11 @@ namespace HeBianGu.Product.ExplorePlayer
                 //l.ItemWidth = 120;
                 l.ItemCornerRadius = new CornerRadius(17.5);
 
+                l.RowHeight = 45;
+
                 l.AnimalSpeed = 5000;
                 l.AccentColorSelectType = 0;
-                l.IsUseAnimal = true;
+                l.IsUseAnimal = false;
 
                 l.ThemeType = ThemeType.Light;
 

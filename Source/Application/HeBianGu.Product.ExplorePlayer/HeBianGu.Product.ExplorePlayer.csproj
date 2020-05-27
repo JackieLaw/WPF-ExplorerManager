@@ -128,8 +128,8 @@
     <Compile Include="View\Movie\CenterControl.xaml.cs">
       <DependentUpon>CenterControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Movie\DetialControl.xaml.cs">
-      <DependentUpon>DetialControl.xaml</DependentUpon>
+    <Compile Include="View\Movie\Dialog\EditDialog.xaml.cs">
+      <DependentUpon>EditDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Movie\LeftControl.xaml.cs">
       <DependentUpon>LeftControl.xaml</DependentUpon>
@@ -244,7 +244,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Movie\DetialControl.xaml">
+    <Page Include="View\Movie\Dialog\EditDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

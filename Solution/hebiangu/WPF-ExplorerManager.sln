@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.136
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Application", "1 - Application", "{27D6A4A0-F5B3-4AAE-A979-0481905539E9}"
 EndProject
@@ -19,11 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7 - Tester", "7 - Tester", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8 - Package", "8 - Package", "{71EE038A-7D55-444A-A517-BE66EA93A059}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.General.WpfControlLib", "..\..\..\WPF-ControlBase\Source\General\HeBianGu.General.WpfControlLib\HeBianGu.General.WpfControlLib.csproj", "{B49DC15F-B43C-4306-ADF4-8FA6F5DF7F84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeBianGu.General.WpfControlLib", "..\..\..\WPF-ControlBase\Source\General\HeBianGu.General.WpfControlLib\HeBianGu.General.WpfControlLib.csproj", "{B49DC15F-B43C-4306-ADF4-8FA6F5DF7F84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.General.WpfMvc", "..\..\..\WPF-ControlBase\Source\General\HeBianGu.General.WpfMvc\HeBianGu.General.WpfMvc.csproj", "{F49BE6F0-4F25-4B09-923E-27884B86895A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeBianGu.General.WpfMvc", "..\..\..\WPF-ControlBase\Source\General\HeBianGu.General.WpfMvc\HeBianGu.General.WpfMvc.csproj", "{F49BE6F0-4F25-4B09-923E-27884B86895A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.Base.WpfBase", "..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.WpfBase\HeBianGu.Base.WpfBase.csproj", "{435FEB82-599F-48E3-8891-755ACF8E4117}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeBianGu.Base.WpfBase", "..\..\..\WPF-ControlBase\Source\Base\HeBianGu.Base.WpfBase\HeBianGu.Base.WpfBase.csproj", "{435FEB82-599F-48E3-8891-755ACF8E4117}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.ExplorePlayer.Base.Model", "..\..\Source\BaseLayer\HeBianGu.Product.ExplorePlayer.Base.Model\HeBianGu.ExplorePlayer.Base.Model.csproj", "{B7B2B686-2181-4119-A08B-6D5C79D3D30D}"
 EndProject

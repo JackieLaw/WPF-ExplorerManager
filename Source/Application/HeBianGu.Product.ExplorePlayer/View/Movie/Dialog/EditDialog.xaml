@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="HeBianGu.Product.ExplorePlayer.View.Movie.EditDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HeBianGu.Product.ExplorePlayer.View.Movie"
+             mc:Ignorable="d" 
+             xmlns:base="clr-namespace:HeBianGu.Base.WpfBase;assembly=HeBianGu.Base.WpfBase"
+             xmlns:model="clr-namespace:HeBianGu.ExplorePlayer.Base.Model;assembly=HeBianGu.ExplorePlayer.Base.Model" 
+             xmlns:wpfcontrollib="clr-namespace:HeBianGu.General.WpfControlLib;assembly=HeBianGu.General.WpfControlLib" MinWidth="1000"
+             d:DesignHeight="450" d:DesignWidth="800"  Width="1200" Height="820">
+
+    <Grid>
+        <Border Grid.RowSpan="2"  Background="{DynamicResource S.Brush.TextBackground.Default}" CornerRadius="5"/>
+        
+        <Grid Margin="10,6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock VerticalAlignment="Center" Margin="10,0" ToolTip="{Binding SelectedItem.Url}">
+            <Run Text="电影名称：" FontWeight="Bold"/>
+            <Run Text="{Binding SelectedItem.Name}"/>
+            </TextBlock>
+
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+
+                <wpfcontrollib:BulletCheckBox x:Name="cb" Text="停止" CheckedText="编辑" IsChecked="{Binding IsEditting}">
+                    <base:Interaction.Triggers>
+                        <base:EventTrigger EventName="Checked">
+                            <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="CheckEdittingChanged"/>
+                        </base:EventTrigger>
+                        <base:EventTrigger EventName="Unchecked">
+                            <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="CheckEdittingChanged"/>
+                        </base:EventTrigger>
+                    </base:Interaction.Triggers>
+                </wpfcontrollib:BulletCheckBox>
+
+                <wpfcontrollib:FButton Content="播放" Width="50"  Style="{DynamicResource S.FButton.Style.Link}" ToolTip="{Binding SelectedItem.Url}"
+                                 Command="{Binding DoActionCommand}"  CommandParameter="Play">
+                </wpfcontrollib:FButton>
+
+
+                <wpfcontrollib:FButton Content="设置" Width="50"  Command="{x:Static wpfcontrollib:DrawerHost.OpenDrawerCommand}"
+                               CommandParameter="{x:Static Dock.Right}" Style="{DynamicResource S.FButton.Style.Link}">
+
+                </wpfcontrollib:FButton>
+
+
+                <wpfcontrollib:FButton Content="关闭" Width="50"
+                               Command="{x:Static wpfcontrollib:MessageService.CloseLayer}"
+                               Style="{DynamicResource S.FButton.Style.Link}">
+                </wpfcontrollib:FButton>
+
+
+            </StackPanel>
+
+            <ListBox Grid.Row="1" ItemsSource="{Binding ImageCollection,Mode=TwoWay}" SelectedItem="{Binding SelectImage}"  Style="{DynamicResource S.ListBox.Sinple}">
+                <ListBox.Resources>
+                    <DataTemplate DataType="{x:Type model:mbc_dv_movieimage}">
+                        <Grid>
+                            <GroupBox HorizontalAlignment="Center" Width="1100" Height="700" Margin="30,20" Style="{DynamicResource S.GroupBox.Single}" Background="{DynamicResource S.Brush.Dark.10}">
+                                <Grid HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="9*"/>
+                                        <RowDefinition Height="30"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>
+                                    <TextBlock Text="{Binding Text}" Grid.Row="1" Foreground="White" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Row="2" HorizontalAlignment="Right" Foreground="White"  VerticalAlignment="Center">
+                                    <Run Text="时间:"/>
+                                    <Run Text="{Binding TimeSpan}"/>
+                                    </TextBlock>
+                                </Grid>
+                                <base:Interaction.Triggers>
+                                    <base:EventTrigger EventName="IsVisibleChanged">
+                                        <base:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" CommandParameter="DeleteSelectImage"/>
+                                    </base:EventTrigger>
+                                </base:Interaction.Triggers>
+                            </GroupBox>
+
+                            <wpfcontrollib:FButton Style="{DynamicResource S.FButton.Style.MouseOverOpacity}"  ToolTip="删除"  Background="Red" MouseOverBackground="Red"
+                                               Visibility="{Binding ElementName=cb,Path=IsChecked,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}"
+                                               Width="60" Height="60" CornerRadius="50" HorizontalAlignment="Right" VerticalAlignment="Top"
+                                               Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" CommandParameter="DeleteSelectImage"
+                                               FIcon="&#xe6f4;" FIconSize="25">
+                                <base:Interaction.Behaviors>
+                                    <base:SelectListBoxItemElementBehavior/>
+                                </base:Interaction.Behaviors>
+                            </wpfcontrollib:FButton>
+
+                            <wpfcontrollib:FButton Style="{DynamicResource S.FButton.Style.MouseOverOpacity}"  ToolTip="设置缩略图" 
+                                               Visibility="{Binding ElementName=cb,Path=IsChecked,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}"
+                                               Width="120" Height="120" CornerRadius="60" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" CommandParameter="SetViewImage"
+                                               FIcon="&#xe72a;" FIconSize="65">
+                                <base:Interaction.Behaviors>
+                                    <base:SelectListBoxItemElementBehavior/>
+                                </base:Interaction.Behaviors>
+                            </wpfcontrollib:FButton>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.Resources>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid IsItemsHost="True" Columns="1"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ListBox>
+            
+            <TextBlock Style="{StaticResource S.TextBlock.FontSize.18}" Foreground="{DynamicResource S.Brush.Red.Notice}" FontSize="28" Grid.Row="1" FontWeight="Bold"
+                       Visibility="{Binding ElementName=cb,Path=IsChecked,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10" Text="提示！复制或剪切一张图片会保存到预览列表中！">
+                <TextBlock.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard Storyboard="{StaticResource S.Storyboard.OpacityForever}"/>
+                    </EventTrigger>
+                </TextBlock.Triggers>
+            </TextBlock>
+
+            
+        </Grid>
+    </Grid>
+ 
+</UserControl>

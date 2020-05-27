@@ -17,7 +17,7 @@
                                Command="{Binding GoToActionCommand}" CommandParameter="Add"/>
 
 
-        <wpfcontrollib:PagedDataGrid Grid.Row="1"  DataSource="{Binding Collection,Mode=TwoWay}" SelectedItem="{Binding SeletItem}">
+        <wpfcontrollib:PagedDataGrid Grid.Row="1"  DataSource="{Binding Collection,Mode=TwoWay}" SelectedItem="{Binding SelectedItem}">
             <wpfcontrollib:PagedDataGrid.Columns>
                 <DataGridTextColumn Header="序号" Binding="{Binding ID}" Width="*" />
                 <DataGridTextColumn Header="名称" Binding="{Binding Name}" Width="*" />

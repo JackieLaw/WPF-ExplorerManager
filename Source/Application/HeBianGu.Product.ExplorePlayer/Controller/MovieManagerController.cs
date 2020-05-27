@@ -88,13 +88,13 @@ namespace HeBianGu.Product.ExplorePlayer
 
         public async Task<IActionResult> Convert()
         {
-            if (this.ViewModel.SeletItem == null)
+            if (this.ViewModel.SelectedItem == null)
             {
                 MessageService.ShowSnackMessageWithNotice("请先选择案例！");
                 return await List();
             }
 
-            if (!File.Exists(this.ViewModel.SeletItem.Url))
+            if (!File.Exists(this.ViewModel.SelectedItem.Url))
             {
                 MessageService.ShowSnackMessageWithNotice("案例路径不存在，请检查！");
                 return await List();
@@ -103,7 +103,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
             try
             {
-                await this.Respository.ConvertMovie(this.ViewModel.SeletItem);
+                await this.Respository.ConvertMovie(this.ViewModel.SelectedItem);
             }
             catch (Exception ex)
             {

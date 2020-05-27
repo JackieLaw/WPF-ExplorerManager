@@ -3,6 +3,7 @@ using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.Respository.ViewModel;
 using HeBianGu.General.WpfControlLib;
 using HeBianGu.General.WpfMvc;
+using HeBianGu.Product.ExplorePlayer.View.Movie;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -78,7 +79,7 @@ namespace HeBianGu.Product.ExplorePlayer
         }
 
 
-        private ObservableCollection<mbc_db_tagtype> _selectTag= new ObservableCollection<mbc_db_tagtype>();
+        private ObservableCollection<mbc_db_tagtype> _selectTag = new ObservableCollection<mbc_db_tagtype>();
         /// <summary> 说明  </summary>
         public ObservableCollection<mbc_db_tagtype> SelectTag
         {
@@ -88,7 +89,7 @@ namespace HeBianGu.Product.ExplorePlayer
                 _selectTag = value;
                 RaisePropertyChanged("SelectTag");
             }
-        } 
+        }
 
         private ObservableCollection<mbc_db_tagtype> _editSelectTag = new ObservableCollection<mbc_db_tagtype>();
         /// <summary> 说明  </summary>
@@ -100,7 +101,7 @@ namespace HeBianGu.Product.ExplorePlayer
                 _editSelectTag = value;
                 RaisePropertyChanged("EditSelectTag");
             }
-        } 
+        }
 
         private bool _isEditting;
         /// <summary> 说明  </summary>
@@ -141,11 +142,27 @@ namespace HeBianGu.Product.ExplorePlayer
         }
 
 
+        protected override async void RelayMethod(object obj)
+        {
+            string command = obj.ToString();
+
+            //  Do：应用
+            if (command == "Button.Click.Edit")
+            {
+
+                EditDialog detial = new EditDialog() { DataContext = this };
+
+                MessageService.ShowWithLayer(detial);
+
+            }
+            //  Do：取消
+            else if (command == "Cancel")
+            {
+
+
+            }
+        }
     }
-
-
-
-
 
 
 }

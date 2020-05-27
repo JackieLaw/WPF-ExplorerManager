@@ -25,7 +25,7 @@
 
         </StackPanel>
 
-        <wpfcontrollib:PagedDataGrid Grid.Row="1" Margin="10,0" BorderBrush="Transparent" DataSource="{Binding Collection,Mode=TwoWay}" SelectedItem="{Binding SeletItem}">
+        <wpfcontrollib:PagedDataGrid Grid.Row="1" Margin="10,0" BorderBrush="Transparent" DataSource="{Binding Collection,Mode=TwoWay}" SelectedItem="{Binding SelectedItem}">
             <wpfcontrollib:PagedDataGrid.Columns>
                 <DataGridTextColumn Header="序号" Binding="{Binding ID}" Width="*" />
                 <DataGridTextColumn Header="名称" Binding="{Binding Name}" Width="5*" />

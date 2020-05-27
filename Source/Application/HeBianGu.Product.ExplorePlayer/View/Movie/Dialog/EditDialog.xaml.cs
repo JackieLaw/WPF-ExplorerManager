@@ -18,9 +18,9 @@ namespace HeBianGu.Product.ExplorePlayer.View.Movie
     /// <summary>
     /// DetialControl.xaml 的交互逻辑
     /// </summary>
-    public partial class DetialControl : UserControl
+    public partial class EditDialog : UserControl
     {
-        public DetialControl()
+        public EditDialog()
         {
             InitializeComponent(); 
         }

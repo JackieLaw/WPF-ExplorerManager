@@ -17,17 +17,17 @@ namespace HeBianGu.Product.ExplorePlayer
     {
 
 
-        private TabLink _currentLink;
-        /// <summary> 说明  </summary>
-        public TabLink CurrentLink
-        {
-            get { return _currentLink; }
-            set
-            {
-                _currentLink = value;
-                RaisePropertyChanged("CurrentLink");
-            }
-        }
+        //private TabLink _currentLink;
+        ///// <summary> 说明  </summary>
+        //public TabLink CurrentLink
+        //{
+        //    get { return _currentLink; }
+        //    set
+        //    {
+        //        _currentLink = value;
+        //        RaisePropertyChanged("CurrentLink");
+        //    }
+        //}
 
         Random random = new Random();
 

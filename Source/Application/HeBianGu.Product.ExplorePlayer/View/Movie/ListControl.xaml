@@ -11,128 +11,20 @@
             xmlns:vm="clr-namespace:HeBianGu.ExplorePlayer.Respository.ViewModel;assembly=HeBianGu.ExplorePlayer.Respository.ViewModel"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="10,0">
+    <Grid Margin="10,6">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <!--<RowDefinition Height="40"/>-->
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <!--<wpfcontrollib:FButton Content="加载案例视频" HorizontalAlignment="Left" Margin="10,0" 
+                               Command="{Binding GoToActionCommand}" CommandParameter="List"/>-->
 
-        <wpfcontrollib:FButton Content="加载案例视频" HorizontalAlignment="Left" Margin="10,0" 
-                               Command="{Binding GoToActionCommand}" CommandParameter="List"/>
+        <wpfcontrollib:Row Grid.Row="0">
 
-        <ListBox Grid.Row="3" ItemsSource="{Binding Collection,Mode=TwoWay}"  BorderBrush="Transparent" SelectedItem="{Binding SeletItem}">
-            <ListBox.Resources>
-                <DataTemplate DataType="{x:Type vm:MovieModelViewModel}">
-                    <GroupBox Style="{DynamicResource S.GroupBox.Single}" 
-                              Visibility="{Binding Visible,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}" 
-                              Background="{DynamicResource S.Brush.Dark.10}" 
-                              HorizontalAlignment="Center" Height="350" Width="361">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
+            <TextBlock Text="选择排序：" Style="{StaticResource S.TextBlock.Default}" HorizontalAlignment="Left"/>
 
-                            <!--<Image  x:Name="image"  Grid.Row="0" Grid.RowSpan="3" Visibility="Collapsed" Source="/HeBianGu.Product.ExplorePlayer;component/Resources/null.jpg"/>-->
-
-                            <Grid  Grid.Row="0" Grid.RowSpan="3" >
-                                <Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>
-
-                                <wpfcontrollib:FButton Style="{DynamicResource S.FButton.Style.MouseOverOpacity}"  Width="100" Height="100" CornerRadius="50"
-                                                       Command="{x:Static wpfcontrollib:CommandService.ProcessCommand}"  CommandParameter="{Binding Url}"
-                                                       FIcon="&#xe74a;" FIconSize="100"/>
-                            </Grid>
-
-                            <TextBlock TextTrimming="CharacterEllipsis"  Style="{DynamicResource S.TextBlock.FontSize.18}"  FontSize="16" 
-                                       ToolTip="{Binding Url}"  Grid.Row="0" VerticalAlignment="Center">
-                                <Run Text="{Binding Name}" Foreground="{DynamicResource S.Brush.Accent}" FontWeight="Bold"/>
-                            </TextBlock>
-
-                            <TextBlock Grid.Row="4" HorizontalAlignment="Left" FontSize="16" Foreground="White" VerticalAlignment="Center">
-                                <Run Text="评分："/>
-                                <Run Text="{Binding Score}"/>
-                            </TextBlock>
-
-                            <!--<wpfcontrollib:EvaluateControl Grid.Row="1" Background="Transparent" IsHitTestVisible="False"  SelectedIndex="{Binding Score,Mode=TwoWay}" TotalCount="10" />--> 
-
-                            <TextBlock TextTrimming="CharacterEllipsis" 
-                                       ToolTip="{Binding TagTypes}" Foreground="{DynamicResource S.Brush.White.Notice}"
-                                       Grid.Row="3" FontSize="16" 
-                                       VerticalAlignment="Center">
-                                <Run Text="标签：" FontWeight="Bold"/>
-                                <Run Text="{Binding TagTypes,Mode=OneWay}" />
-                            </TextBlock>
-
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Grid.Row="4" >
-
-
-                                <wpfcontrollib:FButton Content="彻底删除" Width="80" FontSize="16"  CommandParameter="DeleteDeep" 
-                                                       Foreground="{DynamicResource S.Brush.White.Notice}"
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
-                                                       Grid.Row="3"  Style="{DynamicResource S.FButton.Style.Link}">
-                                    <base:Interaction.Behaviors>
-                                        <base:SelectListBoxItemElementBehavior/>
-                                    </base:Interaction.Behaviors>
-                                </wpfcontrollib:FButton>
-
-
-                                <wpfcontrollib:FButton Content="移除" Width="50"  FontSize="16" CommandParameter="Remove" Foreground="{DynamicResource S.Brush.White.Notice}"
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
-                                                       Style="{DynamicResource S.FButton.Style.Link}">
-                                    <base:Interaction.Behaviors>
-                                        <base:SelectListBoxItemElementBehavior/>
-                                    </base:Interaction.Behaviors>
-                                </wpfcontrollib:FButton>
-
-                                <wpfcontrollib:FButton Content="编辑" Width="50"  FontSize="16"  Foreground="{DynamicResource S.Brush.White.Notice}"
-                               Command="{x:Static wpfcontrollib:DrawerHost.OpenDrawerCommand}"
-                               CommandParameter="{x:Static Dock.Right}" Style="{DynamicResource S.FButton.Style.Link}">
-                                    <base:Interaction.Behaviors>
-                                        <base:SelectListBoxItemElementBehavior/>
-                                    </base:Interaction.Behaviors>
-                                </wpfcontrollib:FButton>
-
-
-                                <wpfcontrollib:FButton Content="预览" Width="50" FontSize="16" Foreground="{DynamicResource S.Brush.White.Notice}"
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
-                                                       Grid.Row="3" Style="{DynamicResource S.FButton.Style.Link}" CommandParameter="Detial">  
-                                    <base:Interaction.Behaviors>
-                                        <base:SelectListBoxItemElementBehavior/>
-                                    </base:Interaction.Behaviors>
-                                </wpfcontrollib:FButton>
-                            </StackPanel>
-                        </Grid>
-                    </GroupBox>
-                    <!--<DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Image}" Value="{x:Null}">
-                            <Setter Property="Visibility" TargetName="image" Value="Visible"/>
-                        </DataTrigger>
-                    </DataTemplate.Triggers>-->
-                </DataTemplate>
-            </ListBox.Resources>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            
-            <base:Interaction.Triggers>
-                <base:EventTrigger EventName="SelectionChanged">
-                    <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="SeletItemChanged"/>
-                </base:EventTrigger>
-            </base:Interaction.Triggers>
-        </ListBox> 
-
-        <Grid  Grid.Row="2" >
-
-            <TextBlock Text="选择排序：" Style="{StaticResource S.TextBlock.FontSize.16}" HorizontalAlignment="Left"/>
-
-            <ListBox  BorderBrush="Transparent" SelectedItem="{Binding OrderBy}" Margin="80,0,0,0" SelectedIndex="0" VerticalAlignment="Center" Style="{DynamicResource S.ListBox.Sinple}">
+            <ListBox  BorderBrush="Transparent" SelectedItem="{Binding OrderBy}" Grid.Column="1" Grid.ColumnSpan="5" SelectedIndex="0" VerticalAlignment="Center" Style="{DynamicResource S.ListBox.Sinple}">
                 <ListBox.Resources>
                     <DataTemplate DataType="{x:Type system:String}">
                         <Grid >
@@ -170,30 +62,147 @@
                 </ListBox.ItemsPanel>
             </ListBox>
 
-            <CheckBox Content="是否倒序" IsChecked="{Binding Desc}"
+            <CheckBox Content="是否倒序" IsChecked="{Binding Desc}" Grid.Column="11" 
                   VerticalAlignment="Center" 
                   HorizontalAlignment="Right" 
                   Margin="10,0"/>
-        </Grid>
 
-        <ListBox Grid.Column="0" Grid.Row="1" Style="{DynamicResource S.ListBox.WrapPanelSelecter.Default}" 
+        </wpfcontrollib:Row>
+
+        <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource S.Brush.TextBorderBrush.Default}"/>
+
+        <Grid Grid.Row="3" Margin="10,6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.2*"/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox  ItemsSource="{Binding Collection,Mode=TwoWay}"  BorderBrush="Transparent" SelectedItem="{Binding SelectedItem}">
+                <ListBox.Resources>
+                    <DataTemplate DataType="{x:Type vm:MovieModelViewModel}">
+                        <GroupBox Style="{DynamicResource S.GroupBox.Single}" 
+                              Visibility="{Binding Visible,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}" 
+                              Background="{DynamicResource S.Brush.Dark.10}" 
+                              HorizontalAlignment="Center" Height="350" Width="361">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="10*"/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <!--<Image  x:Name="image"  Grid.Row="0" Grid.RowSpan="3" Visibility="Collapsed" Source="/HeBianGu.Product.ExplorePlayer;component/Resources/null.jpg"/>-->
+
+                                <Grid  Grid.Row="0" Grid.RowSpan="3" >
+                                    <Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>
+
+                                    <wpfcontrollib:FButton Style="{DynamicResource S.FButton.Style.MouseOverOpacity}"  Width="100" Height="100" CornerRadius="50"
+                                                       Command="{x:Static wpfcontrollib:CommandService.ProcessCommand}"  CommandParameter="{Binding Url}"
+                                                       FIcon="&#xe74a;" FIconSize="100"/>
+                                </Grid>
+
+                                <TextBlock TextTrimming="CharacterEllipsis"  Style="{DynamicResource S.TextBlock.FontSize.18}"  FontSize="16" 
+                                       ToolTip="{Binding Url}"  Grid.Row="0" VerticalAlignment="Center">
+                                <Run Text="{Binding Name}" Foreground="{DynamicResource S.Brush.Accent}" FontWeight="Bold"/>
+                                </TextBlock>
+
+                                <TextBlock Grid.Row="4" HorizontalAlignment="Left" FontSize="16" Foreground="White" VerticalAlignment="Center">
+                                <Run Text="评分："/>
+                                <Run Text="{Binding Score}"/>
+                                </TextBlock>
+
+                                <!--<wpfcontrollib:EvaluateControl Grid.Row="1" Background="Transparent" IsHitTestVisible="False"  SelectedIndex="{Binding Score,Mode=TwoWay}" TotalCount="10" />-->
+
+                                <TextBlock TextTrimming="CharacterEllipsis" 
+                                       ToolTip="{Binding TagTypes}" Foreground="{DynamicResource S.Brush.White.Notice}"
+                                       Grid.Row="3" FontSize="16" 
+                                       VerticalAlignment="Center">
+                                <Run Text="标签：" FontWeight="Bold"/>
+                                <Run Text="{Binding TagTypes,Mode=OneWay}" />
+                                </TextBlock>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Grid.Row="4" >
+
+
+                                    <wpfcontrollib:FButton Content="彻底删除" Width="80" FontSize="16"  CommandParameter="DeleteDeep" 
+                                                       Foreground="{DynamicResource S.Brush.White.Notice}"
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
+                                                       Grid.Row="3"  Style="{DynamicResource S.FButton.Style.Link}">
+                                        <base:Interaction.Behaviors>
+                                            <base:SelectListBoxItemElementBehavior/>
+                                        </base:Interaction.Behaviors>
+                                    </wpfcontrollib:FButton>
+
+
+                                    <wpfcontrollib:FButton Content="移除" Width="50"  FontSize="16" CommandParameter="Remove" Foreground="{DynamicResource S.Brush.White.Notice}"
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
+                                                       Style="{DynamicResource S.FButton.Style.Link}">
+                                        <base:Interaction.Behaviors>
+                                            <base:SelectListBoxItemElementBehavior/>
+                                        </base:Interaction.Behaviors>
+                                    </wpfcontrollib:FButton>
+
+                                    <wpfcontrollib:FButton Content="编辑" Width="50"  FontSize="16"  Foreground="{DynamicResource S.Brush.White.Notice}"
+                               Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.RelayCommand}"
+                               CommandParameter="Button.Click.Edit" Style="{DynamicResource S.FButton.Style.Link}">
+                                        <base:Interaction.Behaviors>
+                                            <base:SelectListBoxItemElementBehavior/>
+                                        </base:Interaction.Behaviors>
+                                    </wpfcontrollib:FButton>
+
+
+                                    <wpfcontrollib:FButton Content="预览" Width="50" FontSize="16" Foreground="{DynamicResource S.Brush.White.Notice}"
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
+                                                       Grid.Row="3" Style="{DynamicResource S.FButton.Style.Link}" CommandParameter="Detial">
+                                        <base:Interaction.Behaviors>
+                                            <base:SelectListBoxItemElementBehavior/>
+                                        </base:Interaction.Behaviors>
+                                    </wpfcontrollib:FButton>
+                                </StackPanel>
+                            </Grid>
+                        </GroupBox>
+                        <!--<DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Image}" Value="{x:Null}">
+                            <Setter Property="Visibility" TargetName="image" Value="Visible"/>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>-->
+                    </DataTemplate>
+                </ListBox.Resources>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+                <base:Interaction.Triggers>
+                    <base:EventTrigger EventName="SelectionChanged">
+                        <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="SeletItemChanged"/>
+                    </base:EventTrigger>
+                </base:Interaction.Triggers>
+            </ListBox>
+
+            <ListBox Grid.Column="1" Grid.Row="0" Style="{DynamicResource S.ListBox.WrapPanelSelecter.Default}" 
                  ItemsSource="{Binding TagCollection}" SelectionMode="Multiple" MinHeight="50" 
                  base:ControlAttachProperty.SelectedItems="{Binding SelectTag}">
-            <ListBox.Resources>
-                <DataTemplate DataType="{x:Type model:mbc_db_tagtype}">
-                    <Grid >
-                        <TextBlock Text="{Binding Name}" Grid.Row="1" Margin="10,0"
+                <ListBox.Resources>
+                    <DataTemplate DataType="{x:Type model:mbc_db_tagtype}">
+                        <Grid >
+                            <TextBlock Text="{Binding Name}" Grid.Row="1" Margin="10,0"
                                    HorizontalAlignment="Center" Foreground="{DynamicResource S.Brush.TextForeground.Default}"
                                    VerticalAlignment="Center"/>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.Resources>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.Resources>
 
-            <base:Interaction.Triggers>
-                <base:EventTrigger EventName="SelectionChanged">
-                    <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="SelectionFilter"/>
-                </base:EventTrigger>
-            </base:Interaction.Triggers>
-        </ListBox>
+                <base:Interaction.Triggers>
+                    <base:EventTrigger EventName="SelectionChanged">
+                        <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="SelectionFilter"/>
+                    </base:EventTrigger>
+                </base:Interaction.Triggers>
+            </ListBox>
+
+        </Grid>
     </Grid>
 </UserControl>
