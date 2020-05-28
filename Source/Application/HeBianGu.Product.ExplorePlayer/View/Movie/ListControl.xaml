@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:HeBianGu.Product.ExplorePlayer"
              xmlns:wpfcontrollib="clr-namespace:HeBianGu.General.WpfControlLib;assembly=HeBianGu.General.WpfControlLib"
              mc:Ignorable="d" 
+             xmlns:h="QQ:908293466"  
              xmlns:base="clr-namespace:HeBianGu.Base.WpfBase;assembly=HeBianGu.Base.WpfBase"
             xmlns:model="clr-namespace:HeBianGu.ExplorePlayer.Base.Model;assembly=HeBianGu.ExplorePlayer.Base.Model"
             xmlns:vm="clr-namespace:HeBianGu.ExplorePlayer.Respository.ViewModel;assembly=HeBianGu.ExplorePlayer.Respository.ViewModel"
@@ -13,14 +14,26 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="10,6">
         <Grid.RowDefinitions>
-            <!--<RowDefinition Height="40"/>-->
+            <RowDefinition Height="80"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--<wpfcontrollib:FButton Content="加载案例视频" HorizontalAlignment="Left" Margin="10,0" 
                                Command="{Binding GoToActionCommand}" CommandParameter="List"/>-->
 
-        <wpfcontrollib:Row Grid.Row="0">
+        <wpfcontrollib:Row>
+
+            <ComboBox ItemsSource="{Binding Path=CaseViewModel.Collection,Source={StaticResource S.DataSource.Locator}}"
+                      SelectedItem="{Binding SelectCase}"
+                      SelectedIndex="0"
+                      Style="{DynamicResource S.ComboBox.Single.Label}" h:ControlAttachProperty.Label="选择案例" Width="Auto"
+                      Grid.ColumnSpan="3" DisplayMemberPath="Name"/>
+
+            <wpfcontrollib:FButton Grid.Column="3" Content="加载..." HorizontalAlignment="Left" Margin="10,0" 
+                               Command="{Binding RelayCommand}" CommandParameter="Button.Click.Load"/>
+        </wpfcontrollib:Row>
+        
+        <wpfcontrollib:Row Grid.Row="1">
 
             <TextBlock Text="选择排序：" Style="{StaticResource S.TextBlock.Default}" HorizontalAlignment="Left"/>
 
@@ -69,21 +82,21 @@
 
         </wpfcontrollib:Row>
 
-        <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource S.Brush.TextBorderBrush.Default}"/>
+        <Border BorderThickness="0,0,0,1" Grid.Row="1" BorderBrush="{DynamicResource S.Brush.TextBorderBrush.Default}"/>
 
-        <Grid Grid.Row="3" Margin="10,6">
+        <Grid Grid.Row="2" Margin="10,6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="0.2*"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox  ItemsSource="{Binding Collection,Mode=TwoWay}"  BorderBrush="Transparent" SelectedItem="{Binding SelectedItem}">
+            <ListBox  ItemsSource="{Binding Collection,UpdateSourceTrigger=PropertyChanged}"  BorderBrush="Transparent" SelectedItem="{Binding SelectedItem}">
                 <ListBox.Resources>
                     <DataTemplate DataType="{x:Type vm:MovieModelViewModel}">
                         <GroupBox Style="{DynamicResource S.GroupBox.Single}" 
                               Visibility="{Binding Visible,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}" 
                               Background="{DynamicResource S.Brush.Dark.10}" 
-                              HorizontalAlignment="Center" Height="350" Width="361">
+                              HorizontalAlignment="Center" Height="350" Width="425">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -205,4 +218,10 @@
 
         </Grid>
     </Grid>
+
+    <base:Interaction.Triggers>
+        <base:EventTrigger EventName="Loaded">
+            <base:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </base:EventTrigger>
+    </base:Interaction.Triggers>
 </UserControl>

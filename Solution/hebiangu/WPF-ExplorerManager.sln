@@ -57,6 +57,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.Domain.MvcResposit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.Common.PublicTool", "..\..\..\.NetFrameWork-CommonBase\Source\GeneralLayer\HeBianGu.Common.PublicTool\HeBianGu.Common.PublicTool.csproj", "{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{029F2591-3287-4593-8B12-320BF7C109BC}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.General.ImageCore", "..\..\..\WPF-ImagePlayer\Source\General\HeBianGu.General.ImageCore\HeBianGu.General.ImageCore.csproj", "{135BE864-21A3-4CF4-B784-B950783C4B5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +142,10 @@ Global
 		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{135BE864-21A3-4CF4-B784-B950783C4B5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{135BE864-21A3-4CF4-B784-B950783C4B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{135BE864-21A3-4CF4-B784-B950783C4B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{135BE864-21A3-4CF4-B784-B950783C4B5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,6 +169,7 @@ Global
 		{5B68AA8E-7138-4210-B796-376E30D4F2B3} = {B41B03D7-9BED-49D4-9027-D2497A1A12DF}
 		{DA9F83A2-2D47-4EBD-A8BF-13AD61B10E7B} = {5A13A803-6C44-4FE3-B122-397E3BDC5003}
 		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4} = {B41B03D7-9BED-49D4-9027-D2497A1A12DF}
+		{135BE864-21A3-4CF4-B784-B950783C4B5C} = {254B28E2-678D-4B6C-A656-60FA75758B6B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D32BCB0-0C89-4CB3-9248-5E5DD04D9813}

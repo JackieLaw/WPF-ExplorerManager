@@ -5,19 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HeBianGu.Product.ExplorePlayer.View.Case"
              xmlns:wpfcontrollib="clr-namespace:HeBianGu.General.WpfControlLib;assembly=HeBianGu.General.WpfControlLib"
+             xmlns:base="QQ:908293466"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="1200">
-    <Grid>
+    <Grid Background="{DynamicResource S.Brush.TextBackground.Default}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
+        <wpfcontrollib:Row>
+            <wpfcontrollib:FButton Content="新增案例" HorizontalAlignment="Right" Grid.Column="11"
+                               Command="{Binding RelayCommand}" CommandParameter="Button.Click.AddCase"/>
+        </wpfcontrollib:Row>
 
-        <wpfcontrollib:FButton Content="新增案例" HorizontalAlignment="Left" Margin="10,0" 
-                               Command="{Binding GoToActionCommand}" CommandParameter="Add"/>
+        <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource S.Brush.TextBorderBrush.Default}"/>
 
-
-        <wpfcontrollib:PagedDataGrid Grid.Row="1"  DataSource="{Binding Collection,Mode=TwoWay}" SelectedItem="{Binding SelectedItem}">
+        <wpfcontrollib:PagedDataGrid Grid.Row="1" Margin="0,10" DataSource="{Binding Collection}" SelectedItem="{Binding SelectedItem}">
             <wpfcontrollib:PagedDataGrid.Columns>
                 <DataGridTextColumn Header="序号" Binding="{Binding ID}" Width="*" />
                 <DataGridTextColumn Header="名称" Binding="{Binding Name}" Width="*" />
@@ -27,5 +31,23 @@
                 <DataGridTemplateColumn Width="150" CellTemplate="{DynamicResource S.MvcListFrame.EditAndDelete}"/>
             </wpfcontrollib:PagedDataGrid.Columns>
         </wpfcontrollib:PagedDataGrid>
+
+        <!--<DataGrid Grid.Row="1" ItemsSource="{Binding Collection}" Background="Red">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="序号" Binding="{Binding ID}" Width="*" />
+                <DataGridTextColumn Header="名称" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="路径" Binding="{Binding BaseUrl}" Width="2*" />
+                <DataGridTextColumn Header="创建时间" Binding="{Binding CDATE}" Width="0.5*" />
+
+                <DataGridTemplateColumn Width="150" CellTemplate="{DynamicResource S.MvcListFrame.EditAndDelete}"/>
+            </DataGrid.Columns>
+        </DataGrid>-->
     </Grid>
+
+    <base:Interaction.Triggers>
+        <base:EventTrigger EventName="Loaded">
+            <base:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </base:EventTrigger>
+    </base:Interaction.Triggers>
+    
 </UserControl>

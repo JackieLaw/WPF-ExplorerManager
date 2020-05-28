@@ -14,9 +14,11 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace HeBianGu.Product.ExplorePlayer
 {
@@ -49,60 +51,9 @@ namespace HeBianGu.Product.ExplorePlayer
         {
             return View();
         }
-        
+
         public async Task<IActionResult> List()
         {
-            var tags = _tagRespository.GetListAsync()?.Result;
-
-            this.Invoke(() =>
-            {
-                this.ViewModel.TagCollection.Clear();
-
-                foreach (var item in tags)
-                {
-                    this.ViewModel.TagCollection.Add(item);
-                }
-            });
-
-
-            if (this.ViewModel.SelectCase == null)
-            {
-                var cases= await this._caseRespository.GetListAsync();
-
-                var select= cases.FirstOrDefault();
-
-                if(select==null)
-                {
-
-                    return View();
-                }
-                else
-                {
-                    this.ViewModel.SelectCase = select;
-                } 
-            }
-
-            var from = this.Respository.GetListAsync(l => l.CaseType == this.ViewModel.SelectCase.ID).Result;
-
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                this.ViewModel.Collection.Clear();
-            });
-
-            if (from == null)
-            {
-                return View();
-            }
-
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                foreach (var item in from)
-                {
-                    MovieModelViewModel viewModel = new MovieModelViewModel(item);
-                    this.ViewModel.Collection.Add(viewModel);
-                }
-            });
-
             return View();
         }
 
@@ -233,7 +184,7 @@ namespace HeBianGu.Product.ExplorePlayer
         {
             string file = this.ViewModel.SelectedItem?.Url;
 
-            if(File.Exists(file))
+            if (File.Exists(file))
             {
                 Process.Start(file);
             }
@@ -412,7 +363,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
                     await this.Remove();
 
-                    
+
                 }
             }
         }

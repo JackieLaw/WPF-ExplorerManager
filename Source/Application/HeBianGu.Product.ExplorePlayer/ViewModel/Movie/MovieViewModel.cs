@@ -1,5 +1,6 @@
 ﻿using HeBianGu.Base.WpfBase;
 using HeBianGu.ExplorePlayer.Base.Model;
+using HeBianGu.ExplorePlayer.Respository.IService;
 using HeBianGu.ExplorePlayer.Respository.ViewModel;
 using HeBianGu.General.WpfControlLib;
 using HeBianGu.General.WpfMvc;
@@ -9,12 +10,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HeBianGu.Product.ExplorePlayer
 {
     [ViewModel("Movie")]
-    public class MovieViewModel : MvcEntityViewModelBase<MovieModelViewModel>
+    public class MovieViewModel : MvcViewModelBase<IMovieRespository, ITagRespository, ICaseRespository, MovieModelViewModel>
     {
 
         private mbc_dc_case _selectCase;
@@ -141,6 +144,32 @@ namespace HeBianGu.Product.ExplorePlayer
             }
         }
 
+        public bool IsChanged { get; set; } = true;
+
+        protected override async void Loaded(string args)
+        {
+            base.Loaded(args);
+
+            if (!this.IsChanged) return;
+
+            var tags = await this.Respository2.GetListAsync();
+
+            this.TagCollection.BeginInvoke(l => l.Clear());
+
+            foreach (var item in tags)
+            {
+                this.TagCollection.BeginInvoke(l => l.Add(item));
+
+                Thread.Sleep(2);
+            }
+
+            var cases = await this.Respository3.GetListAsync();
+
+            this.SelectCase = cases?.FirstOrDefault();
+
+            this.IsChanged = false;
+        }
+
 
         protected override async void RelayMethod(object obj)
         {
@@ -154,11 +183,66 @@ namespace HeBianGu.Product.ExplorePlayer
 
                 MessageService.ShowWithLayer(detial);
 
+                var model = await await MessageService.ShowWaittingResultMessge(() =>
+                {
+                    string id = this.SelectedItem?.ID;
+
+                    return this.Respository.GetMovieWIthDetial(id);
+
+                });
+
+                this.RunAsync(() =>
+                {
+                    this.ImageCollection.Invoke(l => l.Clear());
+
+                    foreach (var item in model.Item2)
+                    {
+                        this.ImageCollection.Invoke(l => l.Add(item));
+                        Thread.Sleep(50);
+                    }
+                });
+
+
             }
             //  Do：取消
-            else if (command == "Cancel")
+            else if (command == "Button.Click.Load")
             {
+                if (this.SelectCase == null)
+                {
+                    MessageService.ShowSnackMessageWithNotice("请先选择案例！");
+                    return;
+                }
 
+                var from = await MessageService.ShowWaittingResultMessge(() =>
+                 {
+                     return this.Respository.GetListAsync(l => l.CaseType == this.SelectCase.ID).Result;
+                 });
+
+                if (from == null)
+                {
+                    MessageService.ShowSnackMessageWithNotice("没有视频数据，请先生成视频数据");
+                    return;
+                }
+
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                Task.Run(() =>
+                {
+                    this.Collection.BeginInvoke(l => l.Clear());
+
+                    foreach (var item in from)
+                    {
+                        MovieModelViewModel viewModel = new MovieModelViewModel(item);
+
+                        this.Collection.BeginInvoke(l => l.Add(viewModel));
+
+                        Thread.Sleep(2);
+
+                    }
+
+                    MessageService.ShowSnackMessageWithNotice("加载完成...");
+
+                });
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
 
             }
         }

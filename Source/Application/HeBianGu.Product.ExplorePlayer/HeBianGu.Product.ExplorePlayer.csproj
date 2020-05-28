@@ -335,6 +335,10 @@
       <Project>{f49be6f0-4f25-4b09-923e-27884b86895a}</Project>
       <Name>HeBianGu.General.WpfMvc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\WPF-ImagePlayer\Source\General\HeBianGu.General.ImageCore\HeBianGu.General.ImageCore.csproj">
+      <Project>{135be864-21a3-4cf4-b784-b950783c4b5c}</Project>
+      <Name>HeBianGu.General.ImageCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BaseLayer\HeBianGu.Product.ExplorePlayer.Base.Model\HeBianGu.ExplorePlayer.Base.Model.csproj">
       <Project>{B7B2B686-2181-4119-A08B-6D5C79D3D30D}</Project>
       <Name>HeBianGu.ExplorePlayer.Base.Model</Name>

@@ -7,7 +7,8 @@
              mc:Ignorable="d" 
              xmlns:base="clr-namespace:HeBianGu.Base.WpfBase;assembly=HeBianGu.Base.WpfBase"
              xmlns:model="clr-namespace:HeBianGu.ExplorePlayer.Base.Model;assembly=HeBianGu.ExplorePlayer.Base.Model" 
-             xmlns:wpfcontrollib="clr-namespace:HeBianGu.General.WpfControlLib;assembly=HeBianGu.General.WpfControlLib" MinWidth="1000"
+             xmlns:wpfcontrollib="clr-namespace:HeBianGu.General.WpfControlLib;assembly=HeBianGu.General.WpfControlLib"
+             xmlns:imagecore="clr-namespace:HeBianGu.General.ImageCore;assembly=HeBianGu.General.ImageCore" MinWidth="1000"
              d:DesignHeight="450" d:DesignWidth="800"  Width="1200" Height="820">
 
     <Grid>
@@ -62,13 +63,16 @@
                     <DataTemplate DataType="{x:Type model:mbc_dv_movieimage}">
                         <Grid>
                             <GroupBox HorizontalAlignment="Center" Width="1100" Height="700" Margin="30,20" Style="{DynamicResource S.GroupBox.Single}" Background="{DynamicResource S.Brush.Dark.10}">
-                                <Grid HorizontalAlignment="Center">
+                                <Grid HorizontalAlignment="Stretch">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="9*"/>
                                         <RowDefinition Height="30"/>
                                     </Grid.RowDefinitions>
 
-                                    <Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>
+                                    <!--<Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>-->
+
+                                    <imagecore:ImageCore HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ImageSource="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>
+
                                     <TextBlock Text="{Binding Text}" Grid.Row="1" Foreground="White" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Row="2" HorizontalAlignment="Right" Foreground="White"  VerticalAlignment="Center">
                                     <Run Text="时间:"/>

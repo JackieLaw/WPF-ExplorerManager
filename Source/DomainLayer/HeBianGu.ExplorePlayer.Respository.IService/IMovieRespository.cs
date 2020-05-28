@@ -20,5 +20,11 @@ namespace HeBianGu.ExplorePlayer.Respository.IService
         Task<List<string>> UpdateImage(string id, string timespan = "00:01:00");
 
         Task<Tuple<mbc_dv_movie, List<mbc_dv_movieimage>>> GetMovieWIthDetial(string id);
+
+          Task ConvertMovie(mbc_dv_movie movie);
+
+        Task RefreshMovie(mbc_dc_case item);
+
+         Task AddMovieImage(mbc_dv_movieimage image);
     }
 }

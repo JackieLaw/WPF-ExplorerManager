@@ -1,6 +1,7 @@
 ﻿using HeBianGu.Base.WpfBase;
 using HeBianGu.Domain.MvcRespository;
 using HeBianGu.ExplorePlayer.Base.Model;
+using HeBianGu.ExplorePlayer.Respository.IService;
 using HeBianGu.ExplorePlayer.Respository.Serice;
 using HeBianGu.General.WpfControlLib;
 using HeBianGu.General.WpfMvc;
@@ -15,9 +16,10 @@ using System.Windows;
 namespace HeBianGu.Product.ExplorePlayer
 {
     [Route("MovieManager")]
-    class MovieManagerController : EntityBaseController<mbc_dv_movie, MovieManagerViewModel, MovieRespository>
+    class MovieManagerController : EntityBaseController<mbc_dv_movie, MovieManagerViewModel, IMovieRespository>
     {
         CaseRespository _caseRespository;
+
         public MovieManagerController(CaseRespository caseRespository)
         {
              _caseRespository= caseRespository;
@@ -25,41 +27,40 @@ namespace HeBianGu.Product.ExplorePlayer
 
         public override async Task<IActionResult> List()
         {
+            //if (this.ViewModel.SelectCase == null)
+            //{
+            //    return View();
+            //}
 
-            if (this.ViewModel.SelectCase == null)
-            {
-                return View();
-            }
+            //var from = await this.Respository.GetListAsync(l => l.CaseType == this.ViewModel.SelectCase.ID);
 
-            var from = await this.Respository.GetListAsync(l => l.CaseType == this.ViewModel.SelectCase.ID);
+            //Application.Current.Dispatcher.Invoke(() =>
+            //{
+            //    this.ViewModel.Collection.Clear();
+            //});
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                this.ViewModel.Collection.Clear();
-            });
+            //if (from == null)
+            //{
+            //    return View();
+            //}
 
-            if (from == null)
-            {
-                return View();
-            }
+            //Application.Current.Dispatcher.Invoke(() =>
+            //{
+            //    foreach (var item in from)
+            //    {
+            //        this.ViewModel.Collection.Add(item);
+            //    }
+            //});
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                foreach (var item in from)
-                {
-                    this.ViewModel.Collection.Add(item);
-                }
-            });
-
-            return View();
+            return await ViewAsync();
         }
 
-        public async Task<IActionResult> Left()
-        {
-            this.ViewModel.GroupObject = this._caseRespository.GetGroupObject().Result;
+        //public async Task<IActionResult> Left()
+        //{
+        //    this.ViewModel.GroupObject = this._caseRespository.GetGroupObject().Result;
 
-            return View();
-        }
+        //    return View();
+        //}
 
         public async Task<IActionResult> Refresh()
         {

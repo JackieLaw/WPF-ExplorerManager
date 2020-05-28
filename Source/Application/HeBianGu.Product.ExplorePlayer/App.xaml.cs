@@ -64,7 +64,7 @@ namespace HeBianGu.Product.ExplorePlayer
                 l.LargeFontSize = 18D;
                 l.FontSize = FontSize.Small;
 
-                l.ItemHeight = 35;
+                l.ItemHeight = 40;
                 //l.ItemWidth = 120;
                 l.ItemCornerRadius = new CornerRadius(17.5);
 

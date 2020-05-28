@@ -80,22 +80,23 @@
     <h:ManagerWindowBase.LinkActionGroups>
         <h:LinkActionGroup DisplayName="视频中心" Logo="&#xe69f;">
             <h:LinkActionGroup.Links>
-                <h:LinkAction  DisplayName="视频浏览" Logo="&#xe69f;"  Controller="Movie" Action="List"/>
+                <h:LinkAction  DisplayName="案例管理" Logo="&#xe69f;" Controller="Case" Action="List"/>
+                <h:LinkAction  DisplayName="视频管理" Logo="&#xe69e;" Controller="MovieManager" Action="List"/>
+
             </h:LinkActionGroup.Links>
         </h:LinkActionGroup>
 
 
-        <h:LinkActionGroup DisplayName="视频管理" Logo="&#xe69f;">
+        <h:LinkActionGroup DisplayName="视频浏览" Logo="&#xe69f;">
             <h:LinkActionGroup.Links>
-                <h:LinkAction  DisplayName="案例管理" Logo="&#xe69f;" Controller="Case" Action="Center"/>
-                <h:LinkAction  DisplayName="视频管理" Logo="&#xe69e;" Controller="MovieManager" Action="Center"/>
+                <h:LinkAction  DisplayName="视频浏览" Logo="&#xe69f;"  Controller="Movie" Action="List"/>
             </h:LinkActionGroup.Links>
         </h:LinkActionGroup>
         
         <h:LinkActionGroup DisplayName="综合管理" Logo="&#xe69f;">
             <h:LinkActionGroup.Links>
                 <h:LinkAction  DisplayName="标签管理"  Logo="&#xe6a3;" Controller="Tag" Action="Center"/>
-                <h:LinkAction  DisplayName="扩展管理" Logo="&#xe69f;" Controller="Extend" Action="Center" />
+                <h:LinkAction  DisplayName="扩展管理" Logo="&#xe69f;" Controller="Extend" Action="List" />
                 <h:LinkAction  DisplayName="类别管理"  Logo="&#xe6a3;" Controller="Loyout" Action="TextBox"/>
                 <h:LinkAction  DisplayName="来源管理"  Logo="&#xe6a3;" Controller="Loyout" Action="Grid"/>
                 <h:LinkAction  DisplayName="区域管理"  Logo="&#xe6a3;" Controller="Loyout" Action="Grid"/>

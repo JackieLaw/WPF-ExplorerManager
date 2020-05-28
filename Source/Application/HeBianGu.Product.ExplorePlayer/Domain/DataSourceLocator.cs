@@ -28,6 +28,8 @@ namespace HeBianGu.Product.ExplorePlayer
 
         public MovieViewModel MovieViewModel => ServiceRegistry.Instance.GetInstance<MovieViewModel>();
 
+        public CaseViewModel CaseViewModel => ServiceRegistry.Instance.GetInstance<CaseViewModel>();
+
         //public GridViewModel GridViewModel => ServiceRegistry.Instance.GetInstance<GridViewModel>();
         //public LoyoutViewModel LoyoutViewModel => ServiceRegistry.Instance.GetInstance<LoyoutViewModel>();
         //public TabViewModel TabViewModel => ServiceRegistry.Instance.GetInstance<TabViewModel>();

@@ -1,6 +1,7 @@
 ﻿using HeBianGu.Base.WpfBase;
 using HeBianGu.Domain.MvcRespository;
 using HeBianGu.ExplorePlayer.Base.Model;
+using HeBianGu.ExplorePlayer.Respository.IService;
 using HeBianGu.ExplorePlayer.Respository.Serice;
 using HeBianGu.General.WpfControlLib;
 using HeBianGu.General.WpfMvc;
@@ -15,7 +16,7 @@ using System.Windows;
 namespace HeBianGu.Product.ExplorePlayer
 {
     [Route("Tag")]
-    class TagController : EntityBaseController<mbc_db_tagtype, TagViewModel, TagRespository>
+    class TagController : EntityBaseController<mbc_db_tagtype, TagViewModel, ITagRespository>
     {
 
     }

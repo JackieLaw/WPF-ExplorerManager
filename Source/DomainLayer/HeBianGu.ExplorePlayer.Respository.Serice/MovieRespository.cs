@@ -237,13 +237,6 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
         }
         public async Task RefreshMovie(mbc_dc_case item)
         {
-            if (item.State == 1)
-            {
-                var result = await MessageService.ShowResultMessge("当前案例已经加载过,是否重新扫描！");
-
-                if (!result) return;
-            }
-
             var extends = await this.GetExtends();
 
             List<string> allextends = new List<string>();
@@ -258,7 +251,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
 
             Predicate<FileInfo> match = l =>
             {
-                if (allextends.Count == 0) return true;
+                if (allextends.Count == 0) return false;
 
                 return allextends.Exists(k => k == l.Extension);
             };

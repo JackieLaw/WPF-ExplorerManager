@@ -1,4 +1,5 @@
 ﻿using HeBianGu.Base.WpfBase;
+using HeBianGu.ExplorePlayer.Respository.IService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,24 +12,24 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
         /// <summary> 依赖注入Respository</summary>
         public static void UseRespositorys(this ServiceRegistry registry)
         {
-            registry.Register<MovieRespository > ();
+            registry.Register<IMovieRespository,MovieRespository> ();
 
-            registry.Register<CaseRespository>();
+            registry.Register<ICaseRespository, CaseRespository>();
 
-            registry.Register<ExtendRespository>();
+            registry.Register<IExtendRespository, ExtendRespository>();
 
-            registry.Register<TagRespository>();
+            registry.Register<ITagRespository, TagRespository>();
 
-            registry.Register<FromRespository>();
+            registry.Register<IFromRespository, FromRespository>();
 
-            registry.Register<AreaRespository>();
+            registry.Register<IAreaRespository, AreaRespository>();
 
-            registry.Register<VipRespository>();
+            registry.Register<IVipRespository, VipRespository>();
 
-            registry.Register<MediaRespository>();
+            registry.Register<IMediaRespository, MediaRespository>();
 
-            registry.Register<ArticulationRespository>();
-            registry.Register<ImageRespository>();
+            registry.Register<IArticulationRespository, ArticulationRespository>();
+            registry.Register<IImageRespository, ImageRespository>();
             
 
         }
