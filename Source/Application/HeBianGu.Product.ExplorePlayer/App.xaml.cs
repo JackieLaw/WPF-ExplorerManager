@@ -45,8 +45,8 @@ namespace HeBianGu.Product.ExplorePlayer
             //  Do：注册Mvc模式
             services.UseMvc();
 
-            ////  Do ：注册本地化配置读写服务
-            //services.AddSingleton<IThemeLocalizeService, AssemblyDomain>();
+            //  Do ：注册本地化配置读写服务
+            services.AddSingleton<IThemeLocalizeService, LocalizeService>();
 
             ////  Do ：注册日志服务
             //services.AddSingleton<ILogService, AssemblyDomain>();
@@ -66,7 +66,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
                 l.ItemHeight = 40;
                 //l.ItemWidth = 120;
-                l.ItemCornerRadius = new CornerRadius(17.5);
+                l.ItemCornerRadius =15;
 
                 l.RowHeight = 45;
 

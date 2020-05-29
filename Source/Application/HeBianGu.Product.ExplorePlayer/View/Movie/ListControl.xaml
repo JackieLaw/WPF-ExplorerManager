@@ -27,9 +27,9 @@
                       SelectedItem="{Binding SelectCase}"
                       SelectedIndex="0"
                       Style="{DynamicResource S.ComboBox.Single.Label}" h:ControlAttachProperty.Label="选择案例" Width="Auto"
-                      Grid.ColumnSpan="3" DisplayMemberPath="Name"/>
+                      Grid.ColumnSpan="4" DisplayMemberPath="Name"/>
 
-            <wpfcontrollib:FButton Grid.Column="3" Content="加载..." HorizontalAlignment="Left" Margin="10,0" 
+            <wpfcontrollib:FButton Grid.Column="4" Content="加载..." HorizontalAlignment="Left" Margin="0" 
                                Command="{Binding RelayCommand}" CommandParameter="Button.Click.Load"/>
         </wpfcontrollib:Row>
         
@@ -96,7 +96,7 @@
                         <GroupBox Style="{DynamicResource S.GroupBox.Single}" 
                               Visibility="{Binding Visible,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}" 
                               Background="{DynamicResource S.Brush.Dark.10}" 
-                              HorizontalAlignment="Center" Height="350" Width="425">
+                              HorizontalAlignment="Center" Height="350">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -185,7 +185,7 @@
                 </ListBox.Resources>
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True"/>
+                        <UniformGrid IsItemsHost="True" Columns="3"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
 

@@ -13,15 +13,15 @@ namespace HeBianGu.ExplorePlayer.Base.Model
    public class mbc_db_modelbase : StringEntityBase
     {
         [Display(Name = "创建时间")]
-        [ReadOnly(true)]
+        [ReadOnly(true)] 
         public string CDATE { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
         [Display(Name = "修改时间")]
-        [ReadOnly(true)]
+        [ReadOnly(true)] 
         public string UDATE { get; set; }
 
         [Display(Name = "是否可用")]
-        //[Hidden]
+        [ReadOnly(true)]
         public int ISENBLED { get; set; } = 1;
     }
 }

@@ -20,18 +20,18 @@
             <ComboBox ItemsSource="{Binding Path=CaseViewModel.Collection,Source={StaticResource S.DataSource.Locator}}"
                       SelectedItem="{Binding SelectCase}"
                       Style="{DynamicResource S.ComboBox.Single.Label}" h:ControlAttachProperty.Label="选择案例" Width="Auto"
-                      Grid.ColumnSpan="3" DisplayMemberPath="Name"/>
+                      Grid.ColumnSpan="4" DisplayMemberPath="Name"/>
 
-            <wpfcontrollib:FButton Grid.Column="3" Content="加载..." HorizontalAlignment="Left" Margin="10,0" 
+            <wpfcontrollib:FButton Grid.Column="4" Content="加载..." HorizontalAlignment="Left" Margin="0" 
                                Command="{Binding RelayCommand}" CommandParameter="Button.Click.Load"/>
 
-            <wpfcontrollib:FButton Grid.Column="9" Content="生成..." HorizontalAlignment="Left" Margin="10,0" 
+            <wpfcontrollib:FButton Grid.Column="9" Content="生成..." HorizontalAlignment="Left" Margin="0" 
                                Command="{Binding RelayCommand}" CommandParameter="Button.Click.Create"/>
             
-            <wpfcontrollib:FButton Content="全部移除" Margin="10,0" Grid.Column="10"
+            <wpfcontrollib:FButton Content="全部移除" Margin="0" Grid.Column="10"
                                Command="{Binding RelayCommand}"  CommandParameter="Button.Click.Clear"/>
 
-                <wpfcontrollib:FButton Content="全部转换" Margin="10,0" Grid.Column="11"
+                <wpfcontrollib:FButton Content="全部转换" Margin="0" Grid.Column="11"
                                Command="{Binding RelayCommand}"  CommandParameter="Button.Click.ConvertAll"/>
         </wpfcontrollib:Row>
 

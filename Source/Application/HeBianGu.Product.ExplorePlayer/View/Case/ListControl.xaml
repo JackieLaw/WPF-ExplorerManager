@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         
         <wpfcontrollib:Row>
-            <wpfcontrollib:FButton Content="新增案例" HorizontalAlignment="Right" Grid.Column="11"
+            <wpfcontrollib:FButton Content="新增案例" HorizontalAlignment="Right" Grid.Column="0"
                                Command="{Binding RelayCommand}" CommandParameter="Button.Click.AddCase"/>
         </wpfcontrollib:Row>
 

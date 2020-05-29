@@ -1,4 +1,5 @@
 ﻿using HeBianGu.Base.WpfBase;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace HeBianGu.ExplorePlayer.Base.Model
@@ -18,6 +19,7 @@ namespace HeBianGu.ExplorePlayer.Base.Model
         /// <summary> 案例状态 0 = 初始状态 1 = 已加载 </summary>
         [Required]
         [Display(Name = "案例状态")]
+        [ReadOnly(true)]
         //[RegularExpression( @"^(?<fpath>([a - zA - Z]:\\)([\s\.\-\w]+\\)*)(?<fname>[\w])",ErrorMessage ="请输入有效路径")]  
         public int State { get; set; } = 0;
 

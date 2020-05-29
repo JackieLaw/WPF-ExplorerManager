@@ -38,6 +38,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="HeBianGu.Common.LocalConfig, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Solution\hebiangu\packages\HeBianGu.Common.LocalConfig.2.0.1\lib\net45\HeBianGu.Common.LocalConfig.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -66,6 +69,7 @@
     <Compile Include="Controller\CaseController.cs" />
     <Compile Include="Controller\SettingController.cs" />
     <Compile Include="Domain\AssemblyDomain.cs" />
+    <Compile Include="Domain\LocalizeService.cs" />
     <Compile Include="ViewModel\Case\CaseViewModel.cs" />
     <Compile Include="ViewModel\Extend\ExtendViewModel.cs" />
     <Compile Include="ViewModel\Image\ImageViewModel.cs" />
@@ -302,6 +306,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
