@@ -146,7 +146,7 @@ namespace HeBianGu.ExplorePlayer.General.FFmpegService
         public const string ffmpeg_copy= "-c copy";
 
         /// <summary> 从视频里截图 ffmpeg -y -i E:\Medias\Movie\飘花电影piaohua.com谍影重重2高清1280.rmvb -ss 00:00:01 -vframes 1 -f image2 -vcodec png E:\Medias\Movie\output.png </summary>
-        public const string ffmpeg_screen_shot = "-y -i {0} -ss {1} -vframes 1 -f image2 -vcodec png {2}";
+        public const string ffmpeg_screen_shot = "-y  -ss {1} -i {0} -vframes 1 -f image2 -vcodec png {2}";
 
         /// <summary> 批量截图 F:\GitHub\WPF-MediaConverter\Product\Dll\ffmpeg -i E:\Medias\Movie\飘花电影piaohua.com谍影重重2高清1280.rmvb -vf fps=1/60 -t 00:10:00 E:\Medias\Movie\飘花电影piaohua.com谍影重重2高清1280_shotcut%03d.jpg  </summary>
         public const string ffmpeg_screen_shot_bat = "-i {0} -vf fps=1/{1} -t {2} {3}%05d.jpg";

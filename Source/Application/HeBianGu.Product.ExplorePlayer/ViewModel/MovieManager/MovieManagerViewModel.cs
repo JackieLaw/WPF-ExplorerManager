@@ -2,6 +2,7 @@
 using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.Respository.IService;
 using HeBianGu.ExplorePlayer.Respository.Serice;
+using HeBianGu.ExplorePlayer.Respository.ViewModel;
 using HeBianGu.General.WpfControlLib;
 using HeBianGu.General.WpfMvc;
 using System;
@@ -16,7 +17,7 @@ using System.Windows;
 namespace HeBianGu.Product.ExplorePlayer
 {
     [ViewModel("MovieManager")]
-    public class MovieManagerViewModel : MvcViewModelBase<IMovieRespository, ICaseRespository, mbc_dv_movie>
+    public class MovieManagerViewModel : MvcViewModelBase<IMovieRespository, ICaseRespository, MovieModelViewModel>
     {
 
         private mbc_dc_case _selectCase;
@@ -35,7 +36,7 @@ namespace HeBianGu.Product.ExplorePlayer
         {
             base.Loaded(args);
 
-            var cases = await this.Respository2.GetListAsync();
+            var cases = await this.Service1.GetListAsync();
 
             this.SelectCase = cases?.FirstOrDefault();
         }
@@ -62,24 +63,27 @@ namespace HeBianGu.Product.ExplorePlayer
 
                 Action<IStringProgress> actionProgress = async l =>
                 {
-                    for (int i = 0; i < this.Collection.Count; i++)
+
+                    var where = this.Collection.Where(k => k.Selected)?.ToList();
+
+                    for (int i = 0; i < where.Count; i++)
                     {
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            l.MessageStr = $"正在转换第{i + 1}条视频，共计{this.Collection.Count}条视频";
+                            l.MessageStr = $"正在转换第{i + 1}条视频，共计{where.Count}条视频";
                         });
 
-                        var movie = this.Collection[i];
+                        var movie = where[i];
 
                         try
                         {
-                            if (!string.IsNullOrEmpty(movie.Image))
-                            {
-                                MessageService.ShowNotifyMessage("该视频已经转换！");
-                                continue;
-                            }
+                            //if (!string.IsNullOrEmpty(movie.Image))
+                            //{
+                            //    MessageService.ShowNotifyMessage("该视频已经转换！");
+                            //    continue;
+                            //}
 
-                            await this.Respository.ConvertMovie(movie);
+                            await this.Respository.ConvertMovie(movie.Model);
                         }
                         catch (Exception ex)
                         {
@@ -115,7 +119,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
                     foreach (var item in from)
                     {
-                        this.Collection.Invoke(l => l.Add(item));
+                        this.Collection.Invoke(l => l.Add(new MovieModelViewModel(item)));
                     }
 
                     MessageService.ShowSnackMessageWithNotice("加载完成...");
@@ -143,6 +147,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
                 this.RelayMethod("Button.Click.Load");
             }
+
             else if (command == "Button.Click.Clear")
             {
                 if (this.SelectCase == null)
@@ -151,13 +156,13 @@ namespace HeBianGu.Product.ExplorePlayer
                     return;
                 }
 
-
-
                 Action<IStringProgress> actionProgress = c =>
                 {
                     //var from = this.Respository.GetListAsync(l => l.CaseType == this.SelectCase.ID).Result;
 
-                    int count = this.Collection.Count;
+                    var where = this.Collection.Where(k => k.Selected)?.ToList();
+
+                    int count = where.Count;
 
                     for (int i = 0; i < count; i++)
                     {
@@ -166,9 +171,9 @@ namespace HeBianGu.Product.ExplorePlayer
                             c.MessageStr = $"正在处理第{i + 1}条视频，共计{count}条数据";
                         });
 
-                        this.Respository.DeleteAsync(this.Collection[0]).Wait();
+                        this.Respository.DeleteAsync(where[i].Model).Wait();
 
-                        this.Collection.Invoke(l => l.Remove(this.Collection[0]));
+                        this.Collection.Invoke(l => l.Remove(where[i]));
                     }
                 };
 
@@ -176,6 +181,37 @@ namespace HeBianGu.Product.ExplorePlayer
                 await MessageService.ShowStringProgress(actionProgress);
 
                 MessageService.ShowSnackMessageWithNotice("清理完成！");
+            }
+
+            else if (command == "CheckBox.CheckChanged.Checked")
+            {
+                this.Collection.Foreach(l => l.Selected = true);
+            }
+            else if (command == "CheckBox.CheckChanged.UnChecked")
+            {
+                this.Collection.Foreach(l => l.Selected = false);
+            }
+            else if (command == "Button.Click.Convert")
+            {
+                if (this.SelectedItem == null) return;
+
+                if (!File.Exists(this.SelectedItem.Url))
+                {
+                    MessageService.ShowSnackMessageWithNotice("文件路径不存在，请检查！");
+                    return;
+                }
+
+                try
+                {
+                   await MessageService.ShowWaittingMessge(async ()=>
+                    {
+                        await this.Respository.ConvertMovie(this.SelectedItem.Model, true);
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageService.ShowSnackMessageWithNotice(ex.Message);
+                }
             }
         }
     }

@@ -16,12 +16,12 @@ using System.Threading.Tasks;
 namespace HeBianGu.Product.ExplorePlayer
 {
     [ViewModel("Case")]
-    public class CaseViewModel : MvcViewModelBase<ICaseRespository, mbc_dc_case>
+    public class CaseViewModel : MvcViewModelBase<ICaseRespository, IMovieRespository, IMovieimageRespository, mbc_dc_case>
     {
-        protected override void Loaded(string args)
-        {
-            this.RefreshData();
-        }
+        //protected override void Loaded(string args)
+        //{
+        //    this.RefreshData();
+        //}
 
         protected override async void RelayMethod(object obj)
         {
@@ -45,7 +45,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
                     MessageService.ShowSnackMessageWithNotice("新增成功！");
 
-                    this.RefreshData();
+                    await this.RefreshData();
                 }
 
                 //var model = await await MessageService.ShowWaittingResultMessge(() =>
@@ -69,7 +69,46 @@ namespace HeBianGu.Product.ExplorePlayer
 
             }
             //  Do：取消
-            else if (command == "Button.Click.Load")
+            else if (command == "Button.Click.Delete")
+            {
+                if (this.SelectedItem == null) return;
+
+                Action<IStringProgress> action = async m =>
+                  {
+                      m.MessageStr = "正在加载,请等待...";
+
+                      var movies = await this.Service1.GetListAsync(l => l.CaseType == this.SelectedItem.ID);
+
+                      //  Do ：删除缩略图
+
+                      for (int i = 0; i < movies.Count; i++)
+                      {
+                          var movie = movies[i];
+
+                          m.MessageStr = $"正在删除第{i + 1}个视频，共{movies.Count}个视频";
+
+                          var images = await this.Service2.GetListAsync(l => l.MovieID == movie.ID);
+
+                          foreach (var item in images)
+                          {
+                              await this.Service2.DeleteAsync(item);
+                          }
+
+                          //  Do ：删除视频
+                          await this.Service1.DeleteAsync(movie);
+                      }
+
+                      //  Do ：删除案例
+                      await this.Respository.DeleteAsync(this.SelectedItem);
+
+                      this.Collection.Invoke(l=>l.Remove(this.SelectedItem));
+                  };
+
+                await MessageService.ShowStringProgress(action);
+
+            }
+            //  Do：取消
+            else if (command == "Button.Click.Edit")
             {
 
 
@@ -77,18 +116,20 @@ namespace HeBianGu.Product.ExplorePlayer
         }
 
 
-        public void RefreshData()
+        public async Task RefreshData()
         {
-            var source = this.Respository.GetListAsync();
+            var source = await this.Respository.GetListAsync();
 
-            this.Collection.Invoke(l => l.Clear());
+            this.Collection = source.ToObservable();
 
-            foreach (var item in source.Result)
-            {
-                this.Collection.Invoke(l => l.Add(item));
+            //this.Collection.Invoke(l => l.Clear());
 
-                Thread.Sleep(10);
-            }
+            //foreach (var item in source.Result)
+            //{
+            //    this.Collection.Invoke(l => l.Add(item));
+
+            //    Thread.Sleep(10);
+            //}
         }
 
     }

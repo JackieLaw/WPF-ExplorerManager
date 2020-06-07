@@ -29,8 +29,10 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
             registry.Register<IMediaRespository, MediaRespository>();
 
             registry.Register<IArticulationRespository, ArticulationRespository>();
+
             registry.Register<IImageRespository, ImageRespository>();
-            
+
+            registry.Register<IMovieimageRespository, MovieimageRespository>();
 
         }
 

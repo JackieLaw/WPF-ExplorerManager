@@ -16,7 +16,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <!--<wpfcontrollib:FButton Content="加载案例视频" HorizontalAlignment="Left" Margin="10,0" 
                                Command="{Binding GoToActionCommand}" CommandParameter="List"/>-->
@@ -64,7 +65,7 @@
 
                 <base:Interaction.Triggers>
                     <base:EventTrigger EventName="SelectionChanged">
-                        <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="OrderBy"/>
+                        <base:InvokeCommandAction Command="{Binding RelayCommand}" CommandParameter="ListBox.SelectionChanged.OrderBy"/>
                     </base:EventTrigger>
                 </base:Interaction.Triggers>
 
@@ -90,14 +91,14 @@
                 <ColumnDefinition Width="0.2*"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox  ItemsSource="{Binding Collection,UpdateSourceTrigger=PropertyChanged}"  BorderBrush="Transparent" SelectedItem="{Binding SelectedItem}">
+            <ListBox  ItemsSource="{Binding ObservableSource.Source,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" SelectedItem="{Binding SelectedItem}">
                 <ListBox.Resources>
                     <DataTemplate DataType="{x:Type vm:MovieModelViewModel}">
                         <GroupBox Style="{DynamicResource S.GroupBox.Single}" 
                               Visibility="{Binding Visible,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}" 
                               Background="{DynamicResource S.Brush.Dark.10}" 
-                              HorizontalAlignment="Center" Height="350">
-                            <Grid>
+                              HorizontalAlignment="Stretch" Height="340">
+                            <Grid >
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
                                     <RowDefinition/>
@@ -139,9 +140,9 @@
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Grid.Row="4" >
 
 
-                                    <wpfcontrollib:FButton Content="彻底删除" Width="80" FontSize="16"  CommandParameter="DeleteDeep" 
+                                    <wpfcontrollib:FButton Content="彻底删除" Width="80" FontSize="16"  CommandParameter="Button.Click.DeleteDeep" 
                                                        Foreground="{DynamicResource S.Brush.White.Notice}"
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.RelayCommand}" 
                                                        Grid.Row="3"  Style="{DynamicResource S.FButton.Style.Link}">
                                         <base:Interaction.Behaviors>
                                             <base:SelectListBoxItemElementBehavior/>
@@ -149,15 +150,15 @@
                                     </wpfcontrollib:FButton>
 
 
-                                    <wpfcontrollib:FButton Content="移除" Width="50"  FontSize="16" CommandParameter="Remove" Foreground="{DynamicResource S.Brush.White.Notice}"
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
+                                    <wpfcontrollib:FButton Content="移除" Width="50"  FontSize="16" CommandParameter="Button.Click.Remove" Foreground="{DynamicResource S.Brush.White.Notice}"
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.RelayCommand}" 
                                                        Style="{DynamicResource S.FButton.Style.Link}">
                                         <base:Interaction.Behaviors>
                                             <base:SelectListBoxItemElementBehavior/>
                                         </base:Interaction.Behaviors>
                                     </wpfcontrollib:FButton>
 
-                                    <wpfcontrollib:FButton Content="编辑" Width="50"  FontSize="16"  Foreground="{DynamicResource S.Brush.White.Notice}"
+                                    <wpfcontrollib:FButton Content="预览" Width="50"  FontSize="16"  Foreground="{DynamicResource S.Brush.White.Notice}"
                                Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.RelayCommand}"
                                CommandParameter="Button.Click.Edit" Style="{DynamicResource S.FButton.Style.Link}">
                                         <base:Interaction.Behaviors>
@@ -166,9 +167,9 @@
                                     </wpfcontrollib:FButton>
 
 
-                                    <wpfcontrollib:FButton Content="预览" Width="50" FontSize="16" Foreground="{DynamicResource S.Brush.White.Notice}"
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DoActionCommand}" 
-                                                       Grid.Row="3" Style="{DynamicResource S.FButton.Style.Link}" CommandParameter="Detial">
+                                    <wpfcontrollib:FButton Content="设置" Width="50" FontSize="16" Foreground="{DynamicResource S.Brush.White.Notice}"
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.RelayCommand}" 
+                                                       Grid.Row="3" Style="{DynamicResource S.FButton.Style.Link}" CommandParameter="Button.Click.Set">
                                         <base:Interaction.Behaviors>
                                             <base:SelectListBoxItemElementBehavior/>
                                         </base:Interaction.Behaviors>
@@ -191,7 +192,7 @@
 
                 <base:Interaction.Triggers>
                     <base:EventTrigger EventName="SelectionChanged">
-                        <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="SeletItemChanged"/>
+                        <base:InvokeCommandAction Command="{Binding RelayCommand}" CommandParameter="ListBox.SelectionChanged.SelectedtemChanged"/>
                     </base:EventTrigger>
                 </base:Interaction.Triggers>
             </ListBox>
@@ -211,11 +212,32 @@
 
                 <base:Interaction.Triggers>
                     <base:EventTrigger EventName="SelectionChanged">
-                        <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="SelectionFilter"/>
+                        <base:InvokeCommandAction Command="{Binding RelayCommand}" 
+                                                  CommandParameter="ListBox.SelectionChanged.Filter"/>
                     </base:EventTrigger>
                 </base:Interaction.Triggers>
             </ListBox>
 
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock  Style="{DynamicResource S.TextBlock.FontSize.16}">
+                    <Run Text="第"/>
+                    <Run Text="{Binding ObservableSource.MinValue,FallbackValue=0}" FontWeight="Black"/>
+                    <Run Text="到"/>
+                    <Run Text="{Binding ObservableSource.MaxValue,FallbackValue=0}" FontWeight="Black"/>
+                    <Run Text="条记录，共"/>
+                    <Run Text="{Binding ObservableSource.Total}"  FontWeight="Black"/>
+                    <Run Text="条"/>
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <h:Pagination MaxPageCount="{Binding ObservableSource.TotalPage,Mode=TwoWay}" Width="600"
+                                  PageIndex="{Binding ObservableSource.PageIndex,Mode=TwoWay}"/>
+
+            </StackPanel>
         </Grid>
     </Grid>
 

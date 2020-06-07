@@ -6,10 +6,13 @@
              xmlns:local="clr-namespace:HeBianGu.Product.ExplorePlayer.View.Movie"
              mc:Ignorable="d" 
              xmlns:base="clr-namespace:HeBianGu.Base.WpfBase;assembly=HeBianGu.Base.WpfBase"
+             xmlns:image="clr-namespace:HeBianGu.Control.ImagePlayer;assembly=HeBianGu.Control.ImagePlayer"
              xmlns:model="clr-namespace:HeBianGu.ExplorePlayer.Base.Model;assembly=HeBianGu.ExplorePlayer.Base.Model" 
              xmlns:wpfcontrollib="clr-namespace:HeBianGu.General.WpfControlLib;assembly=HeBianGu.General.WpfControlLib"
-             xmlns:imagecore="clr-namespace:HeBianGu.General.ImageCore;assembly=HeBianGu.General.ImageCore" MinWidth="1000"
+             xmlns:imagecore="clr-namespace:HeBianGu.General.ImageCore;assembly=HeBianGu.General.ImageCore"
+             xmlns:exploreplayer="clr-namespace:HeBianGu.Product.ExplorePlayer" MinWidth="1000"
              d:DesignHeight="450" d:DesignWidth="800"  Width="1200" Height="820">
+
 
     <Grid>
         <Border Grid.RowSpan="2"  Background="{DynamicResource S.Brush.TextBackground.Default}" CornerRadius="5"/>
@@ -31,34 +34,41 @@
                 <wpfcontrollib:BulletCheckBox x:Name="cb" Text="停止" CheckedText="编辑" IsChecked="{Binding IsEditting}">
                     <base:Interaction.Triggers>
                         <base:EventTrigger EventName="Checked">
-                            <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="CheckEdittingChanged"/>
+                            <base:InvokeCommandAction Command="{Binding RelayCommand}" CommandParameter="BulletCheckBox.CheckedChanged.Click"/>
                         </base:EventTrigger>
                         <base:EventTrigger EventName="Unchecked">
-                            <base:InvokeCommandAction Command="{Binding DoActionCommand}" CommandParameter="CheckEdittingChanged"/>
+                            <base:InvokeCommandAction Command="{Binding RelayCommand}" CommandParameter="BulletCheckBox.CheckedChanged.Click"/>
                         </base:EventTrigger>
                     </base:Interaction.Triggers>
                 </wpfcontrollib:BulletCheckBox>
 
-                <wpfcontrollib:FButton Content="播放" Width="50"  Style="{DynamicResource S.FButton.Style.Link}" ToolTip="{Binding SelectedItem.Url}"
-                                 Command="{Binding DoActionCommand}"  CommandParameter="Play">
+                <wpfcontrollib:FButton Content="播放" Width="100"  Style="{DynamicResource S.FButton.Style.Link}" ToolTip="{Binding SelectedItem.Url}"
+                                 Command="{x:Static wpfcontrollib:CommandService.ProcessCommand}"  CommandParameter="{Binding Url}">
                 </wpfcontrollib:FButton>
 
 
-                <wpfcontrollib:FButton Content="设置" Width="50"  Command="{x:Static wpfcontrollib:DrawerHost.OpenDrawerCommand}"
-                               CommandParameter="{x:Static Dock.Right}" Style="{DynamicResource S.FButton.Style.Link}">
-
+                <wpfcontrollib:FButton Content="×"
+                               MouseOverForeground="{DynamicResource S.Brush.TextForeground.White}"
+                               MouseOverBackground="{DynamicResource S.Brush.Red.Notice}" VerticalAlignment="Top"
+                               Command="{x:Static wpfcontrollib:MessageService.CloseLayer}" FontSize="22" AllowsAnimation="True"
+                               Style="{DynamicResource S.FButton.Style.Transparent}">
                 </wpfcontrollib:FButton>
-
-
-                <wpfcontrollib:FButton Content="关闭" Width="50"
-                               Command="{x:Static wpfcontrollib:MessageService.CloseLayer}"
-                               Style="{DynamicResource S.FButton.Style.Link}">
-                </wpfcontrollib:FButton>
-
-
             </StackPanel>
 
-            <ListBox Grid.Row="1" ItemsSource="{Binding ImageCollection,Mode=TwoWay}" SelectedItem="{Binding SelectImage}"  Style="{DynamicResource S.ListBox.Sinple}">
+            <image:ImagePlayer Grid.Row="1" DataSource="{Binding ImageCollection}" SelectedItem="{Binding SelectImage,Mode=TwoWay}" OperateType="Enlarge" ConvertToImageSource="{Binding ConverTo}">
+                <image:ImagePlayer.ToolContent>
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <wpfcontrollib:FButton Content="删除" Style="{DynamicResource S.FButton.Style.Transparent}" 
+                                               Command="{Binding RelayCommand}" CommandParameter="Button.Click.DeleteImage"/>
+
+                        <wpfcontrollib:FButton Content="设为缩略图" Style="{DynamicResource S.FButton.Style.Transparent}"
+                                               Command="{Binding RelayCommand}" CommandParameter="Button.Click.SetImage"/>
+
+                    </StackPanel>
+                </image:ImagePlayer.ToolContent>
+            </image:ImagePlayer>
+
+            <!--<ListBox Grid.Row="1" ItemsSource="{Binding ImageCollection,Mode=TwoWay}" SelectedItem="{Binding SelectImage}"  Style="{DynamicResource S.ListBox.Sinple}">
                 <ListBox.Resources>
                     <DataTemplate DataType="{x:Type model:mbc_dv_movieimage}">
                         <Grid>
@@ -69,10 +79,9 @@
                                         <RowDefinition Height="30"/>
                                     </Grid.RowDefinitions>
 
-                                    <!--<Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>-->
+                                    --><!--<Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>--><!--
 
                                     <imagecore:ImageCore HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ImageSource="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>
-
                                     <TextBlock Text="{Binding Text}" Grid.Row="1" Foreground="White" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Row="2" HorizontalAlignment="Right" Foreground="White"  VerticalAlignment="Center">
                                     <Run Text="时间:"/>
@@ -113,7 +122,7 @@
                         <UniformGrid IsItemsHost="True" Columns="1"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-            </ListBox>
+            </ListBox>-->
             
             <TextBlock Style="{StaticResource S.TextBlock.FontSize.18}" Foreground="{DynamicResource S.Brush.Red.Notice}" FontSize="28" Grid.Row="1" FontWeight="Bold"
                        Visibility="{Binding ElementName=cb,Path=IsChecked,Converter={x:Static base:XConverter.BooleanToVisibilityConverter}}"

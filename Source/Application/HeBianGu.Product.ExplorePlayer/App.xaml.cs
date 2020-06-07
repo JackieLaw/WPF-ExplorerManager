@@ -66,7 +66,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
                 l.ItemHeight = 40;
                 //l.ItemWidth = 120;
-                l.ItemCornerRadius =15;
+                l.ItemCornerRadius =5;
 
                 l.RowHeight = 45;
 

@@ -1,4 +1,5 @@
 ﻿using HeBianGu.Base.WpfBase;
+using HeBianGu.Common.PublicTool;
 using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.Respository.IService;
 using HeBianGu.ExplorePlayer.Respository.ViewModel;
@@ -8,18 +9,22 @@ using HeBianGu.Product.ExplorePlayer.View.Movie;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace HeBianGu.Product.ExplorePlayer
 {
     [ViewModel("Movie")]
-    public class MovieViewModel : MvcViewModelBase<IMovieRespository, ITagRespository, ICaseRespository, MovieModelViewModel>
+    public class MovieViewModel : MvcViewModelBase<IMovieRespository, ITagRespository, ICaseRespository, ClipBoardService, IMovieimageRespository, MovieModelViewModel>
     {
-
         private mbc_dc_case _selectCase;
         /// <summary> 说明  </summary>
         public mbc_dc_case SelectCase
@@ -32,17 +37,17 @@ namespace HeBianGu.Product.ExplorePlayer
             }
         }
 
-        private ObservableCollection<GroupObject> _groupObject = new ObservableCollection<GroupObject>();
-        /// <summary> 说明  </summary>
-        public ObservableCollection<GroupObject> GroupObject
-        {
-            get { return _groupObject; }
-            set
-            {
-                _groupObject = value;
-                RaisePropertyChanged("GroupObject");
-            }
-        }
+        //private ObservableCollection<GroupObject> _groupObject = new ObservableCollection<GroupObject>();
+        ///// <summary> 说明  </summary>
+        //public ObservableCollection<GroupObject> GroupObject
+        //{
+        //    get { return _groupObject; }
+        //    set
+        //    {
+        //        _groupObject = value;
+        //        RaisePropertyChanged("GroupObject");
+        //    }
+        //}
 
         private ObservableCollection<mbc_dv_movieimage> _imagecollection = new ObservableCollection<mbc_dv_movieimage>();
         /// <summary> 说明  </summary>
@@ -55,6 +60,21 @@ namespace HeBianGu.Product.ExplorePlayer
                 RaisePropertyChanged("ImageCollection");
             }
         }
+
+
+
+        //private ObservableCollection<ImageSource> _imageSources = new ObservableCollection<ImageSource>();
+        ///// <summary> 说明  </summary>
+        //public ObservableCollection<ImageSource> ImageSource
+        //{
+        //    get { return _imageSources; }
+        //    set
+        //    {
+        //        _imageSources = value;
+        //        RaisePropertyChanged("ImageSource");
+        //    }
+        //}
+
 
 
         private mbc_dv_movieimage _selectImage;
@@ -150,9 +170,14 @@ namespace HeBianGu.Product.ExplorePlayer
         {
             base.Loaded(args);
 
+            this.Invoke(() =>
+            {
+                this.Service3.Register(Application.Current.MainWindow);
+            });
+
             if (!this.IsChanged) return;
 
-            var tags = await this.Respository2.GetListAsync();
+            var tags = await this.Service1.GetListAsync();
 
             this.TagCollection.BeginInvoke(l => l.Clear());
 
@@ -163,13 +188,60 @@ namespace HeBianGu.Product.ExplorePlayer
                 Thread.Sleep(2);
             }
 
-            var cases = await this.Respository3.GetListAsync();
+            var cases = await this.Service2.GetListAsync();
 
             this.SelectCase = cases?.FirstOrDefault();
 
             this.IsChanged = false;
         }
 
+
+        private ObservableSource<MovieModelViewModel> _observableSource = new ObservableSource<MovieModelViewModel>() { PageCount = 6 };
+        /// <summary> 说明  </summary>
+        public ObservableSource<MovieModelViewModel> ObservableSource
+        {
+            get { return _observableSource; }
+            set
+            {
+                _observableSource = value;
+                RaisePropertyChanged("ObservableSource");
+            }
+        }
+
+
+
+        private Func<object, ImageSource> _convertTo = l =>
+              {
+                  if (l is mbc_dv_movieimage image)
+                  {
+                      byte[] byteArray = System.Convert.FromBase64String(image.Image);
+
+                      BitmapImage bmp = null;
+
+                      bmp = new BitmapImage();
+                      bmp.BeginInit();
+                      bmp.StreamSource = new MemoryStream(byteArray);
+                      bmp.EndInit();
+
+                      return bmp;
+                  }
+                  else
+                  {
+                      return null;
+                  }
+
+
+              };
+        /// <summary> 说明  </summary>
+        public Func<object, ImageSource> ConverTo
+        {
+            get { return _convertTo; }
+            set
+            {
+                _convertTo = value;
+                RaisePropertyChanged("ConverTo");
+            }
+        }
 
         protected override async void RelayMethod(object obj)
         {
@@ -178,6 +250,8 @@ namespace HeBianGu.Product.ExplorePlayer
             //  Do：应用
             if (command == "Button.Click.Edit")
             {
+
+                this.ImageCollection.Clear();
 
                 EditDialog detial = new EditDialog() { DataContext = this };
 
@@ -191,18 +265,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
                 });
 
-                this.RunAsync(() =>
-                {
-                    this.ImageCollection.Invoke(l => l.Clear());
-
-                    foreach (var item in model.Item2)
-                    {
-                        this.ImageCollection.Invoke(l => l.Add(item));
-                        Thread.Sleep(50);
-                    }
-                });
-
-
+                this.ImageCollection = model.Item2?.ToObservable();
             }
             //  Do：取消
             else if (command == "Button.Click.Load")
@@ -227,13 +290,13 @@ namespace HeBianGu.Product.ExplorePlayer
 #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 Task.Run(() =>
                 {
-                    this.Collection.BeginInvoke(l => l.Clear());
+                    this.ObservableSource.Clear();
 
                     foreach (var item in from)
                     {
                         MovieModelViewModel viewModel = new MovieModelViewModel(item);
 
-                        this.Collection.BeginInvoke(l => l.Add(viewModel));
+                        this.ObservableSource.Add(viewModel);
 
                         Thread.Sleep(2);
 
@@ -245,8 +308,207 @@ namespace HeBianGu.Product.ExplorePlayer
 #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
 
             }
+
+            else if (command == "ListBox.SelectionChanged.Filter")
+            {
+                var tags = this.SelectTag.ToList();
+
+                Func<MovieModelViewModel, bool> expression = l =>
+                {
+
+                    if (tags == null || tags.Count == 0) return true;
+
+                    if (string.IsNullOrEmpty(l.TagTypes)) return false;
+
+                    return tags.TrueForAll(k => l.TagTypes.Trim().Split(',').ToList().Exists(m => m == k.Name));
+
+                };
+
+                this.ObservableSource.Fileter = l => expression(l);
+            }
+
+            else if (command == "ListBox.SelectionChanged.OrderBy")
+            {
+                if (this.OrderBy == "按名称排序")
+                {
+                    this.ObservableSource.Sort(l => l.Name, this.Desc);
+                }
+                else if (this.OrderBy == "按大小")
+                {
+                    this.ObservableSource.Sort(l => l.Size, this.Desc);
+                }
+                else if (this.OrderBy == "按评分")
+                {
+                    this.ObservableSource.Sort(l => l.Score, this.Desc);
+                }
+                else if (this.OrderBy == "按总时间")
+                {
+                    this.ObservableSource.Sort(l => l.Duration, this.Desc);
+                }
+                else if (this.OrderBy == "按播放次数")
+                {
+                    this.ObservableSource.Sort(l => l.PlayCount, this.Desc);
+                }
+                else if (this.OrderBy == "按清晰度")
+                {
+                    this.ObservableSource.Sort(l => l.ArticulationType, this.Desc);
+                }
+                else if (this.OrderBy == "按缩略图")
+                {
+                    this.ObservableSource.Sort(l => l.Image, this.Desc);
+                }
+            }
+
+            else if (command == "Button.Click.Set")
+            {
+                SetControl detial = new SetControl() { DataContext = this };
+
+                MessageService.ShowWithLayer(detial);
+            }
+
+            else if (command == "ListBox.SelectionChanged.TagEdit")
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    if (this.SelectedItem == null) return;
+
+                    if (this.EditSelectTag == null || this.EditSelectTag.Count == 0) return;
+
+                    this.SelectedItem.TagTypes = this.EditSelectTag?.Select(l => l.Name).Aggregate((l, k) => l + "," + k);
+                });
+            }
+
+            else if (command == "Button.Click.SetUpdate")
+            {
+                string message;
+
+                if (!this.ModelState(this.SelectedItem.Model, out message))
+                {
+                    MessageService.ShowSnackMessage(message);
+                    return;
+                }
+
+                await this.Respository.UpdateAsync(this.SelectedItem.Model);
+
+                MessageService.CloseWithLayer();
+
+                MessageService.ShowSnackMessage("保存成功！");
+            }
+
+            else if (command == "Button.Click.DeleteDeep")
+            {
+                if (this.SelectedItem == null) return;
+
+                var result = await MessageService.ShowResultMessge("确定要彻底删除文件?");
+
+                if (result)
+                {
+                    if (File.Exists(this.SelectedItem.Url))
+                    {
+                        File.Delete(this.SelectedItem.Url);
+
+                        MessageService.ShowSnackMessage("文件已删除：" + this.SelectedItem?.Url);
+
+                        this.RelayMethod("Button.Click.Remove");
+
+
+                    }
+                }
+            }
+
+            else if (command == "Button.Click.Remove")
+            {
+                if (this.SelectedItem == null) return;
+
+                await this.Respository.DeleteAsync(this.SelectedItem.Model.ID);
+
+                this.Invoke(() => this.ObservableSource.Remove(this.SelectedItem));
+            }
+
+            else if (command == "BulletCheckBox.CheckedChanged.Click")
+            {
+                {
+                    if (!this.IsEditting)
+                    {
+                        this.Service3.ClipBoardChanged = null;
+                        return;
+
+                    }
+
+                    this.Service3.ClipBoardChanged = async () =>
+                    {
+                        //Todo  ：复制的图片 
+                        BitmapSource bit = Clipboard.GetImage();
+
+                        if (bit != null)
+                        {
+
+                            mbc_dv_movieimage image = new mbc_dv_movieimage();
+
+                            image.MovieID = this.SelectedItem.ID;
+
+                            image.Text = DateTime.Now.ToDateTimeString();
+
+                            image.TimeSpan = DateTime.Now.ToDateTimeString();
+
+                            image.Image = ImageService.BitmapSourceToString(bit);
+
+                            await this.Respository.AddMovieImage(image);
+
+                            this.ImageCollection.Add(image);
+                        }
+                    };
+                }
+
+            }
+
+            else if (command == "Button.Click.DeleteImage")
+            {
+                await this.Service4.DeleteAsync(this.SelectImage);
+
+                this.ImageCollection.Remove(this.SelectImage);
+
+                MessageService.ShowSnackMessageWithNotice("删除成功！");
+            }
+
+            else if (command == "Button.Click.SetImage")
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    this.SelectedItem.Image = this.SelectImage?.Image;
+                });
+
+                await this.Respository.SaveAsync();
+            }
+
+            else if (command == "ListBox.SelectionChanged.SelectedtemChanged")
+            {
+
+                if (this.SelectedItem == null) return;
+
+                var from = this.SelectedItem.TagTypes?.Split(',').ToList();
+
+
+                if (from == null)
+                {
+                    this.EditSelectTag = new ObservableCollection<mbc_db_tagtype>();
+                    return;
+                }
+
+                var result = this.TagCollection.Where(l => from.Exists(k => k == l.Name));
+
+                this.EditSelectTag.Clear();
+
+                ObservableCollection<mbc_db_tagtype> collection = new ObservableCollection<mbc_db_tagtype>();
+
+                foreach (var item in result)
+                {
+                    collection.Add(item);
+                }
+
+                this.EditSelectTag = collection;
+            }
         }
+
     }
-
-
 }

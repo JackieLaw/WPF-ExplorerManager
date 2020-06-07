@@ -1,5 +1,8 @@
-﻿using System;
+﻿using HeBianGu.ExplorePlayer.Base.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,13 +19,13 @@ using System.Windows.Shapes;
 namespace HeBianGu.Product.ExplorePlayer.View.Movie
 {
     /// <summary>
-    /// LeftControl.xaml 的交互逻辑
+    /// RightControl.xaml 的交互逻辑
     /// </summary>
-    public partial class LeftControl : UserControl
+    public partial class SetControl : UserControl
     {
-        public LeftControl()
+        public SetControl()
         {
             InitializeComponent();
         }
-    }
+    } 
 }

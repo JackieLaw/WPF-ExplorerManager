@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 namespace HeBianGu.ExplorePlayer.Respository.ViewModel
 {
 
-    public class MovieModelViewModel : ModelViewModel<mbc_dv_movie>
+    public class MovieModelViewModel : SelectViewModel<mbc_dv_movie>
     {
         public MovieModelViewModel() : base()
         {
 
         }
+
         public MovieModelViewModel(mbc_dv_movie t) : base(t)
         {
 

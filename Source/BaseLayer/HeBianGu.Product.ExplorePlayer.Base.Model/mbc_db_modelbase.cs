@@ -14,7 +14,7 @@ namespace HeBianGu.ExplorePlayer.Base.Model
     {
         [Display(Name = "创建时间")]
         [ReadOnly(true)] 
-        public string CDATE { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        public string CDATE { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss fff");
 
         [Display(Name = "修改时间")]
         [ReadOnly(true)] 

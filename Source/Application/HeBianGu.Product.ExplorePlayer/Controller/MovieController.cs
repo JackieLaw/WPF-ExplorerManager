@@ -26,31 +26,32 @@ namespace HeBianGu.Product.ExplorePlayer
     internal class MovieController : Controller<MovieViewModel, MovieRespository>
     {
 
-        TagRespository _tagRespository;
+        ////TagRespository _tagRespository;
 
-        ClipBoardService _clipBoardService;
+        //ClipBoardService _clipBoardService;
 
-        CaseRespository _caseRespository;
+        ////CaseRespository _caseRespository;
 
-        public MovieController(TagRespository tagRespository, ClipBoardService clipBoardService, CaseRespository caseRespository)
-        {
-            _tagRespository = tagRespository;
+        //public MovieController(TagRespository tagRespository, ClipBoardService clipBoardService, CaseRespository caseRespository)
+        //{
+        //    _tagRespository = tagRespository;
 
-            _clipBoardService = clipBoardService;
+        //    _clipBoardService = clipBoardService;
 
-            _caseRespository = caseRespository;
+        //    _caseRespository = caseRespository;
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                _clipBoardService.Register(Application.Current.MainWindow);
-            });
+        //    Application.Current.Dispatcher.Invoke(() =>
+        //    {
+        //        _clipBoardService.Register(Application.Current.MainWindow);
+        //    });
 
 
-        }
-        public async Task<IActionResult> Center()
-        {
-            return View();
-        }
+        //}
+       
+        //public async Task<IActionResult> Center()
+        //{
+        //    return View();
+        //}
 
         public async Task<IActionResult> List()
         {
@@ -58,344 +59,231 @@ namespace HeBianGu.Product.ExplorePlayer
         }
 
 
-        public async Task DeleteSelectImage()
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                this.ViewModel.ImageCollection.Remove(this.ViewModel.SelectImage);
-            });
-        }
-
-        public async Task SetViewImage()
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                //this.ViewModel.ImageCollection.Remove(this.ViewModel.SelectImage);
-
-                this.ViewModel.SelectedItem.Image = this.ViewModel.SelectImage?.Image;
-
-
-            });
-
-            await this.Respository.SaveAsync();
-        }
-
+        //public async Task DeleteSelectImage()
+        //{
+        //    Application.Current.Dispatcher.Invoke(() =>
+        //    {
+        //        this.ViewModel.ImageCollection.Remove(this.ViewModel.SelectImage);
+        //    });
+        //}
 
-        public async Task SelectionTagEdit()
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                if (this.ViewModel.SelectedItem == null) return;
+        //public async Task SetViewImage()
+        //{
+        //    Application.Current.Dispatcher.Invoke(() =>
+        //    {
+        //        //this.ViewModel.ImageCollection.Remove(this.ViewModel.SelectImage);
 
-                if (this.ViewModel.EditSelectTag == null || this.ViewModel.EditSelectTag.Count == 0) return;
-
-                this.ViewModel.SelectedItem.TagTypes = this.ViewModel.EditSelectTag?.Select(l => l.Name).Aggregate((l, k) => l + "," + k);
-            });
+        //        this.ViewModel.SelectedItem.Image = this.ViewModel.SelectImage?.Image;
 
-        }
 
-        public async Task OrderBy()
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                if (this.ViewModel.OrderBy == "按名称排序")
-                {
-                    this.ViewModel.Collection.Sort(l => l.Name, this.ViewModel.Desc);
-                }
-                else if (this.ViewModel.OrderBy == "按大小")
-                {
-                    this.ViewModel.Collection.Sort(l => l.Size, this.ViewModel.Desc);
-                }
-                else if (this.ViewModel.OrderBy == "按评分")
-                {
-                    this.ViewModel.Collection.Sort(l => l.Score, this.ViewModel.Desc);
-                }
-                else if (this.ViewModel.OrderBy == "按总时间")
-                {
-                    this.ViewModel.Collection.Sort(l => l.Duration, this.ViewModel.Desc);
-                }
-                else if (this.ViewModel.OrderBy == "按播放次数")
-                {
-                    this.ViewModel.Collection.Sort(l => l.PlayCount, this.ViewModel.Desc);
-                }
-                else if (this.ViewModel.OrderBy == "按清晰度")
-                {
-                    this.ViewModel.Collection.Sort(l => l.ArticulationType, this.ViewModel.Desc);
-                }
-                else if (this.ViewModel.OrderBy == "按缩略图")
-                {
-                    this.ViewModel.Collection.Sort(l => l.Image, this.ViewModel.Desc);
-                }
-            });
+        //    });
 
+        //    await this.Respository.SaveAsync();
+        //}
 
 
-        }
 
-        public async Task SeletItemChanged()
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                if (this.ViewModel.SelectedItem == null) return;
+        //public async Task SeletItemChanged()
+        //{
+        //    Application.Current.Dispatcher.Invoke(() =>
+        //    {
+        //        if (this.ViewModel.SelectedItem == null) return;
 
-                var from = this.ViewModel.SelectedItem.TagTypes?.Split(',').ToList();
+        //        var from = this.ViewModel.SelectedItem.TagTypes?.Split(',').ToList();
 
 
-                if (from == null)
-                {
-                    this.ViewModel.EditSelectTag = new ObservableCollection<mbc_db_tagtype>();
-                    return;
-                }
+        //        if (from == null)
+        //        {
+        //            this.ViewModel.EditSelectTag = new ObservableCollection<mbc_db_tagtype>();
+        //            return;
+        //        }
 
-                var result = this.ViewModel.TagCollection.Where(l => from.Exists(k => k == l.Name));
+        //        var result = this.ViewModel.TagCollection.Where(l => from.Exists(k => k == l.Name));
 
-                this.ViewModel.EditSelectTag.Clear();
+        //        this.ViewModel.EditSelectTag.Clear();
 
 
-                ObservableCollection<mbc_db_tagtype> collection = new ObservableCollection<mbc_db_tagtype>();
+        //        ObservableCollection<mbc_db_tagtype> collection = new ObservableCollection<mbc_db_tagtype>();
 
-                foreach (var item in result)
-                {
-                    collection.Add(item);
-                }
+        //        foreach (var item in result)
+        //        {
+        //            collection.Add(item);
+        //        }
 
-                this.ViewModel.EditSelectTag = collection;
-            });
+        //        this.ViewModel.EditSelectTag = collection;
+        //    });
 
-        }
+        //}
 
-        public async Task UpdateSelect()
-        {
-            string message;
 
-            if (!this.ModelState(this.ViewModel.SelectedItem.Model, out message))
-            {
-                MessageService.ShowSnackMessage(message);
-                return;
-            }
 
-            await this.Respository.UpdateAsync(this.ViewModel.SelectedItem.Model);
 
-            MessageService.ShowSnackMessage("保存成功！");
-        }
+        //public async Task CheckEdittingChanged()
+        //{
+        //    if (!this.ViewModel.IsEditting)
+        //    {
+        //        _clipBoardService.ClipBoardChanged = null;
+        //        return;
 
+        //    }
 
-        public async Task Play()
-        {
-            string file = this.ViewModel.SelectedItem?.Url;
+        //    _clipBoardService.ClipBoardChanged = async () =>
+        //    {
+        //        //Todo  ：复制的图片 
+        //        BitmapSource bit = Clipboard.GetImage();
 
-            if (File.Exists(file))
-            {
-                Process.Start(file);
-            }
-        }
+        //        if (bit != null)
+        //        {
 
+        //            mbc_dv_movieimage image = new mbc_dv_movieimage();
 
-        public async Task CheckEdittingChanged()
-        {
-            if (!this.ViewModel.IsEditting)
-            {
-                _clipBoardService.ClipBoardChanged = null;
-                return;
+        //            image.MovieID = this.ViewModel.SelectedItem.ID;
 
-            }
+        //            image.Text = DateTime.Now.ToDateTimeString();
 
-            _clipBoardService.ClipBoardChanged = async () =>
-            {
-                //Todo  ：复制的图片 
-                BitmapSource bit = Clipboard.GetImage();
+        //            image.TimeSpan = DateTime.Now.ToDateTimeString();
 
-                if (bit != null)
-                {
+        //            image.Image = ImageService.BitmapSourceToString(bit);
 
-                    mbc_dv_movieimage image = new mbc_dv_movieimage();
+        //            await this.Respository.AddMovieImage(image);
 
-                    image.MovieID = this.ViewModel.SelectedItem.ID;
+        //            this.ViewModel.ImageCollection.Insert(0, image);
+        //        }
+        //    };
+        //}
+         
 
-                    image.Text = DateTime.Now.ToDateTimeString();
+        //public async Task<IActionResult> Refresh()
+        //{
+        //    if (this.ViewModel.SelectCase == null)
+        //    {
+        //        MessageService.ShowSnackMessageWithNotice("请先选择案例！");
+        //        return await List();
+        //    }
 
-                    image.TimeSpan = DateTime.Now.ToDateTimeString();
+        //    if (!Directory.Exists(this.ViewModel.SelectCase.BaseUrl))
+        //    {
+        //        MessageService.ShowSnackMessageWithNotice("案例路径不存在，请检查！");
+        //        return await List();
+        //    }
 
-                    image.Image = ImageService.BitmapSourceToString(bit);
+        //    await this.Respository.RefreshMovie(this.ViewModel.SelectCase);
 
-                    await this.Respository.AddMovieImage(image);
+        //    return await List();
 
-                    this.ViewModel.ImageCollection.Insert(0, image);
-                }
-            };
-        }
+        //}
 
-        public async Task SelectionFilter()
-        {
-            var tags = this.Invoke(() =>
-            {
-                return this.ViewModel.SelectTag.ToList();
-            });
+        //public async Task<IActionResult> Convert()
+        //{
+        //    if (this.ViewModel.SelectedItem == null)
+        //    {
+        //        MessageService.ShowSnackMessageWithNotice("请先选择案例！");
+        //        return await List();
+        //    }
 
-            Func<mbc_dv_movie, bool> expression = l =>
-             {
+        //    if (!File.Exists(this.ViewModel.SelectedItem.Url))
+        //    {
+        //        MessageService.ShowSnackMessageWithNotice("案例路径不存在，请检查！");
+        //        return await List();
+        //    }
 
-                 if (tags == null || tags.Count == 0) return true;
 
-                 if (string.IsNullOrEmpty(l.TagTypes)) return false;
+        //    try
+        //    {
+        //        await this.Respository.ConvertMovie(this.ViewModel.SelectedItem.Model);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageService.ShowSnackMessageWithNotice(ex.Message);
+        //    }
 
-                 return tags.TrueForAll(k => l.TagTypes.Trim().Split(',').ToList().Exists(m => m == k.Name));
 
-             };
+        //    return await List();
+        //}
 
-            foreach (var item in this.ViewModel.Collection)
-            {
-                item.Visible = expression(item.Model);
-            }
-        }
 
+        //public async Task Detial()
+        //{
+        //    string id = this.ViewModel.SelectedItem?.ID;
 
-        public async Task<IActionResult> Left()
-        {
+        //    var model = await this.Respository.GetMovieWIthDetial(id);
 
-            this.ViewModel.GroupObject.Clear();
+        //    if (model == null)
+        //    {
+        //        MessageService.ShowNotifyMessage("没有生成预览图，请先生成预览图！");
+        //        return;
+        //    }
 
-            this.ViewModel.GroupObject = await this._caseRespository.GetGroupObject();
+        //    Application.Current.Dispatcher.Invoke(() =>
+        //    {
+        //        this.ViewModel.ImageCollection.Clear();
 
-            return View();
-        }
+        //        foreach (var item in model.Item2)
+        //        {
+        //            this.ViewModel.ImageCollection.Add(item);
+        //        }
+        //    });
 
-        public async Task<IActionResult> Right()
-        {
-            return View();
-        }
+        //    var result = View();
 
-        public async Task<IActionResult> Refresh()
-        {
-            if (this.ViewModel.SelectCase == null)
-            {
-                MessageService.ShowSnackMessageWithNotice("请先选择案例！");
-                return await List();
-            }
 
-            if (!Directory.Exists(this.ViewModel.SelectCase.BaseUrl))
-            {
-                MessageService.ShowSnackMessageWithNotice("案例路径不存在，请检查！");
-                return await List();
-            }
 
-            await this.Respository.RefreshMovie(this.ViewModel.SelectCase);
+        //    //ILinkActionBase link = new LinkAction();
+        //    //link.Controller = "Movie";
+        //    //link.Action = "Detial";
 
-            return await List();
+        //    MessageService.ShowWithLayer(result);
+        //}
 
-        }
+        //public async Task DeleteDeep()
+        //{
+        //    if (this.ViewModel.SelectedItem == null) return;
 
-        public async Task<IActionResult> Convert()
-        {
-            if (this.ViewModel.SelectedItem == null)
-            {
-                MessageService.ShowSnackMessageWithNotice("请先选择案例！");
-                return await List();
-            }
+        //    var result = await MessageService.ShowResultMessge("确定要彻底删除文件?");
 
-            if (!File.Exists(this.ViewModel.SelectedItem.Url))
-            {
-                MessageService.ShowSnackMessageWithNotice("案例路径不存在，请检查！");
-                return await List();
-            }
+        //    if (result)
+        //    {
+        //        if (File.Exists(this.ViewModel.SelectedItem.Url))
+        //        {
+        //            File.Delete(this.ViewModel.SelectedItem.Url);
 
+        //            MessageService.ShowSnackMessage("文件已删除：" + this.ViewModel.SelectedItem?.Url);
 
-            try
-            {
-                await this.Respository.ConvertMovie(this.ViewModel.SelectedItem.Model);
-            }
-            catch (Exception ex)
-            {
-                MessageService.ShowSnackMessageWithNotice(ex.Message);
-            }
+        //            await this.Remove();
 
 
-            return await List();
-        }
+        //        }
+        //    }
+        //}
 
+        //public async Task Remove()
+        //{
 
-        public async Task Detial()
-        {
-            string id = this.ViewModel.SelectedItem?.ID;
+        //    if (this.ViewModel.SelectedItem == null) return;
 
-            var model = await this.Respository.GetMovieWIthDetial(id);
+        //    await this.Respository.DeleteAsync(this.ViewModel.SelectedItem.Model.ID);
 
-            if (model == null)
-            {
-                MessageService.ShowNotifyMessage("没有生成预览图，请先生成预览图！");
-                return;
-            }
+        //    this.Invoke(() => this.ViewModel.Collection.Remove(this.ViewModel.SelectedItem));
+        //}
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                this.ViewModel.ImageCollection.Clear();
+        //public async Task<IActionResult> Edit()
+        //{
+        //    return View();
+        //}
 
-                foreach (var item in model.Item2)
-                {
-                    this.ViewModel.ImageCollection.Add(item);
-                }
-            });
+        //public async Task<IActionResult> Update()
+        //{
+        //    string message;
 
-            var result = View();
+        //    if (!this.ModelState(this.ViewModel.SelectedItem.Model, out message))
+        //    {
+        //        MessageService.ShowSnackMessage(message);
+        //        return await Edit();
+        //    }
 
+        //    await this.Respository.UpdateAsync(this.ViewModel.SelectedItem.Model);
 
-
-            //ILinkActionBase link = new LinkAction();
-            //link.Controller = "Movie";
-            //link.Action = "Detial";
-
-            MessageService.ShowWithLayer(result);
-        }
-
-        public async Task DeleteDeep()
-        {
-            if (this.ViewModel.SelectedItem == null) return;
-
-            var result = await MessageService.ShowResultMessge("确定要彻底删除文件?");
-
-            if (result)
-            {
-                if (File.Exists(this.ViewModel.SelectedItem.Url))
-                {
-                    File.Delete(this.ViewModel.SelectedItem.Url);
-
-                    MessageService.ShowSnackMessage("文件已删除：" + this.ViewModel.SelectedItem?.Url);
-
-                    await this.Remove();
-
-
-                }
-            }
-        }
-
-        public async Task Remove()
-        {
-
-            if (this.ViewModel.SelectedItem == null) return;
-
-            await this.Respository.DeleteAsync(this.ViewModel.SelectedItem.Model.ID);
-
-            this.Invoke(() => this.ViewModel.Collection.Remove(this.ViewModel.SelectedItem));
-        }
-
-        public async Task<IActionResult> Edit()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> Update()
-        {
-            string message;
-
-            if (!this.ModelState(this.ViewModel.SelectedItem.Model, out message))
-            {
-                MessageService.ShowSnackMessage(message);
-                return await Edit();
-            }
-
-            await this.Respository.UpdateAsync(this.ViewModel.SelectedItem.Model);
-
-            return await List();
-        }
+        //    return await List();
+        //}
     }
 }

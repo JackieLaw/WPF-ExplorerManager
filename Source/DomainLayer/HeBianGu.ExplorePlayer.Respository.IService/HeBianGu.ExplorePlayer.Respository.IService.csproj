@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="IAreaRespository.cs" />
     <Compile Include="IArticulationRespository.cs" />
+    <Compile Include="IMovieimageRespository.cs" />
     <Compile Include="IImageRespository.cs" />
     <Compile Include="ICaseRespository.cs" />
     <Compile Include="IExtendRespository.cs" />

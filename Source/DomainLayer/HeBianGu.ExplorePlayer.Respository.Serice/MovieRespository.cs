@@ -10,6 +10,7 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -36,7 +37,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
         {
             var movie = await this.GetByIDAsync(id);
 
-            var images = await this._dataContext.mbc_dv_movieimages.Where(l => l.MovieID == id)?.ToListAsync();
+            var images = await this._dataContext.mbc_dv_movieimages.Where(l => l.MovieID == id).OrderBy(l => l.CDATE)?.ToListAsync();
 
             return Tuple.Create(movie, images);
         }
@@ -145,23 +146,33 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
             //绑定到指定的文件夹目录
             DirectoryInfo dir = new DirectoryInfo(dirs);
 
-            //检索表示当前目录的文件和子目录
-            FileSystemInfo[] fsinfos = dir.GetFileSystemInfos();
+            //if (dir.Attributes.HasFlag(FileAttributes.Hidden)) return;
 
-            //遍历检索的文件和子目录
-            foreach (FileSystemInfo fsinfo in fsinfos)
+            //检索表示当前目录的文件和子目录
+            try
             {
-                //判断是否为空文件夹　　
-                if (fsinfo is DirectoryInfo)
+                FileSystemInfo[] fsinfos = dir.GetFileSystemInfos();
+
+                //遍历检索的文件和子目录
+                foreach (FileSystemInfo fsinfo in fsinfos)
                 {
-                    //递归调用
-                    DoAllFiles(fsinfo.FullName, action);
-                }
-                else if (fsinfo is FileInfo)
-                {
-                    action(fsinfo as FileInfo);
+                    //判断是否为空文件夹　　
+                    if (fsinfo is DirectoryInfo)
+                    {
+                        //递归调用
+                        DoAllFiles(fsinfo.FullName, action);
+                    }
+                    else if (fsinfo is FileInfo)
+                    {
+                        action(fsinfo as FileInfo);
+                    }
                 }
             }
+            catch (Exception)
+            {
+                return;
+            }
+           
         }
 
         List<FileInfo> GetAllFiles(string dirs, Predicate<FileInfo> predicate)
@@ -180,7 +191,7 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
         }
 
 
-        public async Task ConvertMovie(mbc_dv_movie movie)
+        public async Task ConvertMovie(mbc_dv_movie movie,bool isbatshutcut=false)
         {
             //  Message：ffmpeg数据
             var detial = FFmpegService.Instance.GetMediaEntity(movie.Url);
@@ -196,41 +207,56 @@ namespace HeBianGu.ExplorePlayer.Respository.Serice
                 movie.Rate = detial.Rate;
             }
 
-            System.Console.WriteLine("加载缩略图:" + movie.Url);
-            //  Message：缩略图和预览图
-            string shootcutpath = Path.Combine(Path.GetDirectoryName(movie.Url), Path.GetFileNameWithoutExtension(movie.Url) + "_shootcut.png");
+            int duration = (int)TimeSpan.Parse(detial.Duration).TotalSeconds;
 
+            int span = (int)(duration / 10);
+
+            System.Console.WriteLine("加载缩略图:" + movie.Url);
+
+            string shootcutpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HeBianGu", Assembly.GetEntryAssembly().GetName().Name, "Shootcut", Path.GetFileNameWithoutExtension(movie.Url));
+
+            //  Message：缩略图和预览图
+            string shootcutfile = Path.Combine(shootcutpath, Path.GetFileNameWithoutExtension(movie.Url) + "_shootcut.png");
 
             //  Message：默认一分钟图片作为缩略图
-            FFmpegService.Instance.ShootCut(movie.Url, shootcutpath, "00:01:00");
+            FFmpegService.Instance.ShootCut(movie.Url, shootcutfile, TimeSpan.FromSeconds(span).ToString());
 
 
-            if (File.Exists(shootcutpath))
+            if (File.Exists(shootcutfile))
             {
-                movie.Image = EncodeImageToString(shootcutpath);
-
-                File.Delete(shootcutpath);
+                movie.Image = EncodeImageToString(shootcutfile);
             }
 
-            string shootcutbatpath = Path.Combine(Path.GetDirectoryName(movie.Url), Path.GetFileNameWithoutExtension(movie.Url) + "_shootcut");
-
-            //  Message：默认一分钟图片作为缩略图
-            var images = FFmpegService.Instance.ShootCutBat(movie.Url, shootcutbatpath);
-
-            foreach (var m in images)
+            if (isbatshutcut)
             {
-                if (!File.Exists(m)) continue;
+                //string shootcutbatpath = Path.Combine(Path.GetDirectoryName(movie.Url), Path.GetFileNameWithoutExtension(movie.Url) + "_shootcut");
 
-                mbc_dv_movieimage image = new mbc_dv_movieimage();
+                string shootcutbatpath = Path.Combine(shootcutpath, Path.GetFileNameWithoutExtension(movie.Url) + "_shootcut");
 
-                image.MovieID = movie.ID;
-                image.Image = EncodeImageToString(m);
-                image.Text = Path.GetFileName(m);
+                //  Message：默认一分钟图片作为缩略图
+                var images = FFmpegService.Instance.ShootCutBat(movie.Url, shootcutbatpath, span, duration);
 
-                _dataContext.mbc_dv_movieimages.Add(image);
+                var current = await this._dataContext.mbc_dv_movieimages.Where(l => l.MovieID == movie.ID)?.ToListAsync();
 
-                //  Message：保存完删除图片
-                File.Delete(m);
+                this._dataContext.mbc_dv_movieimages.RemoveRange(current);
+
+                foreach (var m in images)
+                {
+                    if (!File.Exists(m)) continue;
+
+                    mbc_dv_movieimage image = new mbc_dv_movieimage();
+
+                    image.MovieID = movie.ID;
+                    image.Image = EncodeImageToString(m);
+                    image.Text = Path.GetFileName(m);
+
+                    _dataContext.mbc_dv_movieimages.Add(image);
+
+                    ////  Message：保存完删除图片
+                    //File.Delete(m);
+                }
+
+
             }
 
             await this.SaveAsync();

@@ -60,6 +60,11 @@ namespace HeBianGu.ExplorePlayer.General.FFmpegService
 
         public void ShootCut(string from, string to, string timespan)
         {
+            if (!Directory.Exists(Path.GetDirectoryName(to)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(to));
+            }
+
             string param = string.Format(FFmpegParameter.ffmpeg_screen_shot, from, timespan, to);
 
             //_ffmpegProcess.ExecuteWithRecevied(param, l => Console.WriteLine(l), l => Console.WriteLine(l), Exited);
@@ -71,13 +76,18 @@ namespace HeBianGu.ExplorePlayer.General.FFmpegService
         /// <summary> int timespan = 60 一分钟截图一次 string span= "00:10:00" 取前十分钟 </summary>
         public List<string> ShootCutBat(string from, string to, int timespan = 60, int spansecond = 600)
         {
+            if (!Directory.Exists(Path.GetDirectoryName(to)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(to));
+            }
+
             string span = TimeSpan.FromSeconds(spansecond).ToString();
 
             string param = string.Format(FFmpegParameter.ffmpeg_screen_shot_bat, from, timespan, span, to);
 
             List<string> retsult = new List<string>();
 
-            int count = spansecond / 60;
+            int count = spansecond / timespan;
 
             for (int i = 0; i < count; i++)
             {

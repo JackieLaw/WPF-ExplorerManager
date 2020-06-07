@@ -21,7 +21,7 @@ namespace HeBianGu.ExplorePlayer.Respository.IService
 
         Task<Tuple<mbc_dv_movie, List<mbc_dv_movieimage>>> GetMovieWIthDetial(string id);
 
-          Task ConvertMovie(mbc_dv_movie movie);
+          Task ConvertMovie(mbc_dv_movie movie, bool isbatshutcut = false);
 
         Task RefreshMovie(mbc_dc_case item);
 

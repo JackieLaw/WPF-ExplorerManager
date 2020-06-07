@@ -13,7 +13,7 @@
             <RowDefinition Height="60"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <wpfcontrollib:Row>
             <wpfcontrollib:FButton Content="新增案例" HorizontalAlignment="Right" Grid.Column="0"
                                Command="{Binding RelayCommand}" CommandParameter="Button.Click.AddCase"/>
@@ -27,8 +27,25 @@
                 <DataGridTextColumn Header="名称" Binding="{Binding Name}" Width="*" />
                 <DataGridTextColumn Header="路径" Binding="{Binding BaseUrl}" Width="2*" />
                 <DataGridTextColumn Header="创建时间" Binding="{Binding CDATE}" Width="0.5*" />
-                
-                <DataGridTemplateColumn Width="150" CellTemplate="{DynamicResource S.MvcListFrame.EditAndDelete}"/>
+
+                <DataGridTemplateColumn Width="150">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="操作"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <ItemContainerTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <wpfcontrollib:FButton Content="编辑" Width="50"  Foreground="{DynamicResource S.Brush.Green.Notice}"
+                           Command="{Binding RelativeSource={RelativeSource AncestorType=wpfcontrollib:PagedDataGrid},Path=DataContext.RelayCommand}" 
+                           Style="{DynamicResource S.FButton.Style.Link}" CommandParameter="Button.Click.Edit"/>
+
+                                <wpfcontrollib:FButton Content="删除" Width="50"  Foreground="{DynamicResource S.Brush.Red.Notice}"
+                           Command="{Binding RelativeSource={RelativeSource AncestorType=wpfcontrollib:PagedDataGrid},Path=DataContext.RelayCommand}"  
+                           Style="{DynamicResource S.FButton.Style.Link}"  CommandParameter="Button.Click.Delete"/>
+                            </StackPanel>
+                        </ItemContainerTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </wpfcontrollib:PagedDataGrid.Columns>
         </wpfcontrollib:PagedDataGrid>
 
@@ -44,10 +61,10 @@
         </DataGrid>-->
     </Grid>
 
-    <base:Interaction.Triggers>
+    <!--<base:Interaction.Triggers>
         <base:EventTrigger EventName="Loaded">
             <base:InvokeCommandAction Command="{Binding LoadedCommand}"/>
         </base:EventTrigger>
-    </base:Interaction.Triggers>
-    
+    </base:Interaction.Triggers>-->
+
 </UserControl>

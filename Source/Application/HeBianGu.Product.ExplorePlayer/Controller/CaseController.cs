@@ -19,9 +19,9 @@ namespace HeBianGu.Product.ExplorePlayer
     [Route("Case")]
     class CaseController : EntityBaseController<mbc_dc_case, CaseViewModel, ICaseRespository>
     {
-        public override async Task<IActionResult> List()
-        {
-            return await ViewAsync();
-        }
+        //public override async Task<IActionResult> List()
+        //{
+        //    return await ViewAsync();
+        //}
     }
 }

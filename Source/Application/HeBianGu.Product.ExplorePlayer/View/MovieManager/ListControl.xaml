@@ -28,18 +28,38 @@
             <wpfcontrollib:FButton Grid.Column="9" Content="生成..." HorizontalAlignment="Left" Margin="0" 
                                Command="{Binding RelayCommand}" CommandParameter="Button.Click.Create"/>
             
-            <wpfcontrollib:FButton Content="全部移除" Margin="0" Grid.Column="10"
+            <wpfcontrollib:FButton Content="移除" Margin="0" Grid.Column="10"
                                Command="{Binding RelayCommand}"  CommandParameter="Button.Click.Clear"/>
 
-                <wpfcontrollib:FButton Content="全部转换" Margin="0" Grid.Column="11"
+                <wpfcontrollib:FButton Content="转换" Margin="0" Grid.Column="11"
                                Command="{Binding RelayCommand}"  CommandParameter="Button.Click.ConvertAll"/>
         </wpfcontrollib:Row>
 
         
 
-        <wpfcontrollib:PagedDataGrid Grid.Row="1" Margin="10,0" TopVisibility="Collapsed" BorderBrush="Transparent" DataSource="{Binding Collection,Mode=TwoWay}" SelectedItem="{Binding SelectedItem}">
+        <wpfcontrollib:PagedDataGrid Grid.Row="1" PageCount="18" Style="{DynamicResource S.PageDataGrid.Single}" Margin="10,0" TopVisibility="Collapsed" BorderBrush="Transparent" DataSource="{Binding Collection,Mode=TwoWay}" SelectedItem="{Binding SelectedItem}">
             <wpfcontrollib:PagedDataGrid.Columns>
-                <!--<DataGridTextColumn Header="序号" Binding="{Binding ID}" Width="*" />-->
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        <h:FCheckBox Content="全选" Margin="11,0,0,0">
+                            <h:Interaction.Triggers>
+                                <h:EventTrigger EventName="Checked">
+                                    <h:InvokeCommandAction Command="{Binding Path=MovieManagerViewModel.RelayCommand,Source={StaticResource S.DataSource.Locator}}" CommandParameter="CheckBox.CheckChanged.Checked"/>
+                                </h:EventTrigger>
+
+                                <h:EventTrigger EventName="Unchecked">
+                                    <h:InvokeCommandAction Command="{Binding Path=MovieManagerViewModel.RelayCommand,Source={StaticResource S.DataSource.Locator}}" CommandParameter="CheckBox.CheckChanged.UnChecked"/>
+
+                                </h:EventTrigger>
+                            </h:Interaction.Triggers>
+                        </h:FCheckBox>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <h:FCheckBox IsChecked="{Binding Selected,UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding RelativeSource={RelativeSource AncestorType=DataGridCell},Path=Foreground}" Margin="20,0,0,0"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="名称" Binding="{Binding Name}" Width="14*"/>
                 <!--<DataGridTextColumn Header="路径" Binding="{Binding Url}" Width="3*" />-->
                 <!--<DataGridTextColumn Header="类型" Binding="{Binding MediaType}" Width="*" />-->
@@ -59,20 +79,16 @@
                         <ItemContainerTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
-                                <wpfcontrollib:FButton Content="转换" Width="50" CommandParameter="Convert"  
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.GoToActionCommand}" 
-                                                       Style="{DynamicResource S.FButton.Style.Link}"/>
-
-                                <wpfcontrollib:FButton Content="查看" Width="50"  CommandParameter="Detial"  
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.GoToActionCommand}" 
+                                <wpfcontrollib:FButton Content="转换" Width="50" CommandParameter="Button.Click.Convert"  
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.RelayCommand}" 
                                                        Style="{DynamicResource S.FButton.Style.Link}"/>
 
                                 <wpfcontrollib:FButton Content="编辑" Width="50"  CommandParameter="Edit"    
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.GoToActionCommand}" 
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.RelayCommand}" 
                                                        Style="{DynamicResource S.FButton.Style.Link}"/>
 
                                 <wpfcontrollib:FButton Content="删除" Width="50"  CommandParameter="Delete"  
-                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.GoToActionCommand}"  
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:ListControl},Path=DataContext.RelayCommand}"  
                                                        Style="{DynamicResource S.FButton.Style.Link}"/>
 
                             </StackPanel>
