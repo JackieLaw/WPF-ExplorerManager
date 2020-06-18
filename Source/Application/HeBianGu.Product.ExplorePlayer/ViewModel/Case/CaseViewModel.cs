@@ -35,7 +35,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
                 //MvcAddFrame addFrame = new MvcAddFrame() { DataContext = this };
 
-                var from = await MessageService.ShowWithObject(this.AddItem, "新增案例");
+                var from = await MessageService.ShowObjectWithPropertyForm(this.AddItem,null, "新增案例");
 
                 if (from)
                 {
