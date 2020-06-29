@@ -9,7 +9,7 @@
         mc:Ignorable="d"  
         Style="{DynamicResource S.Window.Manager.Default}"
         DataContext="{Binding Path=ShellViewModel,Source={StaticResource S.DataSource.Locator}}"
-        Title="FrameWork By HeBianGu"  Height="768" Width="1366">
+        Title="视频管理工具"  Height="768" Width="1366">
 
     <h:ManagerWindowBase.Logo>
         <BitmapImage UriSource="/HeBianGu.General.WpfControlLib;component/Resources/logo.png"/>
