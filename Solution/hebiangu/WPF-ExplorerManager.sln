@@ -66,6 +66,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.General.ImageCore"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.Control.ImagePlayer", "..\..\..\WPF-ImagePlayer\Source\UserControl\HeBianGu.Control.ImagePlayer\HeBianGu.Control.ImagePlayer.csproj", "{BFB86748-F913-4D4E-8AAE-8AF884C2FB61}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeBianGu.General.VLCMediaPlayer", "..\..\..\WPF-MediaPlayer\Source\General\HeBianGu.General.VLCMediaPlayer\HeBianGu.General.VLCMediaPlayer.csproj", "{7253F4A6-0E7C-4B11-BFF8-978215364968}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -152,6 +154,10 @@ Global
 		{BFB86748-F913-4D4E-8AAE-8AF884C2FB61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFB86748-F913-4D4E-8AAE-8AF884C2FB61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFB86748-F913-4D4E-8AAE-8AF884C2FB61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7253F4A6-0E7C-4B11-BFF8-978215364968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7253F4A6-0E7C-4B11-BFF8-978215364968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7253F4A6-0E7C-4B11-BFF8-978215364968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7253F4A6-0E7C-4B11-BFF8-978215364968}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,6 +183,7 @@ Global
 		{2EBEEB6C-4199-4CA3-9866-2B1AF856D4B4} = {B41B03D7-9BED-49D4-9027-D2497A1A12DF}
 		{135BE864-21A3-4CF4-B784-B950783C4B5C} = {254B28E2-678D-4B6C-A656-60FA75758B6B}
 		{BFB86748-F913-4D4E-8AAE-8AF884C2FB61} = {20408A75-10BE-4B37-9436-D39188650B19}
+		{7253F4A6-0E7C-4B11-BFF8-978215364968} = {254B28E2-678D-4B6C-A656-60FA75758B6B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D32BCB0-0C89-4CB3-9248-5E5DD04D9813}

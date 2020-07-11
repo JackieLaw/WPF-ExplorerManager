@@ -113,8 +113,12 @@
                                     <Image Source="{Binding Image,Converter={x:Static base:XConverter.ByteToImageSourceConverter}}"/>
 
                                     <wpfcontrollib:FButton Style="{DynamicResource S.FButton.Style.MouseOverOpacity}"  Width="100" Height="100" CornerRadius="50"
-                                                       Command="{x:Static wpfcontrollib:CommandService.ProcessCommand}"  CommandParameter="{Binding Url}"
-                                                       FIcon="&#xe74a;" FIconSize="100"/>
+                                                       Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.RelayCommand}"  CommandParameter="Button.Click.Play"
+                                                       FIcon="&#xe74a;" FIconSize="100">
+                                        <base:Interaction.Behaviors>
+                                            <base:SelectListBoxItemElementBehavior/>
+                                        </base:Interaction.Behaviors>
+                                    </wpfcontrollib:FButton>
                                 </Grid>
 
                                 <TextBlock TextTrimming="CharacterEllipsis"  Style="{DynamicResource S.TextBlock.FontSize.18}"  FontSize="16" 

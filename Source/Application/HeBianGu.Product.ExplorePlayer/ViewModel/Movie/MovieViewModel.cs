@@ -3,12 +3,15 @@ using HeBianGu.Common.PublicTool;
 using HeBianGu.ExplorePlayer.Base.Model;
 using HeBianGu.ExplorePlayer.Respository.IService;
 using HeBianGu.ExplorePlayer.Respository.ViewModel;
+using HeBianGu.General.VLCMediaPlayer;
 using HeBianGu.General.WpfControlLib;
 using HeBianGu.General.WpfMvc;
 using HeBianGu.Product.ExplorePlayer.View.Movie;
+using HeBianGu.Product.ExplorePlayer.View.Movie.Dialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -214,6 +217,8 @@ namespace HeBianGu.Product.ExplorePlayer
               {
                   if (l is mbc_dv_movieimage image)
                   {
+                      if (string.IsNullOrEmpty(image.Image)) return null;
+
                       byte[] byteArray = System.Convert.FromBase64String(image.Image);
 
                       BitmapImage bmp = null;
@@ -508,7 +513,186 @@ namespace HeBianGu.Product.ExplorePlayer
 
                 this.EditSelectTag = collection;
             }
+
+            else if (command == "Button.Click.Play")
+            {
+                if (this.SelectedItem == null) return;
+
+                PlayerDialog player = new PlayerDialog();
+
+                player.Source = new Uri(this.SelectedItem.Url, UriKind.Absolute);
+
+
+                List<TimeFlagViewModel> times = new List<TimeFlagViewModel>();
+
+                var model = await await MessageService.ShowWaittingResultMessge(() =>
+                {
+                    string id = this.SelectedItem?.ID;
+
+                    return this.Respository.GetMovieWIthDetial(id);
+
+                });
+
+                if (model.Item2 != null)
+                {
+                    foreach (var item in model.Item2)
+                    {
+                        times.Add(new TimeFlagViewModel() { DisPlay = item.Text, TimeSpan = TimeSpan.Parse(item.TimeSpan) });
+                    }
+
+                    player.Times = times.ToObservable();
+                }
+
+
+                player.FlagClick += async (l, k) =>
+              {
+                  TimeSpan time = player.GetTime();
+
+                  var flag = new TimeFlagViewModel() { TimeSpan = time };
+
+                  bool r = await MessageService.ShowObjectWithPropertyForm(flag, null, "请输入信息", 1);
+
+                  if (!r) return;
+
+                  mbc_dv_movieimage image = new mbc_dv_movieimage();
+
+                  image.MovieID = this.SelectedItem.ID;
+
+                  image.Text = flag.DisPlay;
+
+                  image.TimeSpan = time.ToString();
+
+                  //ImageSource imageSource = player.GetVlc();
+
+                  //var bitmap = this.ImageSourceToBitmap(imageSource);
+
+                  //var bitmapimage = this.BitmapToBitmapImage(bitmap);
+
+                  //image.Image = Convert.ToBase64String(BitmapImageToByteArray(bitmapimage));
+
+                  await this.Respository.AddMovieImage(image);
+
+                  times = new List<TimeFlagViewModel>();
+
+                  model = await await MessageService.ShowWaittingResultMessge(() =>
+                  {
+                      string id = this.SelectedItem?.ID;
+
+                      return this.Respository.GetMovieWIthDetial(id);
+
+                  });
+
+                  if (model.Item2 != null)
+                  {
+                      foreach (var item in model.Item2)
+                      {
+                          times.Add(new TimeFlagViewModel() { DisPlay = item.Text, TimeSpan = TimeSpan.Parse(item.TimeSpan) });
+                      }
+
+                      player.Times = times.ToObservable();
+                  }
+
+              };
+
+
+                MessageService.ShowWithLayer(player);
+            }
         }
+
+
+        // ImageSource --> Bitmap
+        public System.Drawing.Bitmap ImageSourceToBitmap(ImageSource imageSource)
+        {
+            BitmapSource m = (BitmapSource)imageSource;
+
+            System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(m.PixelWidth, m.PixelHeight, System.Drawing.Imaging.PixelFormat.Format32bppPArgb); // 坑点：选Format32bppRgb将不带透明度
+
+            System.Drawing.Imaging.BitmapData data = bmp.LockBits(
+            new System.Drawing.Rectangle(System.Drawing.Point.Empty, bmp.Size), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+
+            m.CopyPixels(Int32Rect.Empty, data.Scan0, data.Height * data.Stride, data.Stride);
+            bmp.UnlockBits(data);
+
+            return bmp;
+        }
+
+        // BitmapImage --> byte[]
+        public byte[] BitmapImageToByteArray(BitmapImage bmp)
+        {
+            byte[] bytearray = null;
+            try
+            {
+                Stream smarket = bmp.StreamSource; ;
+                if (smarket != null && smarket.Length > 0)
+                {
+                    //设置当前位置
+                    smarket.Position = 0;
+                    using (BinaryReader br = new BinaryReader(smarket))
+                    {
+                        bytearray = br.ReadBytes((int)smarket.Length);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return bytearray;
+        }
+
+
+        // byte[] --> BitmapImage
+        public BitmapImage ByteArrayToBitmapImage(byte[] array)
+        {
+            using (var ms = new System.IO.MemoryStream(array))
+            {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad; // here
+                image.StreamSource = ms;
+                image.EndInit();
+                image.Freeze();
+                return image;
+            }
+        }
+
+        // Bitmap --> BitmapImage
+        public BitmapImage BitmapToBitmapImage(System.Drawing.Bitmap bitmap)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png); // 坑点：格式选Bmp时，不带透明度
+
+                stream.Position = 0;
+                BitmapImage result = new BitmapImage();
+                result.BeginInit();
+                // According to MSDN, "The default OnDemand cache option retains access to the stream until the image is needed."
+                // Force the bitmap to load right now so we can dispose the stream.
+                result.CacheOption = BitmapCacheOption.OnLoad;
+                result.StreamSource = stream;
+                result.EndInit();
+                result.Freeze();
+                return result;
+            }
+        }
+
+
+        // BitmapImage --> Bitmap
+        public System.Drawing.Bitmap BitmapImageToBitmap(BitmapImage bitmapImage)
+        {
+            // BitmapImage bitmapImage = new BitmapImage(new Uri("../Images/test.png", UriKind.Relative));
+
+            using (MemoryStream outStream = new MemoryStream())
+            {
+                BitmapEncoder enc = new BmpBitmapEncoder();
+                enc.Frames.Add(BitmapFrame.Create(bitmapImage));
+                enc.Save(outStream);
+                Bitmap bitmap = new Bitmap(outStream);
+
+                return new Bitmap(bitmap);
+            }
+        }
+
 
     }
 }
