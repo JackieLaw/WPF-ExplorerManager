@@ -14,8 +14,8 @@
         <Grid.Resources>
             <DataTemplate DataType="{x:Type local:TimeFlagViewModel}">
                 <Grid Margin="10,0">
-                    <TextBlock  Style="{DynamicResource S.TextBlock.Default}" Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=Foreground}">
-                        <Run Text="{Binding TimeSpan}"/>
+                    <TextBlock HorizontalAlignment="Left" Style="{DynamicResource S.TextBlock.Default}" Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=Foreground}">
+                        <Run Text="{Binding TimeSpan,Converter={x:Static h:XConverter.TimeSpanSplitPointConverter}}"/>
                          <Run Text="{Binding DisPlay}"/>
                     </TextBlock>
                 </Grid>

@@ -109,8 +109,6 @@ namespace HeBianGu.Product.ExplorePlayer.View.Movie.Dialog
             this.OnFlagClick();
         }
 
-
-
         public TimeSpan GetTime()
         {
            return this.vlc.GetTime();
@@ -139,6 +137,10 @@ namespace HeBianGu.Product.ExplorePlayer.View.Movie.Dialog
             this.RaiseEvent(args);
         }
 
+        public async Task<string> BeginShootCut()
+        {
+            return await this.vlc.BeginShootCut();
+        }
     }
 
     /// <summary> 说明</summary>

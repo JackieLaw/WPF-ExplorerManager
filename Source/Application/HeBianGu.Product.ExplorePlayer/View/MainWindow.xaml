@@ -78,7 +78,7 @@
     </h:ManagerWindowBase.CustomContent>
 
     <h:ManagerWindowBase.LinkActionGroups>
-        <h:LinkActionGroup DisplayName="案例中心" Logo="&#xe69f;">
+        <h:LinkActionGroup DisplayName="案例中心" Logo="&#xe69f;" IsExpanded="True">
             <h:LinkActionGroup.Links>
                 <h:LinkAction  DisplayName="案例管理" Logo="&#xe69f;" Controller="Case" Action="List"/>
                 <h:LinkAction  DisplayName="案例生成" Logo="&#xe69e;" Controller="MovieManager" Action="List"/>
