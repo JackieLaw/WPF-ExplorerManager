@@ -537,7 +537,11 @@ namespace HeBianGu.Product.ExplorePlayer
                 {
                     foreach (var item in model.Item2)
                     {
-                        times.Add(new TimeFlagViewModel() { DisPlay = item.Text, TimeSpan = TimeSpan.Parse(item.TimeSpan) });
+                        bool b = TimeSpan.TryParse(item.TimeSpan,out TimeSpan span);
+
+                        if (!b) continue;
+
+                        times.Add(new TimeFlagViewModel() { DisPlay = item.Text, TimeSpan = span });
                     }
 
                     player.Times = times.ToObservable();
@@ -554,6 +558,8 @@ namespace HeBianGu.Product.ExplorePlayer
 
                   string imageFile = await player.BeginShootCut();
 
+                  if (!File.Exists(imageFile)) return;
+
                   image.Image = ImageService.BitmapSourceToString(new BitmapImage(new Uri(imageFile, UriKind.Absolute)));
 
                   bool r = await MessageService.ShowObjectWithPropertyForm(flag, null, "请输入标记信息", 1);
@@ -566,7 +572,7 @@ namespace HeBianGu.Product.ExplorePlayer
 
                   image.TimeSpan = time.ToString();
 
-                  
+
 
                   await this.Respository.AddMovieImage(image);
 

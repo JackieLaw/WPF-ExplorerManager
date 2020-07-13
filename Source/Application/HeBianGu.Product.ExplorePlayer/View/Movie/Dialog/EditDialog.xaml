@@ -66,6 +66,7 @@
 
                     </StackPanel>
                 </image:ImagePlayer.ToolContent>
+                  
             </image:ImagePlayer>
 
             <!--<ListBox Grid.Row="1" ItemsSource="{Binding ImageCollection,Mode=TwoWay}" SelectedItem="{Binding SelectImage}"  Style="{DynamicResource S.ListBox.Sinple}">
