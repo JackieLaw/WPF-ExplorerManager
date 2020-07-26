@@ -40,17 +40,18 @@ namespace HeBianGu.Product.ExplorePlayer
             }
         }
 
-        //private ObservableCollection<GroupObject> _groupObject = new ObservableCollection<GroupObject>();
-        ///// <summary> 说明  </summary>
-        //public ObservableCollection<GroupObject> GroupObject
-        //{
-        //    get { return _groupObject; }
-        //    set
-        //    {
-        //        _groupObject = value;
-        //        RaisePropertyChanged("GroupObject");
-        //    }
-        //}
+
+        private ObservableCollection<mbc_dc_case> _cases = new ObservableCollection<mbc_dc_case>();
+        /// <summary> 说明  </summary>
+        public ObservableCollection<mbc_dc_case> Cases
+        {
+            get { return _cases; }
+            set
+            {
+                _cases = value;
+                RaisePropertyChanged("Cases");
+            }
+        }
 
         private ObservableCollection<mbc_dv_movieimage> _imagecollection = new ObservableCollection<mbc_dv_movieimage>();
         /// <summary> 说明  </summary>
@@ -63,22 +64,6 @@ namespace HeBianGu.Product.ExplorePlayer
                 RaisePropertyChanged("ImageCollection");
             }
         }
-
-
-
-        //private ObservableCollection<ImageSource> _imageSources = new ObservableCollection<ImageSource>();
-        ///// <summary> 说明  </summary>
-        //public ObservableCollection<ImageSource> ImageSource
-        //{
-        //    get { return _imageSources; }
-        //    set
-        //    {
-        //        _imageSources = value;
-        //        RaisePropertyChanged("ImageSource");
-        //    }
-        //}
-
-
 
         private mbc_dv_movieimage _selectImage;
         /// <summary> 说明  </summary>
@@ -167,8 +152,6 @@ namespace HeBianGu.Product.ExplorePlayer
             }
         }
 
-        public bool IsChanged { get; set; } = true;
-
         protected override async void Loaded(string args)
         {
             base.Loaded(args);
@@ -177,25 +160,6 @@ namespace HeBianGu.Product.ExplorePlayer
             {
                 this.Service3.Register(Application.Current.MainWindow);
             });
-
-            if (!this.IsChanged) return;
-
-            var tags = await this.Service1.GetListAsync();
-
-            this.TagCollection.BeginInvoke(l => l.Clear());
-
-            foreach (var item in tags)
-            {
-                this.TagCollection.BeginInvoke(l => l.Add(item));
-
-                Thread.Sleep(2);
-            }
-
-            var cases = await this.Service2.GetListAsync();
-
-            this.SelectCase = cases?.FirstOrDefault();
-
-            this.IsChanged = false;
         }
 
 

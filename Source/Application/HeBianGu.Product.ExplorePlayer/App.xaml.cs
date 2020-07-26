@@ -18,7 +18,7 @@ namespace HeBianGu.Product.ExplorePlayer
     public partial class App : ApplicationBase
     {
         protected override void OnStartup(StartupEventArgs e)
-        {
+        { 
             base.OnStartup(e);
 
             MainWindow shellWindow = new MainWindow();

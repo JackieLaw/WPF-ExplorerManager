@@ -24,7 +24,7 @@
 
         <wpfcontrollib:Row>
 
-            <ComboBox ItemsSource="{Binding Path=CaseViewModel.Collection,Source={StaticResource S.DataSource.Locator}}"
+            <ComboBox ItemsSource="{Binding Cases}"
                       SelectedItem="{Binding SelectCase}"
                       SelectedIndex="0"
                       Style="{DynamicResource S.ComboBox.Single.Label}" h:ControlAttachProperty.Label="选择案例" Width="Auto"
